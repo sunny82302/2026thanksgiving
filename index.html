@@ -29,1494 +29,1829 @@
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
     body {
       font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      overscroll-behavior: none;
       touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
     }
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 6px;
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(217, 119, 36, 0.18);
+      box-shadow: 0 10px 30px -5px rgba(120, 53, 15, 0.08);
     }
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: #F5EFE6;
+    .gold-gradient {
+      background: linear-gradient(135deg, #D97706 0%, #EA580C 55%, #C2410C 100%);
     }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #D6CEC2;
-      border-radius: 4px;
+    .bosch-red-gradient {
+      background: linear-gradient(135deg, #E20015 0%, #B80011 100%);
     }
-    .glow-copper {
-      box-shadow: 0 8px 24px rgba(217, 119, 36, 0.2);
-    }
-    .glow-red {
-      box-shadow: 0 8px 24px rgba(226, 0, 21, 0.22);
-    }
-    .veggie-drag-item {
-      touch-action: none;
+    /* Enhanced Draggable Sliders for Mobile Touch & Mouse */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgba(217, 119, 36, 0.22);
+      height: 10px;
+      border-radius: 999px;
+      outline: none;
+      cursor: pointer;
+      touch-action: pan-x;
       user-select: none;
+      -webkit-user-select: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #E20015;
+      border: 3px solid #FFF;
+      box-shadow: 0 3px 10px rgba(226, 0, 21, 0.45);
+      cursor: grab;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:active {
+      cursor: grabbing;
+      transform: scale(1.15);
+      box-shadow: 0 4px 14px rgba(226, 0, 21, 0.6);
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #E20015;
+      border: 3px solid #FFF;
+      box-shadow: 0 3px 10px rgba(226, 0, 21, 0.45);
+      cursor: grab;
+      transition: transform 0.12s ease;
+    }
+    input[type="range"]::-moz-range-thumb:active {
+      cursor: grabbing;
+      transform: scale(1.15);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .veggie-chip {
+      touch-action: none;
       cursor: grab;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
-    .veggie-drag-item:active {
+    .veggie-chip:active {
       cursor: grabbing;
-      transform: scale(1.15);
-      z-index: 50;
+      transform: scale(1.12);
     }
-    .glass-panel {
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(217, 119, 36, 0.22);
-      box-shadow: 0 12px 32px -6px rgba(120, 53, 15, 0.08);
+    @keyframes floatBob {
+      0%, 100% { transform: translateY(0px) rotate(-1deg); }
+      50% { transform: translateY(-6px) rotate(1.5deg); }
     }
+    .cute-turkey-float {
+      animation: floatBob 3s ease-in-out infinite;
+    }
+    /* Joyful Dancing Turkey Animations for Final Result Screen */
     @keyframes turkeyDanceBody {
-      0%, 100% { transform: translateY(0) rotate(0deg) scale(1, 1); }
-      20% { transform: translateY(-10px) rotate(-8deg) scale(0.96, 1.05); }
-      40% { transform: translateY(0) rotate(0deg) scale(1.05, 0.94); }
-      60% { transform: translateY(-10px) rotate(8deg) scale(0.96, 1.05); }
-      80% { transform: translateY(0) rotate(0deg) scale(1.05, 0.94); }
+      0%, 100% { transform: translateY(0px) rotate(-5deg) scale(1, 1); }
+      25% { transform: translateY(-14px) rotate(0deg) scale(0.95, 1.06); }
+      50% { transform: translateY(0px) rotate(5deg) scale(1.06, 0.94); }
+      75% { transform: translateY(-14px) rotate(0deg) scale(0.95, 1.06); }
     }
-    @keyframes wingFlapLeft {
+    @keyframes turkeyWingLeft {
       0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(-22deg); }
-      75% { transform: rotate(12deg); }
+      50% { transform: rotate(-28deg) translateY(-4px); }
     }
-    @keyframes wingFlapRight {
+    @keyframes turkeyWingRight {
       0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(12deg); }
-      75% { transform: rotate(22deg); }
+      50% { transform: rotate(28deg) translateY(-4px); }
     }
-    @keyframes legKickLeft {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(14deg) translateY(-3px); }
-      75% { transform: rotate(-6deg); }
+    @keyframes turkeyLegLeft {
+      0%, 100% { transform: rotate(0deg) translateY(0); }
+      25% { transform: rotate(12deg) translateY(-4px); }
+      75% { transform: rotate(-6deg) translateY(0); }
     }
-    @keyframes legKickRight {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(-6deg); }
-      75% { transform: rotate(-14deg) translateY(-3px); }
+    @keyframes turkeyLegRight {
+      0%, 100% { transform: rotate(0deg) translateY(0); }
+      25% { transform: rotate(-6deg) translateY(0); }
+      75% { transform: rotate(-12deg) translateY(-4px); }
     }
-    @keyframes noteFloat {
-      0%, 100% { transform: translateY(0) scale(0.9); opacity: 0.75; }
-      50% { transform: translateY(-8px) scale(1.15); opacity: 1; }
+    @keyframes musicNoteFloat {
+      0%, 100% { transform: translateY(0px) scale(0.9) rotate(-8deg); opacity: 0.7; }
+      50% { transform: translateY(-10px) scale(1.15) rotate(8deg); opacity: 1; }
     }
-    .animate-turkey-dance {
-      animation: turkeyDanceBody 0.95s ease-in-out infinite;
-      transform-origin: center bottom;
+    .dancing-turkey {
+      animation: turkeyDanceBody 0.9s ease-in-out infinite;
+      transform-origin: 50% 80%;
     }
-    .animate-wing-l {
-      animation: wingFlapLeft 0.48s ease-in-out infinite;
-      transform-origin: 68px 65px;
+    .dancing-turkey .wing-left {
+      transform-origin: 48px 46px;
+      animation: turkeyWingLeft 0.45s ease-in-out infinite;
     }
-    .animate-wing-r {
-      animation: wingFlapRight 0.48s ease-in-out infinite;
-      transform-origin: 152px 65px;
+    .dancing-turkey .wing-right {
+      transform-origin: 112px 46px;
+      animation: turkeyWingRight 0.45s ease-in-out infinite;
     }
-    .animate-leg-l {
-      animation: legKickLeft 0.95s ease-in-out infinite;
-      transform-origin: 72px 120px;
+    .dancing-turkey .leg-left {
+      transform-origin: 55px 86px;
+      animation: turkeyLegLeft 0.9s ease-in-out infinite;
     }
-    .animate-leg-r {
-      animation: legKickRight 0.95s ease-in-out infinite;
-      transform-origin: 148px 120px;
+    .dancing-turkey .leg-right {
+      transform-origin: 105px 86px;
+      animation: turkeyLegRight 0.9s ease-in-out infinite;
     }
-    .animate-music-note {
-      animation: noteFloat 1.2s ease-in-out infinite;
+    .music-note-1 {
+      animation: musicNoteFloat 1.4s ease-in-out infinite;
+    }
+    .music-note-2 {
+      animation: musicNoteFloat 1.4s ease-in-out 0.5s infinite;
     }
   </style>
 </head>
-<body class="h-full flex flex-col justify-between overflow-x-hidden bg-gradient-to-b from-[#FFFDF9] via-[#FAF6EE] to-[#F3ECE0] text-stone-800">
+<body class="h-full flex flex-col overflow-hidden bg-gradient-to-b from-[#FFFDF9] via-[#FAF5EC] to-[#F3E9D8] text-stone-800">
 
-  <!-- TOP BRAND & LANGUAGE BAR -->
-  <header class="w-full bg-white/90 border-b border-stone-200/90 sticky top-0 z-40 px-4 py-3 backdrop-blur-md shadow-xs">
-    <div class="max-w-4xl mx-auto flex justify-between items-center">
-      <div class="flex items-center space-x-2">
-        <div class="w-3 h-7 bg-bosch-red rounded-sm"></div>
-        <div>
-          <h1 class="text-sm md:text-base font-extrabold tracking-tight text-stone-900 flex items-center gap-1.5">
-            BOSCH <span class="text-xs px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-semibold border border-amber-300/60">accent|line</span>
-          </h1>
-          <p class="text-[10px] text-stone-500 font-mono tracking-wider">Series 8 Steam Oven HRG978NB1</p>
-        </div>
+  <!-- Top Navigation Bar -->
+  <header class="w-full z-40 px-4 py-3 flex items-center justify-between border-b border-amber-900/10 bg-white/85 backdrop-blur-md shrink-0 shadow-sm">
+    <div class="flex items-center gap-2.5">
+      <div class="w-2.5 h-6 bg-bosch-red rounded-sm"></div>
+      <div class="leading-tight">
+        <span class="font-extrabold tracking-wider text-sm text-stone-900 block">BOSCH <span class="text-bosch-red font-semibold">accent|line</span></span>
+        <span class="text-[10px] text-amber-800/80 uppercase tracking-widest font-bold" data-i18n="header_subtitle">HRG978NB1 智慧蒸烤挑戰</span>
       </div>
+    </div>
 
-      <!-- Bilingual Toggle Button -->
-      <button id="langToggleBtn" onclick="toggleLanguage()" class="px-3 py-1.5 rounded-full bg-amber-50 hover:bg-amber-100 border border-amber-300 text-xs font-bold text-amber-800 flex items-center space-x-1 transition active:scale-95 shadow-xs">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
-        <span id="langBtnText">繁中｜EN</span>
+    <div class="flex items-center gap-2">
+      <!-- Live Kitchen Badge -->
+      <button onclick="toggleSocialModal()" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-amber-50 hover:bg-amber-100 border border-amber-300/70 text-xs transition shadow-xs">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span class="font-bold text-amber-950" id="online-count-badge">28</span>
+        <span class="hidden sm:inline text-amber-800 font-medium" data-i18n="live_kitchen">即時廚房</span>
+      </button>
+
+      <!-- Language Toggle Button -->
+      <button id="lang-toggle-btn" onclick="toggleLanguage()" class="px-3 py-1.5 rounded-full bg-bosch-red text-white font-bold text-xs tracking-wide shadow-sm hover:bg-red-700 active:scale-95 transition flex items-center gap-1">
+        <span id="lang-label-zh" class="opacity-100">繁中</span>
+        <span class="opacity-60">｜</span>
+        <span id="lang-label-en" class="opacity-75">EN</span>
       </button>
     </div>
   </header>
 
-  <!-- LIVE KITCHEN TICKER -->
-  <div class="w-full bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border-b border-amber-200/70 text-[11px] py-1.5 px-4 overflow-hidden">
-    <div id="liveTicker" class="max-w-4xl mx-auto text-amber-900 font-semibold truncate flex items-center gap-2">
-      <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-      <span id="tickerContent">BOSCH Thanksgiving Roast Battle 2026: Challenge for the Chef Crown!</span>
+  <!-- Main Stage Container -->
+  <main id="app-stage" class="flex-1 w-full max-w-xl mx-auto overflow-y-auto no-scrollbar px-4 py-4 flex flex-col justify-between relative">
+    <!-- Dynamic Views Injected Here -->
+  </main>
+
+  <!-- Live Kitchen & Leaderboard Drawer Modal -->
+  <div id="social-modal" class="fixed inset-0 z-50 hidden bg-stone-900/50 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="w-full max-w-md bg-white border border-amber-200 rounded-t-3xl sm:rounded-3xl p-5 max-h-[85vh] flex flex-col shadow-2xl">
+      <div class="flex items-center justify-between pb-3 border-b border-stone-200">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+          <h3 class="font-bold text-base text-stone-900" data-i18n="modal_live_title">Live Kitchen 即時廚房與排行榜</h3>
+        </div>
+        <button onclick="toggleSocialModal()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-600 font-bold">✕</button>
+      </div>
+
+      <!-- Live Feed Ticker -->
+      <div class="mt-3">
+        <div class="text-[11px] font-bold uppercase tracking-wider text-amber-700 mb-1.5" data-i18n="live_feed_header">即時主廚動態</div>
+        <div id="live-feed-list" class="space-y-1.5 max-h-28 overflow-y-auto no-scrollbar text-xs bg-amber-50/80 p-2.5 rounded-xl border border-amber-200/70"></div>
+      </div>
+
+      <!-- Top 10 Leaderboard -->
+      <div class="mt-4 flex-1 overflow-y-auto no-scrollbar">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-amber-700" data-i18n="top10_header">Top 10 感恩節主廚榜</span>
+          <span class="text-[11px] text-stone-500 font-medium" id="my-rank-label"></span>
+        </div>
+        <div id="leaderboard-list" class="space-y-1.5"></div>
+      </div>
     </div>
   </div>
 
-  <!-- MAIN GAME CONTAINER -->
-  <main id="appContainer" class="flex-1 w-full max-w-4xl mx-auto p-3 md:p-6 flex flex-col justify-center items-center">
-    <!-- Dynamic Stage Content Injected via JS -->
-  </main>
-
-  <!-- FOOTER BRANDING -->
-  <footer class="w-full py-3 bg-white border-t border-stone-200 text-center text-stone-500 text-[11px]">
-    <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-1">
-      <span>© 2026 BSH Home Appliances Taiwan. All rights reserved.</span>
-      <span class="text-stone-600 font-mono">HRG978NB1 PerfectRoast Plus AI</span>
+  <!-- Toast Notification -->
+  <div id="toast-banner" class="fixed top-16 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-all duration-300 transform -translate-y-2">
+    <div class="px-4 py-2 rounded-full bg-stone-900 text-white text-xs font-semibold shadow-xl border border-amber-400/50 flex items-center gap-2">
+      <span id="toast-icon">✨</span>
+      <span id="toast-msg"></span>
     </div>
-  </footer>
+  </div>
 
-  <!-- SCRIPT & ENGINE -->
   <script>
-    /* ==========================================================================
-       1. CENTRALIZED BILINGUAL I18N DICTIONARY (zh-TW & en)
-       ========================================================================== */
+    // =========================================================================
+    // 1. CENTRALIZED I18N DICTIONARY (zh-TW & en)
+    // =========================================================================
     const I18N = {
       'zh-TW': {
-        title: 'BSH 感恩節火雞烤戰',
-        subtitle: 'Bosch accent|line Series 8 蒸烤爐 HRG978NB1 料理挑戰',
-        introText: '化身星級主廚！透過 6 道互動料理關卡，體驗 Bosch PerfectRoast Plus AI 智慧烤、4D 熱風與 activeClean 高溫自清科技，挑戰感恩節完美火雞盛宴。',
-        nicknameLabel: '輸入主廚暱稱',
-        nicknamePlaceholder: '例如：主廚 Alex',
-        startBattle: '開始感恩節烤戰',
-        level: '關卡',
-        score: '得分',
-        pts: '分',
-        nextLevel: '完成並進入下一關',
-        restart: '重新挑戰烤戰',
-        downloadCert: '🍗 下載你的烤雞，把烤雞帶回家 lol',
-        employeeShopTitle: 'BSH 同仁專屬員購禮遇',
-        employeeShopCopy: '真實體驗，讓宴客只需要動動手指！歡迎同仁參觀選購',
-        employeeShopBtn: '前往 BSH 員工購物網站選購 →',
-        onlineChefs: '即時在線主廚：',
-        tickerMsg1: '剛完成了完美感恩節烤雞！',
-        tickerMsg2: '在 PerfectRoast Plus 關卡精準定位三點探針！',
-        tickerMsg3: '啟動 activeClean 高溫自清完成清潔！',
+        header_subtitle: 'HRG978NB1 智慧蒸烤挑戰',
+        live_kitchen: '即時廚房',
+        modal_live_title: 'Live Kitchen 即時廚房與排行榜',
+        live_feed_header: '即時主廚動態',
+        top10_header: 'Top 10 感恩節主廚榜',
+        my_rank_prefix: '你的目前排名：第 ',
+        my_rank_suffix: ' 名',
 
-        // Level 1
-        L1_title: '關卡 1：香料醃漬與刷醬',
-        L1_desc: '選擇獨家感恩節醬汁，用手指或滑鼠在火雞表面均勻塗抹刷醬。',
-        L1_selectSauce: '選擇主廚醃料：',
-        L1_sauce1: '🌿 迷迭香奶油',
-        L1_sauce2: '🍁 楓糖煙燻紅椒',
-        L1_sauce3: '🍊 柑橘百里香',
-        L1_coverage: '刷醬覆蓋率',
-        L1_hint: '在火雞上滑動手指塗滿醬汁！',
+        // Intro
+        intro_badge: 'BSH 2026 感恩節特別企劃',
+        intro_title: 'BSH 感恩節火雞烤戰',
+        intro_desc: '駕馭 Bosch accent|line 8 系列蒸烤爐 HRG978NB1，運用 PerfectRoast Plus AI 智慧烤、4D 熱風與 activeClean 高溫自清，打造完美金黃感恩節火雞！',
+        nickname_label: '請輸入主廚暱稱',
+        nickname_placeholder: '例如：內湖小當家 / Chef Sunny',
+        nickname_err: '請先輸入你的主廚暱稱再開始挑戰！',
+        start_btn: '進入廚房開始挑戰',
+        feat_1: 'PerfectRoast Plus AI 智慧烤',
+        feat_2: '4D 熱風均勻烘焙',
+        feat_3: 'activeClean 高溫自清',
 
-        // Level 2
-        L2_title: '關卡 2：感恩節烤盤配菜擺盤',
-        L2_desc: '將四周的胡蘿蔔、馬鈴薯與花椰菜拖曳擺放到火雞周圍的烤盤上，享受 4D 熱風均勻受熱。',
-        L2_carrot: '胡蘿蔔',
-        L2_potato: '馬鈴薯',
-        L2_broccoli: '花椰菜',
-        L2_dragHint: '👆 按住四周蔬菜拖曳放進烤盤空位中',
-        L2_warningOverlap: '⚠️ 蔬菜請擺放在烤雞周圍，不要疊在烤雞正上方喔！',
-        L2_resetVeggies: '重新擺放配菜',
+        // Levels General
+        level_badge: '關卡',
+        next_level_btn: '前往下一關',
+        finish_game_btn: '完成料理並查看總考評',
 
-        // Level 3
-        L3_title: '關卡 3：PerfectRoast Plus AI 智慧烤',
-        L3_desc: 'Bosch 三點式食物探針可精準偵測核心溫度。請直接拖曳探針位置與角度，將三個感測點深入火雞胸肉最厚處。',
-        L3_dragCanvasHint: '👆 直接拖曳橘色握把移動位置，或拖曳針尖調整角度與深度',
-        L3_angle: '插入角度',
-        L3_depth: '插入深度',
-        L3_tipText: '💡 料理小提示：由胸側斜向插入最厚肉質區，避開中央胸骨（Keel Bone）與內部空腔（Cavity），讓三個感測點完整包覆在肉質中！',
-        L3_confirmNext: '完成探針定位，進入下一關 →',
+        // Level 1: Basting
+        l1_title: '香草奶油刷醬按摩',
+        l1_desc: '選擇喜歡的感恩節風味醃料，用手指或滑鼠在可愛火雞表面均勻塗抹，覆蓋率越高越入味！',
+        sauce_herb: '迷迭香蒜味奶油',
+        sauce_maple: '楓糖煙燻紅椒釉',
+        sauce_citrus: '橙香百里香橄欖油',
+        baste_coverage: '醬汁覆蓋率',
+        baste_hint: '在火雞身上滑動塗抹（建議達 85% 以上）',
+        baste_reset: '重新塗抹',
 
-        // Level 4
-        L4_title: '關卡 4：4D 熱風均勻烘烤',
-        L4_desc: '調整爐內溫度與 4D 熱風循環風速，讓烤雞與周圍配菜同時金黃受熱。',
-        L4_tempLabel: '烘烤溫度 (°C)',
-        L4_airflowLabel: '4D 熱風循環風速 (%)',
-        L4_idealHint: '建議設定：180°C 搭配 85% 4D 熱風循環',
+        // Level 2: Drag & Drop Veggies
+        l2_title: '時蔬擺盤與配菜設計',
+        l2_desc: '將四周的胡蘿蔔、馬鈴薯與花椰菜拖曳到烤盤上的可愛火雞周圍（請避開直接壓在火雞身上）！',
+        veg_carrot: '甜烤胡蘿蔔',
+        veg_potato: '迷迭香馬鈴薯',
+        veg_broccoli: '翠綠花椰菜',
+        l2_plated_count: '已擺盤時蔬',
+        l2_hint: '拖曳四周蔬菜放入烤盤空白處，均衡搭配分數最高！',
+        l2_reset: '清空烤盤',
+        l2_warn_turkey: '哎呀！請把蔬菜放在火雞周圍的烤盤上，不要壓在火雞身上喔！',
+        l2_warn_outside: '請將蔬菜拖曳至烤盤框線內！',
 
-        // Level 5
-        L5_title: '關卡 5：蒸氣輔助金黃酥脆',
-        L5_desc: '長按「注入精緻蒸氣」按鈕，讓指針停留在黃金酥脆區間，鎖住肉汁並烤出琥珀脆皮！',
-        L5_holdBtn: '💨 長按注入精緻蒸氣',
-        L5_crispScore: '酥脆黃金度',
+        // Level 3: PerfectRoast Plus Probe (Interactive, No Pre-Score Spoiler)
+        l3_title: 'PerfectRoast Plus AI 智慧烤',
+        l3_desc: '在 2D 剖面圖中直接拖曳探針「握把」調整插入位置，拖曳「針尖」或使用下方滑桿調整插入角度與深度，完成後即可進入下一關！',
+        probe_angle_label: '插入角度',
+        probe_depth_label: '插入深度',
+        probe_tip_1: '💡 料理小撇步：先拖曳探針握把靠近厚實的火雞胸肉區域。',
+        probe_tip_2: '💡 料理小撇步：調整探針方向與深度，讓三個感測點深入肉質中心並避開胸骨與內部空腔。',
+        probe_disclaimer: '※ 遊戲模擬 Bosch PerfectRoast Plus 三點感測概念；實際探針長度、感測間距與官方操作規範請以原廠說明書為準。',
 
-        // Level 6
-        L6_title: '關卡 6：activeClean 高溫自清挑戰',
-        L6_desc: '盛宴結束後，啟動 Bosch activeClean 高溫自清功能輕鬆潔淨爐腔！回答以下問題：',
-        L6_q: '啟動 activeClean 高溫自清行程時，爐腔會加熱至約幾度將油漬分解為灰燼？',
-        L6_opt1: '約 100°C 蒸氣軟化',
-        L6_opt2: '約 480°C 高溫熱解自清',
-        L6_opt3: '約 250°C 一般烘烤',
-        L6_correct: '✅ 答對了！activeClean 會將爐腔加熱至約 480°C，把頑固油垢分解成細微灰燼，冷卻後只需濕布輕拭即可！',
-        L6_wrong: '💡 正確答案是約 480°C 高溫熱解自清，無需化學清潔劑即可輕鬆恢復潔淨！',
+        // Level 4: 4D Hotair
+        l4_title: '4D 熱風均勻烘焙',
+        l4_desc: '調整風扇轉速與烤溫，啟動 4D 熱風正反轉氣流循環，讓上下四層烤盤受熱零死角！',
+        temp_label: '烘烤溫度 (°C)',
+        fan_label: '4D 熱風循環強度',
+        heat_balance: '四層受熱均勻度',
+        l4_hint: '提示：180°C 搭配 80% 4D 熱風循環可達到最佳黃金受熱平衡。',
 
-        // Results
-        result_title: '感恩節火雞烤戰總考評',
-        rank_master: '👑 Bosch 米其林星級烤雞大師',
-        rank_pro: '🔥 感恩節盛宴主廚',
-        rank_apprentice: '🦃 潛力料理新星',
-        funny_high: '「太神啦大廚！你超會使用 BOSCH 蒸烤爐喔，這隻烤雞金黃到連米其林評審都想預約晚餐！」',
-        funny_mid: '「很有架勢喔！多虧有 BOSCH 智慧神助攻，這隻烤雞端上桌絕對讓你秒變宴客焦點！」',
-        funny_low: '「嗯…這隻火雞好像經歷了一場廚房大冒險 😂 別擔心，你更需要一台 BOSCH 智慧蒸烤爐來拯救晚餐！」',
-        cert_comment_high: '你超會使用 BOSCH 蒸烤爐喔！米其林級完美金黃烤雞 ✨',
-        cert_comment_mid: 'BOSCH 智慧神助攻！宴客端出這隻絕對超有面子 🔥',
-        cert_comment_low: '烤雞已盡力了 😂 你更需要一台 BOSCH 智慧蒸烤爐！',
-        leaderboardTitle: 'Live Kitchen 即時排行榜'
+        // Level 5: Crispy Finish
+        l5_title: '蒸氣脆皮黃金時刻',
+        l5_desc: '長按「噴射微蒸氣」按鈕，在指針進入金色酥脆區間時放開，鎖住肉汁並烤出琥珀脆皮！',
+        hold_crisp_btn: '按住加壓脆皮（放開鎖定）',
+        crisp_meter_label: '表皮酥脆度',
+        crisp_locked: '已鎖定酥脆度！',
+
+        // Level 6: activeClean Boss
+        l6_title: 'activeClean 高溫自清大魔王',
+        l6_desc: '盛宴結束後烤箱滿是油漬？回答以下問題，啟動 Bosch activeClean 高溫自清！',
+        quiz_q: '關於 Bosch HRG978NB1 的 activeClean 高溫自清功能，下列敘述何者正確？',
+        quiz_opt_0: '加熱至約 480°C 高溫將油垢分解為細微灰燼，冷卻後只需濕布輕拭即可',
+        quiz_opt_1: '必須倒入強效化學清潔劑並手動刷洗內壁 30 分鐘',
+        quiz_opt_2: '僅能用冷水沖洗，無法清除高溫烘烤後的焦化油脂',
+        quiz_correct: '答對了！activeClean 高溫自清透過高溫熱解將頑固油漬化為灰燼，一抹即淨，優雅宴客零負擔！',
+        quiz_wrong: '差一點！正確答案是 A：activeClean 會以高溫將油垢分解成灰燼，冷卻後用濕布輕擦就乾淨囉！',
+
+        // Result & Keepsake PNG Card
+        res_title: '感恩節火雞烤戰總考評',
+        res_total_score: '總積分',
+        res_breakdown: '六大關卡表現總覽',
+        res_l1: 'L1 香草刷醬',
+        res_l2: 'L2 時蔬擺盤',
+        res_l3: 'L3 PerfectRoast Plus 探針',
+        res_l4: 'L4 4D 熱風烘焙',
+        res_l5: 'L5 蒸氣脆皮',
+        res_l6: 'L6 activeClean 知識',
+        rank_master: '米其林三星感恩節主廚',
+        rank_pro: 'Bosch 智慧廚房達人',
+        rank_rookie: '潛力感恩節料理新星',
+        review_high: '太神啦！你根本是 Bosch 智慧蒸烤爐代言人，米其林主廚都要向你拜師！',
+        review_mid: '手藝很不錯喔！只要再搭配 Bosch HRG978NB1 智慧蒸烤爐，下次直接滿分封神！',
+        review_low: '主廚別灰心！看來你比任何人都更需要一台 Bosch 智慧蒸烤爐來拯救你的廚房啦 lol',
+        download_card_btn: '下載你的烤雞，把烤雞帶回家 lol',
+        play_again_btn: '再烤一隻火雞',
+        card_downloaded_toast: '已下載你的專屬烤雞成果卡！',
+        shop_cta_badge: 'BOSCH 員工專屬禮遇',
+        shop_cta_text: '真實體驗，讓宴客只需要動動手指！歡迎同仁參觀選購',
+        shop_cta_btn: '前往 BSH 員購網站逛逛 →',
+
+        // Product Showcase
+        prod_badge: 'BOSCH 新品亮點',
+        prod_title: 'Bosch accent|line 8 系列蒸烤爐 HRG978NB1',
+        prod_desc: '結合 AI 智慧烤感測、4D 熱風與蒸氣輔助烹調，讓每位同仁在家都能輕鬆端出五星級感恩節盛宴。',
+
+        // Dynamic Live Feed Templates
+        feed_joined: '{name} 加入了感恩節廚房！',
+        feed_high_score: '{name} 烤出了 {score} 分的完美火雞！',
+        feed_clean: '{name} 啟動了 activeClean 高溫自清！'
       },
       'en': {
-        title: 'BSH Thanksgiving Roast Battle',
-        subtitle: 'Bosch accent|line Series 8 Steam Oven HRG978NB1 Challenge',
-        introText: 'Step into the shoes of a master chef! Complete 6 interactive culinary stages featuring Bosch PerfectRoast Plus, 4D Hotair, and activeClean Pyrolytic Self-Cleaning.',
-        nicknameLabel: 'Chef Nickname',
-        nicknamePlaceholder: 'e.g. Chef Alex',
-        startBattle: 'Start Roast Battle',
-        level: 'Level',
-        score: 'Score',
-        pts: 'pts',
-        nextLevel: 'Complete & Next Level',
-        restart: 'Play Again',
-        downloadCert: '🍗 Download Your Roast Turkey & Take It Home lol',
-        employeeShopTitle: 'BSH Employee Shop Exclusive',
-        employeeShopCopy: 'Real Experience — Effortless Entertaining at Your Fingertips! Colleagues Welcome to Explore & Shop',
-        employeeShopBtn: 'Visit BSH Employee Shop →',
-        onlineChefs: 'Live Chefs Online: ',
-        tickerMsg1: 'just roasted a golden Thanksgiving turkey!',
-        tickerMsg2: 'positioned the 3-point PerfectRoast Plus probe!',
-        tickerMsg3: 'finished spotless cleanup with activeClean!',
+        header_subtitle: 'HRG978NB1 Smart Roast Challenge',
+        live_kitchen: 'Live Kitchen',
+        modal_live_title: 'Live Kitchen & Top Chefs',
+        live_feed_header: 'Live Chef Activity',
+        top10_header: 'Top 10 Thanksgiving Chefs',
+        my_rank_prefix: 'Your Current Rank: #',
+        my_rank_suffix: '',
 
-        // Level 1
-        L1_title: 'Level 1: Herb Marinade & Basting',
-        L1_desc: 'Select your signature Thanksgiving glaze and brush evenly across the roast turkey.',
-        L1_selectSauce: 'Select Marinade:',
-        L1_sauce1: '🌿 Rosemary Butter',
-        L1_sauce2: '🍁 Maple Smoked Paprika',
-        L1_sauce3: '🍊 Citrus Thyme',
-        L1_coverage: 'Glaze Coverage',
-        L1_hint: 'Swipe across the turkey to coat with glaze!',
+        // Intro
+        intro_badge: 'BSH 2026 Thanksgiving Special',
+        intro_title: 'BSH Thanksgiving Roast Battle',
+        intro_desc: 'Master the Bosch accent|line Series 8 Steam Oven (HRG978NB1). Combine PerfectRoast Plus, 4D Hotair, and activeClean Pyrolytic Self-Cleaning to craft the ultimate Thanksgiving turkey!',
+        nickname_label: 'Enter Your Chef Nickname',
+        nickname_placeholder: 'e.g., Chef Sunny / Neihu Gordon',
+        nickname_err: 'Please enter your chef nickname to begin!',
+        start_btn: 'Enter the Kitchen',
+        feat_1: 'PerfectRoast Plus',
+        feat_2: '4D Hotair',
+        feat_3: 'activeClean Pyrolytic Self-Cleaning',
 
-        // Level 2
-        L2_title: 'Level 2: Roasting Pan Veggie Plating',
-        L2_desc: 'Drag Carrots, Baby Potatoes, and Broccoli around the turkey onto the roasting pan for even 4D Hotair cooking.',
-        L2_carrot: 'Carrot',
-        L2_potato: 'Potato',
-        L2_broccoli: 'Broccoli',
-        L2_dragHint: '👆 Drag surrounding veggies onto the open tray around the turkey',
-        L2_warningOverlap: '⚠️ Place vegetables around the turkey, not stacked on top of it!',
-        L2_resetVeggies: 'Reset Veggies',
+        // Levels General
+        level_badge: 'Level',
+        next_level_btn: 'Next Step',
+        finish_game_btn: 'Finish & See Full Evaluation',
 
-        // Level 3
-        L3_title: 'Level 3: PerfectRoast Plus AI Probe',
-        L3_desc: 'Bosch 3-point meat probe monitors core temperature. Drag the probe handle and tip directly to insert all 3 sensors into the thickest breast meat.',
-        L3_dragCanvasHint: '👆 Drag the orange handle to move entry, or drag the tip to set angle & depth',
-        L3_angle: 'Insertion Angle',
-        L3_depth: 'Insertion Depth',
-        L3_tipText: '💡 Chef Tip: Angle diagonally into the thickest breast muscle while avoiding the central Keel Bone and hollow Cavity so all 3 sensors stay inside meat!',
-        L3_confirmNext: 'Confirm Probe & Next Level →',
+        // Level 1: Basting
+        l1_title: 'Herb Butter Basting',
+        l1_desc: 'Pick your favorite festive glaze and brush across the cute turkey with your finger or mouse for rich flavor!',
+        sauce_herb: 'Rosemary Garlic Butter',
+        sauce_maple: 'Maple Smoked Paprika',
+        sauce_citrus: 'Citrus Thyme Olive Oil',
+        baste_coverage: 'Glaze Coverage',
+        baste_hint: 'Swipe over the turkey to baste (aim for 85%+)',
+        baste_reset: 'Reset Glaze',
 
-        // Level 4
-        L4_title: 'Level 4: 4D Hotair Even Roasting',
-        L4_desc: 'Balance oven temperature and 4D Hotair circulation speed so the turkey and veggies roast evenly.',
-        L4_tempLabel: 'Roasting Temperature (°C)',
-        L4_airflowLabel: '4D Hotair Fan Circulation (%)',
-        L4_idealHint: 'Recommended: 180°C with 85% 4D Hotair circulation',
+        // Level 2: Drag & Drop Veggies
+        l2_title: 'Roast Veggie Platter Design',
+        l2_desc: 'Drag Carrots, Baby Potatoes, and Broccoli from around the board onto the tray around the turkey (avoid placing veggies directly on top of the turkey)!',
+        veg_carrot: 'Honey Carrots',
+        veg_potato: 'Baby Potatoes',
+        veg_broccoli: 'Broccoli Florets',
+        l2_plated_count: 'Plated Veggies',
+        l2_hint: 'Drag surrounding veggies onto open tray space for a balanced roast!',
+        l2_reset: 'Clear Tray',
+        l2_warn_turkey: 'Oops! Place veggies around the turkey on the tray, not on top of it!',
+        l2_warn_outside: 'Please drop the veggies inside the roasting tray!',
 
-        // Level 5
-        L5_title: 'Level 5: Added Steam Crispy Finish',
-        L5_desc: 'Press and hold "Inject Steam Burst" to keep the indicator inside the golden crisp zone for juicy meat and crackling skin!',
-        L5_holdBtn: '💨 Hold to Inject Steam Burst',
-        L5_crispScore: 'Golden Crispness',
+        // Level 3: PerfectRoast Plus Probe
+        l3_title: 'PerfectRoast Plus',
+        l3_desc: 'Drag the probe handle directly on the 2D cross-section to position it, and drag the tip or use sliders to set angle and depth. Proceed whenever you are ready!',
+        probe_angle_label: 'Insertion Angle',
+        probe_depth_label: 'Insertion Depth',
+        probe_tip_1: '💡 Chef Tip: Drag the probe handle toward the thick turkey breast meat.',
+        probe_tip_2: '💡 Chef Tip: Adjust angle & depth so all 3 sensors rest inside solid meat, avoiding the sternum bone and inner cavity.',
+        probe_disclaimer: '※ Interactive simulation of Bosch PerfectRoast Plus 3-point sensing. Actual probe dimensions, sensor spacing, and insertion rules follow official Bosch documentation.',
 
-        // Level 6
-        L6_title: 'Level 6: activeClean Boss Challenge',
-        L6_desc: 'After the feast, activate Bosch activeClean Pyrolytic Self-Cleaning! Answer the question below:',
-        L6_q: 'Approximately what temperature does activeClean Pyrolytic Self-Cleaning reach to turn grease into ash?',
-        L6_opt1: 'Approx. 100°C Steam Softening',
-        L6_opt2: 'Approx. 480°C Pyrolytic Self-Cleaning',
-        L6_opt3: 'Approx. 250°C Standard Baking',
-        L6_correct: '✅ Spot on! activeClean heats up to approx. 480°C, turning baked-on residue into fine ash you can simply wipe away once cool!',
-        L6_wrong: '💡 The correct answer is approx. 480°C Pyrolytic Self-Cleaning — spotless results without chemical cleaners!',
+        // Level 4: 4D Hotair
+        l4_title: '4D Hotair Even Roasting',
+        l4_desc: 'Set oven temperature and 4D Hotair fan circulation so heat distributes evenly across all four shelf levels!',
+        temp_label: 'Oven Temperature (°C)',
+        fan_label: '4D Hotair Circulation',
+        heat_balance: '4-Level Heat Uniformity',
+        l4_hint: 'Tip: 180°C with ~80% 4D Hotair flow achieves optimal golden heat distribution.',
 
-        // Results
-        result_title: 'Thanksgiving Roast Final Evaluation',
-        rank_master: '👑 Bosch Michelin-Star Roast Master',
-        rank_pro: '🔥 Thanksgiving Feast Chef',
-        rank_apprentice: '🦃 Rising Culinary Star',
-        funny_high: '"Whoa Chef! You are an absolute pro with the BOSCH Steam Oven — even Michelin inspectors want a seat at your table!"',
-        funny_mid: '"Nice roasting instincts! With BOSCH smart tech in your corner, this golden turkey is ready to steal the spotlight!"',
-        funny_low: '"Well... this turkey survived a wild kitchen adventure 😂 No worries — you definitely need a BOSCH Smart Steam Oven ASAP!"',
-        cert_comment_high: 'You’re a total pro with the BOSCH Steam Oven! ✨',
-        cert_comment_mid: 'Powered by BOSCH smart tech — party-ready perfection! 🔥',
-        cert_comment_low: 'The turkey tried its best 😂 You need a BOSCH Steam Oven!',
-        leaderboardTitle: 'Live Kitchen Leaderboard'
+        // Level 5: Crispy Finish
+        l5_title: 'Added Steam Crispy Finish',
+        l5_desc: 'Hold the "Steam Burst" button and release inside the golden zone to lock in juices with a crispy amber skin!',
+        hold_crisp_btn: 'Hold for Crispy Finish (Release to Lock)',
+        crisp_meter_label: 'Skin Crispiness',
+        crisp_locked: 'Crispiness Locked!',
+
+        // Level 6: activeClean Boss
+        l6_title: 'activeClean Pyrolytic Self-Cleaning',
+        l6_desc: 'Feast complete! Answer this question to trigger activeClean Pyrolytic Self-Cleaning on your Bosch oven:',
+        quiz_q: 'How does activeClean Pyrolytic Self-Cleaning work on the Bosch HRG978NB1?',
+        quiz_opt_0: 'Heats up to ~480°C to turn grease splatters into fine ash that wipes away effortlessly once cool',
+        quiz_opt_1: 'Requires harsh chemical sprays and 30 minutes of manual scrubbing',
+        quiz_opt_2: 'Rinses with cold water only and cannot remove baked-on grease',
+        quiz_correct: 'Spot on! activeClean turns stubborn grease into fine ash at high temperature—just wipe clean with a damp cloth!',
+        quiz_wrong: 'Not quite! Option A is right: activeClean pyrolytically turns grease into ash so you can simply wipe it away!',
+
+        // Result & Keepsake PNG Card
+        res_title: 'Thanksgiving Roast Battle Report',
+        res_total_score: 'Total Score',
+        res_breakdown: 'All-Stage Evaluation Breakdown',
+        res_l1: 'L1 Herb Basting',
+        res_l2: 'L2 Veggie Platter',
+        res_l3: 'L3 PerfectRoast Plus Probe',
+        res_l4: 'L4 4D Hotair Roast',
+        res_l5: 'L5 Crispy Finish',
+        res_l6: 'L6 activeClean Trivia',
+        rank_master: '3-Star Thanksgiving Grand Chef',
+        rank_pro: 'Bosch Smart Kitchen Virtuoso',
+        rank_rookie: 'Rising Holiday Culinary Star',
+        review_high: 'Incredible! You operate the Bosch Steam Oven like a true Michelin master chef!',
+        review_mid: 'Great cooking skills! Pair them with the Bosch HRG978NB1 Steam Oven for effortless perfection!',
+        review_low: 'Don’t sweat it, Chef! Looks like you need a Bosch Smart Steam Oven in your kitchen more than anyone lol',
+        download_card_btn: 'Download Your Roast Turkey & Take It Home lol',
+        play_again_btn: 'Roast Another Turkey',
+        card_downloaded_toast: 'Your Roast Turkey keepsake card has been downloaded!',
+        shop_cta_badge: 'BSH EMPLOYEE EXCLUSIVE',
+        shop_cta_text: 'Real Experience — Effortless Entertaining at Your Fingertips! Colleagues Welcome to Explore & Shop',
+        shop_cta_btn: 'Visit BSH Employee Shop →',
+
+        // Product Showcase
+        prod_badge: 'BOSCH FEATURED INNOVATION',
+        prod_title: 'Bosch accent|line Series 8 HRG978NB1',
+        prod_desc: 'Combining PerfectRoast Plus, 4D Hotair, and Added Steam so every colleague can host a 5-star Thanksgiving feast at a touch.',
+
+        // Dynamic Live Feed Templates
+        feed_joined: '{name} entered the Thanksgiving Kitchen!',
+        feed_high_score: '{name} roasted a golden turkey scoring {score} pts!',
+        feed_clean: '{name} activated activeClean Pyrolytic Self-Cleaning!'
       }
     };
 
-    /* ==========================================================================
-       2. GLOBAL STATE & PERSISTENT LANGUAGE MANAGEMENT
-       ========================================================================== */
-    let currentLang = localStorage.getItem('bsh_roast_lang') || 'zh-TW';
-    let currentLevel = 0; // 0: Intro, 1..6: Levels, 7: Final Result
-
-    const gameState = {
-      nickname: localStorage.getItem('bsh_roast_nick') || 'Chef Bosch',
-      scores: { L1: 0, L2: 0, L3: 0, L4: 0, L5: 0, L6: 0 },
-      L1: { sauce: 'herb', coverage: 0, strokes: [] },
-      L2: { placed: [], warning: false },
-      L3: { entryX: 85, entryY: 140, angle: 25, depth: 72, diagnostics: null },
-      L4: { temp: 165, airflow: 70 },
-      L5: { gaugePos: 15, holding: false },
-      L6: { answered: false, isCorrect: false }
+    // =========================================================================
+    // 2. APPLICATION STATE (Language-Agnostic IDs & Full State Persistence)
+    // =========================================================================
+    const state = {
+      lang: localStorage.getItem('bsh_roast_lang') || 'zh-TW',
+      nickname: '',
+      step: 0, // 0=Intro, 1..6=Levels, 7=Result
+      scores: {
+        l1: 0, // max 15
+        l2: 0, // max 15
+        l3: 0, // max 20
+        l4: 0, // max 20
+        l5: 0, // max 15
+        l6: 0  // max 15
+      },
+      // Level 1 state
+      l1: {
+        sauce: 'herb',
+        coverage: 0,
+        strokes: []
+      },
+      // Level 2 state (Drag & drop veggies)
+      l2: {
+        placed: [] // { id, type, xPct, yPct }
+      },
+      // Level 3 state (2D Probe Geometry - evaluated silently for final report)
+      l3: {
+        entryX: 245,
+        entryY: 72,
+        angle: 112,
+        depth: 68
+      },
+      // Level 4 state
+      l4: {
+        temp: 165,
+        fan: 60
+      },
+      // Level 5 state
+      l5: {
+        crispValue: 0,
+        locked: false,
+        holding: false
+      },
+      // Level 6 state
+      l6: {
+        answered: null
+      },
+      // Multiplayer mock feed & leaderboard
+      onlineCount: 28,
+      feedEvents: [
+        { type: 'feed_high_score', name: 'Chef May', score: 96 },
+        { type: 'feed_clean', name: 'Winnie_BSH', score: 91 },
+        { type: 'feed_joined', name: 'Derek_TW', score: 0 }
+      ],
+      leaderboard: [
+        { name: 'Chef May', score: 96 },
+        { name: 'Winnie_BSH', score: 92 },
+        { name: 'Zoe_Kitchen', score: 89 },
+        { name: 'Ryan_Chef', score: 86 },
+        { name: 'Phoebe_L', score: 84 },
+        { name: 'Wayne_C', score: 81 },
+        { name: 'Doris_H', score: 78 },
+        { name: 'Jerry_88', score: 75 },
+        { name: 'Angie_Bosch', score: 72 }
+      ]
     };
 
+    // Helper: Translate Key
     function t(key) {
-      return (I18N[currentLang] && I18N[currentLang][key]) || I18N['zh-TW'][key] || key;
+      return (I18N[state.lang] && I18N[state.lang][key]) || I18N['zh-TW'][key] || key;
     }
 
-    function toggleLanguage() {
-      currentLang = currentLang === 'zh-TW' ? 'en' : 'zh-TW';
-      localStorage.setItem('bsh_roast_lang', currentLang);
-      document.documentElement.lang = currentLang;
-      updateTicker();
-      renderCurrentLevel();
+    // Helper: Total Score
+    function getTotalScore() {
+      return state.scores.l1 + state.scores.l2 + state.scores.l3 + state.scores.l4 + state.scores.l5 + state.scores.l6;
     }
 
-    function updateTicker() {
-      const tickerEl = document.getElementById('tickerContent');
-      if (!tickerEl) return;
-      const sampleEvents = [
-        `Chef_Lin ${t('tickerMsg1')}`,
-        `BSH_Taipei ${t('tickerMsg2')}`,
-        `RoastKing ${t('tickerMsg3')}`
-      ];
-      tickerEl.textContent = `${t('onlineChefs')} 24  |  ${sampleEvents[Math.floor(Date.now() / 6000) % sampleEvents.length]}`;
-    }
-    setInterval(updateTicker, 6000);
-
-    /* ==========================================================================
-       3. TOP-DOWN ILLUSTRATED ROAST TURKEY SVG GENERATOR
-       ========================================================================== */
-    function getCuteTurkeySVG(sizeClasses = "w-32 h-32", golden = true, dancing = false) {
-      const skinBase = golden ? "#F4AD59" : "#F8C37D";
-      const skinShadow = golden ? "#E2903D" : "#EAA658";
-      const highlight = golden ? "#FAD38C" : "#FDE2B3";
-      const outline = "#78280C";
+    // =========================================================================
+    // 3. TOP-DOWN ILLUSTRATED ROAST TURKEY SVG GENERATOR
+    // =========================================================================
+    function getTopDownTurkeySVG(size = 150, isDancing = false) {
       return `
-        <div class="relative inline-flex items-center justify-center ${dancing ? 'py-2' : ''}">
-          ${dancing ? `
-            <span class="absolute -top-1 -left-3 text-base animate-music-note select-none">🎵</span>
-            <span class="absolute -top-2 -right-3 text-base animate-music-note select-none" style="animation-delay: 0.4s;">🎶</span>
-          ` : ''}
-          <svg viewBox="0 0 220 220" class="${sizeClasses} drop-shadow-lg select-none ${dancing ? 'animate-turkey-dance' : ''}">
-            <!-- Left Wing -->
-            <path class="${dancing ? 'animate-wing-l' : ''}" d="M 68 55 C 48 26, 36 52, 22 76 C 20 80, 26 83, 42 74 C 46 86, 54 96, 65 92 Z"
-                  fill="${skinBase}" stroke="${outline}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-            <!-- Right Wing -->
-            <path class="${dancing ? 'animate-wing-r' : ''}" d="M 152 55 C 172 26, 184 52, 198 76 C 200 80, 194 83, 178 74 C 174 86, 166 96, 155 92 Z"
-                  fill="${skinBase}" stroke="${outline}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-
-            <!-- Plump Main Turkey Body -->
-            <path d="M 110 42 C 134 32, 162 46, 160 88 C 158 124, 130 156, 110 156 C 90 156, 62 124, 60 88 C 58 46, 86 32, 110 42 Z"
-                  fill="${skinBase}" stroke="${outline}" stroke-width="5" stroke-linejoin="round"/>
-            <!-- Body Warm Shading -->
-            <path d="M 152 72 C 154 114, 128 148, 110 150 C 98 150, 86 142, 78 134 C 106 138, 138 112, 146 66 Z"
-                  fill="${skinShadow}" opacity="0.7"/>
-            <!-- Left Breast Golden Highlight -->
-            <ellipse cx="86" cy="78" rx="11" ry="22" transform="rotate(-12 86 78)" fill="${highlight}" opacity="0.85"/>
-
-            <!-- Center Breast Crease Lines -->
-            <line x1="110" y1="62" x2="110" y2="82" stroke="${outline}" stroke-width="4" stroke-linecap="round"/>
-            <line x1="110" y1="92" x2="110" y2="114" stroke="${outline}" stroke-width="4" stroke-linecap="round"/>
-
-            <!-- Left Drumstick -->
-            <g class="${dancing ? 'animate-leg-l' : ''}">
-              <path d="M 66 108 C 42 102, 34 126, 46 148 C 56 164, 68 176, 70 184 C 66 190, 70 198, 78 195 C 86 198, 90 190, 86 184 C 86 172, 86 154, 82 136"
-                    fill="${skinBase}" stroke="${outline}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-              <ellipse cx="52" cy="122" rx="7" ry="12" transform="rotate(-24 52 122)" fill="${highlight}" opacity="0.8"/>
-              <line x1="70" y1="181" x2="84" y2="178" stroke="${outline}" stroke-width="3.5" stroke-linecap="round"/>
-            </g>
-
-            <!-- Right Drumstick -->
-            <g class="${dancing ? 'animate-leg-r' : ''}">
-              <path d="M 154 108 C 178 102, 186 126, 174 148 C 164 164, 152 176, 150 184 C 154 190, 150 198, 142 195 C 134 198, 130 190, 134 184 C 134 172, 134 154, 138 136"
-                    fill="${skinBase}" stroke="${outline}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-              <ellipse cx="168" cy="122" rx="7" ry="12" transform="rotate(24 168 122)" fill="${highlight}" opacity="0.8"/>
-              <line x1="150" y1="181" x2="136" y2="178" stroke="${outline}" stroke-width="3.5" stroke-linecap="round"/>
-            </g>
-          </svg>
-        </div>
+        <svg viewBox="0 0 160 150" width="${size}" height="${size * 0.94}" class="${isDancing ? 'dancing-turkey' : 'cute-turkey-float'} drop-shadow-md mx-auto overflow-visible">
+          <!-- Left Wing -->
+          <g class="wing-left">
+            <path d="M51 35 C38 14, 29 31, 14 54 C12 58, 17 60, 29 52 C29 66, 39 71, 48 66 Z" fill="#F6B26B" stroke="#78350F" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M29 52 L34 45" stroke="#78350F" stroke-width="3" stroke-linecap="round"/>
+          </g>
+          <!-- Right Wing -->
+          <g class="wing-right">
+            <path d="M109 35 C122 14, 131 31, 146 54 C148 58, 143 60, 131 52 C131 66, 121 71, 112 66 Z" fill="#F6B26B" stroke="#78350F" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M131 52 L126 45" stroke="#78350F" stroke-width="3" stroke-linecap="round"/>
+          </g>
+          <!-- Main Turkey Body -->
+          <path d="M80 28 C66 22, 47 29, 46 58 C45 87, 67 109, 80 109 C93 109, 115 87, 114 58 C113 29, 94 22, 80 28 Z" fill="#F6B26B" stroke="#78350F" stroke-width="4" stroke-linejoin="round"/>
+          <!-- Right Side Warm Shading -->
+          <path d="M96 32 C108 39, 111 65, 102 88 C95 101, 86 105, 80 106 C92 98, 100 78, 98 48 C98 40, 96 35, 96 32 Z" fill="#E69138" opacity="0.55"/>
+          <!-- Left Breast Glossy Highlight -->
+          <ellipse cx="64" cy="54" rx="7.5" ry="15" transform="rotate(-12 64 54)" fill="#FDE68A" opacity="0.85"/>
+          <!-- Center Breast Crease Dashed Line -->
+          <line x1="80" y1="39" x2="80" y2="62" stroke="#78350F" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="80" y1="69" x2="80" y2="88" stroke="#78350F" stroke-width="3.5" stroke-linecap="round"/>
+          <!-- Left Drumstick -->
+          <g class="leg-left">
+            <path d="M55 77 C38 71, 26 83, 32 103 C37 116, 49 124, 53 130 C48 134, 51 140, 57 139 C60 138, 62 139, 64 137 C67 135, 65 130, 62 128 C61 118, 64 106, 62 93 C61 84, 59 79, 55 77 Z" fill="#F6B26B" stroke="#78350F" stroke-width="4" stroke-linejoin="round"/>
+            <ellipse cx="42" cy="85" rx="4.5" ry="7" transform="rotate(-25 42 85)" fill="#FDE68A" opacity="0.8"/>
+            <line x1="52" y1="128" x2="61" y2="127" stroke="#78350F" stroke-width="2.5" stroke-linecap="round"/>
+          </g>
+          <!-- Right Drumstick -->
+          <g class="leg-right">
+            <path d="M105 77 C122 71, 134 83, 128 103 C123 116, 111 124, 107 130 C112 134, 109 140, 103 139 C100 138, 98 139, 96 137 C93 135, 95 130, 98 128 C99 118, 96 106, 98 93 C99 84, 101 79, 105 77 Z" fill="#F6B26B" stroke="#78350F" stroke-width="4" stroke-linejoin="round"/>
+            <ellipse cx="118" cy="85" rx="4.5" ry="7" transform="rotate(25 118 85)" fill="#FDE68A" opacity="0.8"/>
+            <line x1="108" y1="128" x2="99" y2="127" stroke="#78350F" stroke-width="2.5" stroke-linecap="round"/>
+          </g>
+        </svg>
       `;
     }
 
-    function drawTopDownTurkeyOnCanvas(ctx, cx, cy, scale = 0.85) {
+    // Canvas Top-Down Turkey Helper (for Level 1 & Keepsake Card)
+    function drawTopDownTurkeyOnCanvas(ctx, cx, cy, scale = 1.0) {
       ctx.save();
       ctx.translate(cx, cy);
       ctx.scale(scale, scale);
-      ctx.translate(-110, -110);
+      ctx.translate(-80, -80);
 
-      const skinBase = '#F4AD59';
-      const skinShadow = '#E2903D';
-      const highlight = '#FAD38C';
-      const outline = '#78280C';
-
-      ctx.lineWidth = 5;
-      ctx.strokeStyle = outline;
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = '#78350F';
       ctx.lineJoin = 'round';
       ctx.lineCap = 'round';
 
       // Left Wing
-      ctx.fillStyle = skinBase;
+      ctx.fillStyle = '#F6B26B';
       ctx.beginPath();
-      ctx.moveTo(68, 55);
-      ctx.bezierCurveTo(48, 26, 36, 52, 22, 76);
-      ctx.bezierCurveTo(20, 80, 26, 83, 42, 74);
-      ctx.bezierCurveTo(46, 86, 54, 96, 65, 92);
+      ctx.moveTo(51, 35);
+      ctx.bezierCurveTo(38, 14, 29, 31, 14, 54);
+      ctx.bezierCurveTo(12, 58, 17, 60, 29, 52);
+      ctx.bezierCurveTo(29, 66, 39, 71, 48, 66);
       ctx.closePath();
       ctx.fill();
       ctx.stroke();
 
       // Right Wing
       ctx.beginPath();
-      ctx.moveTo(152, 55);
-      ctx.bezierCurveTo(172, 26, 184, 52, 198, 76);
-      ctx.bezierCurveTo(200, 80, 194, 83, 178, 74);
-      ctx.bezierCurveTo(174, 86, 166, 96, 155, 92);
+      ctx.moveTo(109, 35);
+      ctx.bezierCurveTo(122, 14, 131, 31, 146, 54);
+      ctx.bezierCurveTo(148, 58, 143, 60, 131, 52);
+      ctx.bezierCurveTo(131, 66, 121, 71, 112, 66);
       ctx.closePath();
       ctx.fill();
       ctx.stroke();
 
       // Main Body
       ctx.beginPath();
-      ctx.moveTo(110, 42);
-      ctx.bezierCurveTo(134, 32, 162, 46, 160, 88);
-      ctx.bezierCurveTo(158, 124, 130, 156, 110, 156);
-      ctx.bezierCurveTo(90, 156, 62, 124, 60, 88);
-      ctx.bezierCurveTo(58, 46, 86, 32, 110, 42);
+      ctx.moveTo(80, 28);
+      ctx.bezierCurveTo(66, 22, 47, 29, 46, 58);
+      ctx.bezierCurveTo(45, 87, 67, 109, 80, 109);
+      ctx.bezierCurveTo(93, 109, 115, 87, 114, 58);
+      ctx.bezierCurveTo(113, 29, 94, 22, 80, 28);
       ctx.closePath();
       ctx.fill();
       ctx.stroke();
 
-      // Shading
-      ctx.save();
-      ctx.globalAlpha = 0.7;
-      ctx.fillStyle = skinShadow;
-      ctx.beginPath();
-      ctx.moveTo(152, 72);
-      ctx.bezierCurveTo(154, 114, 128, 148, 110, 150);
-      ctx.bezierCurveTo(98, 150, 86, 142, 78, 134);
-      ctx.bezierCurveTo(106, 138, 138, 112, 146, 66);
-      ctx.closePath();
-      ctx.fill();
-      ctx.restore();
-
       // Highlight
-      ctx.save();
-      ctx.globalAlpha = 0.85;
-      ctx.fillStyle = highlight;
+      ctx.fillStyle = 'rgba(253, 230, 138, 0.85)';
       ctx.beginPath();
-      ctx.ellipse(86, 78, 11, 22, (-12 * Math.PI) / 180, 0, Math.PI * 2);
+      ctx.ellipse(64, 54, 7.5, 15, -0.2, 0, Math.PI * 2);
       ctx.fill();
-      ctx.restore();
 
-      // Center Breast Lines
-      ctx.lineWidth = 4;
+      // Center Breast Crease
       ctx.beginPath();
-      ctx.moveTo(110, 62);
-      ctx.lineTo(110, 82);
-      ctx.moveTo(110, 92);
-      ctx.lineTo(110, 114);
+      ctx.moveTo(80, 39);
+      ctx.lineTo(80, 62);
+      ctx.moveTo(80, 69);
+      ctx.lineTo(80, 88);
       ctx.stroke();
 
       // Left Drumstick
-      ctx.lineWidth = 5;
-      ctx.fillStyle = skinBase;
+      ctx.fillStyle = '#F6B26B';
       ctx.beginPath();
-      ctx.moveTo(66, 108);
-      ctx.bezierCurveTo(42, 102, 34, 126, 46, 148);
-      ctx.bezierCurveTo(56, 164, 68, 176, 70, 184);
-      ctx.bezierCurveTo(66, 190, 70, 198, 78, 195);
-      ctx.bezierCurveTo(86, 198, 90, 190, 86, 184);
-      ctx.bezierCurveTo(86, 172, 86, 154, 82, 136);
+      ctx.moveTo(55, 77);
+      ctx.bezierCurveTo(38, 71, 26, 83, 32, 103);
+      ctx.bezierCurveTo(37, 116, 49, 124, 53, 130);
+      ctx.bezierCurveTo(48, 134, 51, 140, 57, 139);
+      ctx.bezierCurveTo(60, 138, 62, 139, 64, 137);
+      ctx.bezierCurveTo(67, 135, 65, 130, 62, 128);
+      ctx.bezierCurveTo(61, 118, 64, 106, 62, 93);
+      ctx.bezierCurveTo(61, 84, 59, 79, 55, 77);
+      ctx.closePath();
       ctx.fill();
       ctx.stroke();
 
       // Right Drumstick
       ctx.beginPath();
-      ctx.moveTo(154, 108);
-      ctx.bezierCurveTo(178, 102, 186, 126, 174, 148);
-      ctx.bezierCurveTo(164, 164, 152, 176, 150, 184);
-      ctx.bezierCurveTo(154, 190, 150, 198, 142, 195);
-      ctx.bezierCurveTo(134, 198, 130, 190, 134, 184);
-      ctx.bezierCurveTo(134, 172, 134, 154, 138, 136);
+      ctx.moveTo(105, 77);
+      ctx.bezierCurveTo(122, 71, 134, 83, 128, 103);
+      ctx.bezierCurveTo(123, 116, 111, 124, 107, 130);
+      ctx.bezierCurveTo(112, 134, 109, 140, 103, 139);
+      ctx.bezierCurveTo(100, 138, 98, 139, 96, 137);
+      ctx.bezierCurveTo(93, 135, 95, 130, 98, 128);
+      ctx.bezierCurveTo(99, 118, 96, 106, 98, 93);
+      ctx.bezierCurveTo(99, 84, 101, 79, 105, 77);
+      ctx.closePath();
       ctx.fill();
       ctx.stroke();
 
       ctx.restore();
     }
 
-    /* ==========================================================================
-       4. INTRO SCREEN
-       ========================================================================== */
+    // =========================================================================
+    // 4. LANGUAGE SWITCHING (ZERO-RELOAD, STATE-PRESERVING)
+    // =========================================================================
+    function toggleLanguage() {
+      state.lang = state.lang === 'zh-TW' ? 'en' : 'zh-TW';
+      localStorage.setItem('bsh_roast_lang', state.lang);
+      document.documentElement.lang = state.lang;
+      updateLangButtonUI();
+      renderCurrentStep();
+      renderSocialModalContent();
+    }
+
+    function updateLangButtonUI() {
+      const zhEl = document.getElementById('lang-label-zh');
+      const enEl = document.getElementById('lang-label-en');
+      if (state.lang === 'zh-TW') {
+        zhEl.className = 'opacity-100 underline decoration-2 underline-offset-4';
+        enEl.className = 'opacity-75';
+      } else {
+        zhEl.className = 'opacity-75';
+        enEl.className = 'opacity-100 underline decoration-2 underline-offset-4';
+      }
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        el.textContent = t(key);
+      });
+    }
+
+    function showToast(msg, icon = '✨') {
+      const banner = document.getElementById('toast-banner');
+      document.getElementById('toast-icon').textContent = icon;
+      document.getElementById('toast-msg').textContent = msg;
+      banner.classList.remove('opacity-0', '-translate-y-2');
+      banner.classList.add('opacity-100', 'translate-y-0');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        banner.classList.remove('opacity-100', 'translate-y-0');
+        banner.classList.add('opacity-0', '-translate-y-2');
+      }, 2500);
+    }
+
+    // =========================================================================
+    // 5. INTRO & STAGE ROUTER
+    // =========================================================================
+    function renderCurrentStep() {
+      const stage = document.getElementById('app-stage');
+      if (state.step === 0) {
+        stage.innerHTML = renderIntroHTML();
+      } else if (state.step === 1) {
+        stage.innerHTML = renderL1HTML();
+        initL1Canvas();
+      } else if (state.step === 2) {
+        stage.innerHTML = renderL2HTML();
+        initL2DragAndDrop();
+      } else if (state.step === 3) {
+        stage.innerHTML = renderL3HTML();
+        initL3Canvas();
+      } else if (state.step === 4) {
+        stage.innerHTML = renderL4HTML();
+      } else if (state.step === 5) {
+        stage.innerHTML = renderL5HTML();
+      } else if (state.step === 6) {
+        stage.innerHTML = renderL6HTML();
+      } else if (state.step === 7) {
+        stage.innerHTML = renderResultHTML();
+      }
+      updateLangButtonUI();
+    }
+
     function renderIntroHTML() {
       return `
-        <div class="w-full max-w-lg glass-panel p-6 md:p-8 rounded-3xl space-y-5 text-center">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-800 text-xs font-bold">
-            <span>🔥 BOSCH Series 8 HRG978NB1</span>
+        <div class="my-auto space-y-5 py-2">
+          <div class="glass-panel rounded-3xl p-6 text-center space-y-4">
+            <div class="inline-block px-3.5 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold tracking-wide">
+              ${t('intro_badge')}
+            </div>
+
+            <div class="py-1">
+              ${getTopDownTurkeySVG(135, false)}
+            </div>
+
+            <div class="space-y-2">
+              <h1 class="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">${t('intro_title')}</h1>
+              <p class="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-md mx-auto">${t('intro_desc')}</p>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2 pt-1 text-[11px] font-bold text-amber-950">
+              <div class="bg-amber-50 border border-amber-200/80 rounded-xl p-2">🌡️ ${t('feat_1')}</div>
+              <div class="bg-amber-50 border border-amber-200/80 rounded-xl p-2">🌪️ ${t('feat_2')}</div>
+              <div class="bg-amber-50 border border-amber-200/80 rounded-xl p-2">✨ ${t('feat_3')}</div>
+            </div>
+
+            <div class="pt-2 text-left space-y-1.5">
+              <label class="block text-xs font-bold text-stone-700">${t('nickname_label')}</label>
+              <input id="nickname-input" type="text" maxlength="20" value="${state.nickname}"
+                placeholder="${t('nickname_placeholder')}"
+                oninput="state.nickname = this.value"
+                class="w-full px-4 py-3 rounded-xl bg-white border border-stone-300 focus:border-bosch-red focus:ring-2 focus:ring-bosch-red/20 outline-none text-sm font-semibold text-stone-900" />
+            </div>
+
+            <button onclick="startGame()" class="w-full py-3.5 rounded-2xl bosch-red-gradient text-white font-extrabold text-sm tracking-wide shadow-lg shadow-red-600/25 hover:brightness-105 active:scale-[0.98] transition">
+              ${t('start_btn')} →
+            </button>
           </div>
-
-          <div class="space-y-1.5">
-            <h2 class="text-2xl md:text-3xl font-black text-stone-900 tracking-tight">${t('title')}</h2>
-            <p class="text-xs md:text-sm text-amber-700 font-semibold">${t('subtitle')}</p>
-          </div>
-
-          <div class="flex justify-center py-1">
-            ${getCuteTurkeySVG("w-36 h-36", true, false)}
-          </div>
-
-          <p class="text-xs md:text-sm text-stone-600 leading-relaxed">
-            ${t('introText')}
-          </p>
-
-          <div class="text-left space-y-1.5 bg-amber-50/70 p-3.5 rounded-2xl border border-amber-200/80">
-            <label for="nicknameInput" class="block text-xs font-bold text-stone-700">${t('nicknameLabel')}</label>
-            <input id="nicknameInput" type="text" value="${gameState.nickname}" placeholder="${t('nicknamePlaceholder')}"
-              class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-stone-300 text-sm text-stone-900 font-medium focus:outline-none focus:border-amber-500 shadow-2xs">
-          </div>
-
-          <button onclick="startBattleGame()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-bosch-red to-amber-600 hover:from-red-600 hover:to-amber-500 text-white font-extrabold text-base tracking-wide shadow-lg transition active:scale-95 glow-red">
-            ${t('startBattle')} →
-          </button>
         </div>
       `;
     }
 
-    function startBattleGame() {
-      const input = document.getElementById('nicknameInput');
-      if (input && input.value.trim()) {
-        gameState.nickname = input.value.trim();
-        localStorage.setItem('bsh_roast_nick', gameState.nickname);
+    function startGame() {
+      const trimmed = (state.nickname || '').trim();
+      if (!trimmed) {
+        showToast(t('nickname_err'), '⚠️');
+        return;
       }
-      currentLevel = 1;
-      renderCurrentLevel();
+      state.nickname = trimmed;
+      state.feedEvents.unshift({ type: 'feed_joined', name: state.nickname, score: 0 });
+      state.step = 1;
+      renderCurrentStep();
     }
 
-    /* ==========================================================================
-       5. LEVEL 1: HERB MARINADE & TOUCH BASTING (15 PTS - SCORE DEFERRED)
-       ========================================================================== */
+    function nextStep(target) {
+      state.step = target;
+      renderCurrentStep();
+    }
+
+    // =========================================================================
+    // 6. LEVEL 1: HERB BUTTER BASTING (TOUCH / MOUSE CANVAS)
+    // =========================================================================
     function renderL1HTML() {
       const sauces = [
-        { id: 'herb', label: t('L1_sauce1'), color: 'rgba(132, 204, 22, 0.55)' },
-        { id: 'maple', label: t('L1_sauce2'), color: 'rgba(217, 119, 6, 0.6)' },
-        { id: 'citrus', label: t('L1_sauce3'), color: 'rgba(245, 158, 11, 0.55)' }
+        { id: 'herb', label: t('sauce_herb'), color: '#D97706' },
+        { id: 'maple', label: t('sauce_maple'), color: '#C2410C' },
+        { id: 'citrus', label: t('sauce_citrus'), color: '#EAB308' }
       ];
-
       return `
-        <div class="w-full max-w-lg glass-panel p-4 md:p-5 rounded-3xl space-y-4">
-          <div class="flex justify-between items-center border-b border-stone-200 pb-3">
-            <div>
-              <span class="text-xs text-amber-700 font-bold">${t('level')} 1 / 6</span>
-              <h3 class="text-lg font-bold text-stone-900">${t('L1_title')}</h3>
+        <div class="space-y-3">
+          <div class="glass-panel rounded-3xl p-4 sm:p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-extrabold">${t('level_badge')} 1 / 6</span>
+              <span class="text-xs font-bold text-amber-800">${t('baste_coverage')}: <strong id="l1-cov-text" class="text-bosch-red">${state.l1.coverage}%</strong></span>
             </div>
-            <div class="text-right">
-              <span class="px-2.5 py-1 rounded-full bg-amber-100 border border-amber-300 text-[11px] font-bold text-amber-900">
-                🌿 ${t('L1_coverage')}: <span id="l1CovText">${gameState.L1.coverage}%</span>
-              </span>
-            </div>
-          </div>
+            <h2 class="text-lg sm:text-xl font-extrabold text-stone-900">${t('l1_title')}</h2>
+            <p class="text-xs text-stone-600 leading-relaxed">${t('l1_desc')}</p>
 
-          <p class="text-xs text-stone-600 leading-snug">${t('L1_desc')}</p>
-
-          <!-- Sauce Selector -->
-          <div class="space-y-1.5">
-            <span class="text-xs font-bold text-stone-700">${t('L1_selectSauce')}</span>
+            <!-- Sauce Selector -->
             <div class="grid grid-cols-3 gap-2">
               ${sauces.map(s => `
-                <button onclick="selectSauce('${s.id}')" class="py-2 px-2 rounded-xl text-[11px] font-bold border transition ${gameState.L1.sauce === s.id ? 'bg-amber-100 border-amber-500 text-amber-900 shadow-2xs' : 'bg-stone-50 border-stone-200 text-stone-600 hover:bg-amber-50/50'}">
+                <button onclick="selectSauce('${s.id}')" class="p-2 rounded-xl border text-xs font-bold transition text-center ${state.l1.sauce === s.id ? 'bg-amber-100 border-bosch-red text-stone-900 shadow-xs' : 'bg-stone-50 border-stone-200 text-stone-600'}">
+                  <span class="inline-block w-2.5 h-2.5 rounded-full mr-1" style="background:${s.color}"></span>
                   ${s.label}
                 </button>
               `).join('')}
             </div>
-          </div>
 
-          <!-- Interactive Basting Canvas -->
-          <div class="relative w-full h-56 bg-gradient-to-b from-amber-50/80 to-orange-50/70 rounded-2xl border border-amber-200 flex items-center justify-center overflow-hidden touch-none">
-            <canvas id="basteCanvas" width="320" height="220" class="cursor-crosshair"></canvas>
-            <div class="absolute bottom-2 left-2 right-2 text-center pointer-events-none">
-              <span class="px-3 py-1 rounded-full bg-white/95 border border-amber-200 text-[11px] font-semibold text-amber-900 shadow-xs">
-                ${t('L1_hint')}
-              </span>
+            <!-- Interactive Basting Canvas -->
+            <div class="relative w-full aspect-[4/3] max-h-64 bg-amber-50/70 rounded-2xl border-2 border-dashed border-amber-300 overflow-hidden flex items-center justify-center">
+              <canvas id="l1-canvas" width="360" height="270" class="w-full h-full touch-none cursor-crosshair"></canvas>
+              <div class="absolute bottom-2 left-1/2 -translate-x-1/2 pointer-events-none bg-white/90 px-3 py-1 rounded-full text-[11px] font-semibold text-stone-600 border border-stone-200 whitespace-nowrap">
+                ${t('baste_hint')}
+              </div>
+            </div>
+
+            <div class="flex gap-2 pt-1">
+              <button onclick="resetL1Canvas()" class="px-4 py-3 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs transition">
+                ${t('baste_reset')}
+              </button>
+              <button onclick="nextStep(2)" class="flex-1 py-3 rounded-xl bosch-red-gradient text-white font-extrabold text-sm shadow-md hover:brightness-105 transition">
+                ${t('next_level_btn')} →
+              </button>
             </div>
           </div>
-
-          <button onclick="currentLevel=2; renderCurrentLevel();" class="w-full py-3.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm transition shadow-md active:scale-95">
-            ${t('nextLevel')} →
-          </button>
         </div>
       `;
     }
 
-    function selectSauce(sauceId) {
-      gameState.L1.sauce = sauceId;
-      renderCurrentLevel();
+    function selectSauce(id) {
+      state.l1.sauce = id;
+      renderCurrentStep();
+    }
+
+    function resetL1Canvas() {
+      state.l1.strokes = [];
+      state.l1.coverage = 0;
+      state.scores.l1 = 0;
+      renderCurrentStep();
     }
 
     function initL1Canvas() {
-      const canvas = document.getElementById('basteCanvas');
+      const canvas = document.getElementById('l1-canvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
-
       const sauceColors = {
-        herb: 'rgba(132, 204, 22, 0.45)',
-        maple: 'rgba(217, 119, 6, 0.5)',
-        citrus: 'rgba(251, 191, 36, 0.45)'
+        herb: 'rgba(217, 119, 6, 0.35)',
+        maple: 'rgba(194, 65, 12, 0.35)',
+        citrus: 'rgba(234, 179, 8, 0.35)'
       };
 
-      function redrawL1() {
+      function redraw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawTopDownTurkeyOnCanvas(ctx, 160, 110, 0.92);
+        // Plate circle
+        ctx.beginPath();
+        ctx.arc(180, 135, 115, 0, Math.PI * 2);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fill();
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = '#E5E7EB';
+        ctx.stroke();
 
+        // Turkey
+        drawTopDownTurkeyOnCanvas(ctx, 180, 135, 1.35);
+
+        // Glaze strokes
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         ctx.lineWidth = 22;
-        ctx.strokeStyle = sauceColors[gameState.L1.sauce] || sauceColors.herb;
-
-        gameState.L1.strokes.forEach(pt => {
+        ctx.strokeStyle = sauceColors[state.l1.sauce] || sauceColors.herb;
+        state.l1.strokes.forEach(pt => {
           ctx.beginPath();
-          ctx.arc(pt.x, pt.y, 12, 0, Math.PI * 2);
-          ctx.fillStyle = sauceColors[gameState.L1.sauce] || sauceColors.herb;
+          ctx.arc(pt.x, pt.y, 11, 0, Math.PI * 2);
+          ctx.fillStyle = sauceColors[state.l1.sauce] || sauceColors.herb;
           ctx.fill();
         });
       }
 
-      redrawL1();
+      redraw();
 
       let painting = false;
-      function addStroke(e) {
+      function addPoint(clientX, clientY) {
         const rect = canvas.getBoundingClientRect();
-        const x = (e.clientX - rect.left) * (canvas.width / rect.width);
-        const y = (e.clientY - rect.top) * (canvas.height / rect.height);
-        if (Math.hypot(x - 160, y - 110) < 88) {
-          gameState.L1.strokes.push({ x, y });
-          const cov = Math.min(100, Math.round((gameState.L1.strokes.length / 55) * 100));
-          gameState.L1.coverage = cov;
-          gameState.scores.L1 = Math.max(3, Math.round((cov / 100) * 15));
-          const covEl = document.getElementById('l1CovText');
-          if (covEl) covEl.textContent = `${cov}%`;
-          redrawL1();
+        const x = ((clientX - rect.left) / rect.width) * canvas.width;
+        const y = ((clientY - rect.top) / rect.height) * canvas.height;
+        // Only count points near turkey center
+        const dist = Math.hypot(x - 180, y - 135);
+        if (dist < 95) {
+          state.l1.strokes.push({ x, y });
+          const cov = Math.min(100, Math.round((state.l1.strokes.length / 55) * 100));
+          state.l1.coverage = cov;
+          state.scores.l1 = Math.min(15, Math.round((cov / 100) * 15));
+          const covEl = document.getElementById('l1-cov-text');
+          if (covEl) covEl.textContent = cov + '%';
+          redraw();
         }
       }
 
-      canvas.addEventListener('pointerdown', (e) => { painting = true; addStroke(e); });
-      canvas.addEventListener('pointermove', (e) => { if (painting) addStroke(e); });
-      window.addEventListener('pointerup', () => { painting = false; });
+      canvas.onpointerdown = (e) => {
+        painting = true;
+        canvas.setPointerCapture(e.pointerId);
+        addPoint(e.clientX, e.clientY);
+      };
+      canvas.onpointermove = (e) => {
+        if (!painting) return;
+        addPoint(e.clientX, e.clientY);
+      };
+      canvas.onpointerup = () => { painting = false; };
     }
 
-    /* ==========================================================================
-       6. LEVEL 2: DRAG & DROP ROASTING PAN VEGGIES (15 PTS - SCORE DEFERRED)
-       ========================================================================== */
+    // =========================================================================
+    // 7. LEVEL 2: DRAG & DROP ROAST VEGGIE PLATTER
+    // =========================================================================
     function renderL2HTML() {
-      const veggies = [
-        { id: 'carrot1', type: 'carrot', emoji: '🥕', label: t('L2_carrot') },
-        { id: 'potato1', type: 'potato', emoji: '🥔', label: t('L2_potato') },
-        { id: 'broccoli1', type: 'broccoli', emoji: '🥦', label: t('L2_broccoli') },
-        { id: 'carrot2', type: 'carrot', emoji: '🥕', label: t('L2_carrot') },
-        { id: 'potato2', type: 'potato', emoji: '🥔', label: t('L2_potato') },
-        { id: 'broccoli2', type: 'broccoli', emoji: '🥦', label: t('L2_broccoli') }
+      const veggieTypes = [
+        { type: 'carrot', emoji: '🥕', label: t('veg_carrot') },
+        { type: 'potato', emoji: '🥔', label: t('veg_potato') },
+        { type: 'broccoli', emoji: '🥦', label: t('veg_broccoli') }
       ];
-
-      const placedIds = new Set(gameState.L2.placed.map(p => p.id));
-      const unplaced = veggies.filter(v => !placedIds.has(v.id));
-
       return `
-        <div class="w-full max-w-lg glass-panel p-4 md:p-5 rounded-3xl space-y-4">
-          <div class="flex justify-between items-center border-b border-stone-200 pb-3">
-            <div>
-              <span class="text-xs text-amber-700 font-bold">${t('level')} 2 / 6</span>
-              <h3 class="text-lg font-bold text-stone-900">${t('L2_title')}</h3>
+        <div class="space-y-3">
+          <div class="glass-panel rounded-3xl p-4 sm:p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-extrabold">${t('level_badge')} 2 / 6</span>
+              <span class="text-xs font-bold text-amber-800">${t('l2_plated_count')}: <strong class="text-bosch-red">${state.l2.placed.length} / 6</strong></span>
             </div>
-            <button onclick="resetL2Veggies()" class="px-2.5 py-1 rounded-full bg-stone-100 hover:bg-stone-200 border border-stone-300 text-[11px] font-bold text-stone-700">
-              ↻ ${t('L2_resetVeggies')}
-            </button>
-          </div>
+            <h2 class="text-lg sm:text-xl font-extrabold text-stone-900">${t('l2_title')}</h2>
+            <p class="text-xs text-stone-600 leading-relaxed">${t('l2_desc')}</p>
 
-          <p class="text-xs text-stone-600 leading-snug">${t('L2_desc')}</p>
-
-          ${gameState.L2.warning ? `
-            <div class="p-2.5 rounded-xl bg-red-50 border border-red-300 text-red-700 text-xs font-semibold text-center">
-              ${t('L2_warningOverlap')}
-            </div>
-          ` : ''}
-
-          <!-- Roasting Tray Drop Zone with Center Top-Down Turkey -->
-          <div id="roastingTray" class="relative w-full h-56 bg-gradient-to-b from-amber-50/70 to-stone-100 rounded-2xl border-2 border-dashed border-amber-400/70 flex items-center justify-center overflow-hidden shadow-inner">
-            <div class="pointer-events-none">
-              ${getCuteTurkeySVG("w-28 h-28", true)}
+            <!-- Surrounding Veggie Source Palette -->
+            <div class="grid grid-cols-3 gap-2">
+              ${veggieTypes.map(v => `
+                <div data-veg-type="${v.type}" class="veggie-chip bg-amber-50 hover:bg-amber-100 border border-amber-300 rounded-2xl p-2.5 text-center select-none shadow-xs">
+                  <div class="text-2xl mb-0.5 pointer-events-none">${v.emoji}</div>
+                  <div class="text-[11px] font-bold text-stone-800 pointer-events-none">${v.label}</div>
+                </div>
+              `).join('')}
             </div>
 
-            ${gameState.L2.placed.map(item => `
-              <div style="left: ${item.x}%; top: ${item.y}%;" class="absolute -translate-x-1/2 -translate-y-1/2 text-2xl drop-shadow-md select-none pointer-events-none">
-                ${item.emoji}
+            <!-- Roasting Tray Drop Zone -->
+            <div id="l2-tray" class="relative w-full aspect-[4/3] max-h-60 rounded-2xl bg-gradient-to-br from-stone-100 to-amber-50 border-2 border-amber-400/70 shadow-inner flex items-center justify-center overflow-hidden">
+              <!-- Center Turkey -->
+              <div id="l2-turkey-center" class="pointer-events-none">
+                ${getTopDownTurkeySVG(125, false)}
               </div>
-            `).join('')}
 
-            <div class="absolute bottom-2 left-2 right-2 text-center pointer-events-none">
-              <span class="px-2.5 py-0.5 rounded-full bg-white/90 border border-stone-200 text-[10px] font-medium text-stone-600">
-                ${t('L2_dragHint')}
-              </span>
+              <!-- Placed Veggies -->
+              ${state.l2.placed.map(item => {
+                const em = item.type === 'carrot' ? '🥕' : (item.type === 'potato' ? '🥔' : '🥦');
+                return `<div style="left:${item.xPct}%; top:${item.yPct}%;" class="absolute -translate-x-1/2 -translate-y-1/2 text-2xl drop-shadow pointer-events-none">${em}</div>`;
+              }).join('')}
+
+              <div class="absolute bottom-2 left-1/2 -translate-x-1/2 pointer-events-none bg-white/90 px-3 py-1 rounded-full text-[10px] font-semibold text-stone-600 border border-stone-200 whitespace-nowrap">
+                ${t('l2_hint')}
+              </div>
+            </div>
+
+            <div class="flex gap-2 pt-1">
+              <button onclick="resetL2Veggies()" class="px-4 py-3 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs transition">
+                ${t('l2_reset')}
+              </button>
+              <button onclick="nextStep(3)" class="flex-1 py-3 rounded-xl bosch-red-gradient text-white font-extrabold text-sm shadow-md hover:brightness-105 transition">
+                ${t('next_level_btn')} →
+              </button>
             </div>
           </div>
-
-          <!-- Surrounding Veggie Prep Dock -->
-          <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 bg-amber-50/60 p-3 rounded-2xl border border-amber-200/70 min-h-[68px]">
-            ${unplaced.map(v => `
-              <div data-vid="${v.id}" data-vemoji="${v.emoji}"
-                class="veggie-drag-item flex flex-col items-center justify-center p-2 rounded-xl bg-white border border-stone-200 hover:border-amber-400 shadow-2xs text-center">
-                <span class="text-2xl">${v.emoji}</span>
-                <span class="text-[10px] text-stone-700 font-semibold mt-0.5">${v.label}</span>
-              </div>
-            `).join('')}
-          </div>
-
-          <button onclick="currentLevel=3; renderCurrentLevel();" class="w-full py-3.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm transition shadow-md active:scale-95">
-            ${t('nextLevel')} →
-          </button>
         </div>
       `;
     }
 
     function resetL2Veggies() {
-      gameState.L2.placed = [];
-      gameState.L2.warning = false;
-      gameState.scores.L2 = 0;
-      renderCurrentLevel();
+      state.l2.placed = [];
+      state.scores.l2 = 0;
+      renderCurrentStep();
+    }
+
+    function computeL2Score() {
+      const count = Math.min(6, state.l2.placed.length);
+      const uniqueTypes = new Set(state.l2.placed.map(v => v.type)).size;
+      const base = Math.round((count / 6) * 12);
+      const bonus = uniqueTypes >= 3 ? 3 : (uniqueTypes === 2 ? 2 : 0);
+      state.scores.l2 = Math.min(15, base + bonus);
     }
 
     function initL2DragAndDrop() {
-      const tray = document.getElementById('roastingTray');
-      const items = document.querySelectorAll('.veggie-drag-item');
-      if (!tray || !items.length) return;
+      const chips = document.querySelectorAll('.veggie-chip');
+      const tray = document.getElementById('l2-tray');
+      if (!tray) return;
 
-      items.forEach(el => {
-        el.addEventListener('pointerdown', (e) => {
+      chips.forEach(chip => {
+        chip.onpointerdown = (e) => {
           e.preventDefault();
-          const vid = el.getAttribute('data-vid');
-          const vemoji = el.getAttribute('data-vemoji');
+          const type = chip.getAttribute('data-veg-type');
+          const emoji = type === 'carrot' ? '🥕' : (type === 'potato' ? '🥔' : '🥦');
 
           const ghost = document.createElement('div');
-          ghost.textContent = vemoji;
-          ghost.className = 'fixed text-3xl pointer-events-none z-50 -translate-x-1/2 -translate-y-1/2 drop-shadow-xl';
-          ghost.style.left = `${e.clientX}px`;
-          ghost.style.top = `${e.clientY}px`;
+          ghost.textContent = emoji;
+          ghost.className = 'fixed z-50 text-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2 drop-shadow-lg';
+          ghost.style.left = e.clientX + 'px';
+          ghost.style.top = e.clientY + 'px';
           document.body.appendChild(ghost);
 
-          function onMove(ev) {
-            ghost.style.left = `${ev.clientX}px`;
-            ghost.style.top = `${ev.clientY}px`;
-          }
+          const onMove = (ev) => {
+            ghost.style.left = ev.clientX + 'px';
+            ghost.style.top = ev.clientY + 'px';
+          };
 
-          function onUp(ev) {
+          const onUp = (ev) => {
             window.removeEventListener('pointermove', onMove);
             window.removeEventListener('pointerup', onUp);
             ghost.remove();
 
             const rect = tray.getBoundingClientRect();
             if (ev.clientX >= rect.left && ev.clientX <= rect.right && ev.clientY >= rect.top && ev.clientY <= rect.bottom) {
-              const pctX = Math.round(((ev.clientX - rect.left) / rect.width) * 100);
-              const pctY = Math.round(((ev.clientY - rect.top) / rect.height) * 100);
-
-              // Check center turkey overlap
-              if (Math.hypot(pctX - 50, pctY - 50) < 20) {
-                gameState.L2.warning = true;
-              } else {
-                gameState.L2.warning = false;
-                gameState.L2.placed.push({ id: vid, emoji: vemoji, x: Math.max(10, Math.min(90, pctX)), y: Math.max(14, Math.min(86, pctY)) });
-                gameState.scores.L2 = Math.min(15, Math.round((gameState.L2.placed.length / 6) * 15));
+              const xPct = ((ev.clientX - rect.left) / rect.width) * 100;
+              const yPct = ((ev.clientY - rect.top) / rect.height) * 100;
+              // Check distance from center turkey (50%, 50%)
+              const distFromCenter = Math.hypot(xPct - 50, yPct - 50);
+              if (distFromCenter < 22) {
+                showToast(t('l2_warn_turkey'), '🦃');
+                return;
               }
-              renderCurrentLevel();
+              if (state.l2.placed.length < 9) {
+                state.l2.placed.push({ id: Date.now(), type, xPct, yPct });
+                computeL2Score();
+                renderCurrentStep();
+              }
+            } else {
+              showToast(t('l2_warn_outside'), '🍽️');
             }
-          }
+          };
 
           window.addEventListener('pointermove', onMove);
           window.addEventListener('pointerup', onUp);
-        });
+        };
       });
     }
 
-    /* ==========================================================================
-       7. LEVEL 3: PERFECTROAST PLUS AI PROBE (20 PTS - SCORE DEFERRED)
-       ========================================================================== */
+    // =========================================================================
+    // 8. LEVEL 3: PERFECTROAST PLUS 2D CROSS-SECTION PROBE (DRAGGABLE + SLIDERS)
+    // =========================================================================
     function renderL3HTML() {
       return `
-        <div class="w-full max-w-lg glass-panel p-4 md:p-5 rounded-3xl space-y-4">
-          <div class="flex justify-between items-center border-b border-stone-200 pb-3">
-            <div>
-              <span class="text-xs text-amber-700 font-bold">${t('level')} 3 / 6</span>
-              <h3 class="text-lg font-bold text-stone-900">${t('L3_title')}</h3>
+        <div class="space-y-3">
+          <div class="glass-panel rounded-3xl p-4 sm:p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-extrabold">${t('level_badge')} 3 / 6</span>
+              <span class="text-xs font-bold text-bosch-red">PerfectRoast Plus</span>
             </div>
-            <div class="text-right">
-              <span class="px-2.5 py-1 rounded-full bg-amber-100 border border-amber-300 text-[11px] font-bold text-amber-900">
-                🌡️ PerfectRoast Plus
-              </span>
+            <h2 class="text-lg sm:text-xl font-extrabold text-stone-900">${t('l3_title')}</h2>
+            <p class="text-xs text-stone-600 leading-relaxed">${t('l3_desc')}</p>
+
+            <!-- 2D Cross-Section Canvas -->
+            <div class="relative w-full aspect-[16/10] bg-amber-50/70 rounded-2xl border border-amber-300 overflow-hidden">
+              <canvas id="l3-canvas" width="400" height="250" class="w-full h-full touch-none cursor-grab"></canvas>
             </div>
-          </div>
 
-          <p class="text-xs text-stone-600 leading-snug">${t('L3_desc')}</p>
-
-          <!-- 2D Interactive Cross Section Canvas -->
-          <div class="relative w-full h-56 bg-gradient-to-b from-amber-50/70 to-orange-50/60 rounded-2xl border border-amber-200 flex items-center justify-center overflow-hidden touch-none">
-            <canvas id="probeCanvas" width="340" height="210" class="cursor-pointer"></canvas>
-
-            <div class="absolute top-2 left-2 right-2 bg-white/90 backdrop-blur px-2.5 py-1 rounded-lg border border-amber-200 text-[11px] font-semibold text-stone-700 text-center pointer-events-none shadow-2xs">
-              ${t('L3_dragCanvasHint')}
-            </div>
-          </div>
-
-          <!-- Fine-tune Sliders -->
-          <div class="space-y-3 bg-stone-50 p-3 rounded-2xl border border-stone-200 text-xs">
-            <div>
-              <div class="flex justify-between font-semibold mb-1">
-                <span class="text-stone-700">${t('L3_depth')}</span>
-                <span class="text-amber-700 font-mono font-bold" id="depthVal">${gameState.L3.depth} mm</span>
+            <!-- Draggable Sliders for Angle & Depth -->
+            <div class="grid grid-cols-2 gap-3 pt-1">
+              <div class="bg-amber-50/90 border border-amber-200 rounded-2xl p-3 space-y-1.5">
+                <div class="flex justify-between text-xs font-bold text-stone-800">
+                  <span>${t('probe_angle_label')}</span>
+                  <span id="l3-angle-val" class="text-bosch-red">${state.l3.angle}°</span>
+                </div>
+                <input id="l3-angle-slider" type="range" min="35" max="155" value="${state.l3.angle}"
+                  oninput="updateL3FromSlider('angle', this.value)"
+                  onchange="updateL3FromSlider('angle', this.value)"
+                  class="w-full" />
               </div>
-              <input type="range" min="25" max="115" value="${gameState.L3.depth}" oninput="updateProbeDepth(this.value)" class="w-full accent-amber-600">
-            </div>
 
-            <div>
-              <div class="flex justify-between font-semibold mb-1">
-                <span class="text-stone-700">${t('L3_angle')}</span>
-                <span class="text-amber-700 font-mono font-bold" id="angleVal">${gameState.L3.angle}°</span>
+              <div class="bg-amber-50/90 border border-amber-200 rounded-2xl p-3 space-y-1.5">
+                <div class="flex justify-between text-xs font-bold text-stone-800">
+                  <span>${t('probe_depth_label')}</span>
+                  <span id="l3-depth-val" class="text-bosch-red">${state.l3.depth} mm</span>
+                </div>
+                <input id="l3-depth-slider" type="range" min="25" max="115" value="${state.l3.depth}"
+                  oninput="updateL3FromSlider('depth', this.value)"
+                  onchange="updateL3FromSlider('depth', this.value)"
+                  class="w-full" />
               </div>
-              <input type="range" min="-45" max="65" value="${gameState.L3.angle}" oninput="updateProbeAngle(this.value)" class="w-full accent-amber-600">
             </div>
-          </div>
 
-          <!-- Culinary Tips Area (No premature score spoiler) -->
-          <div class="p-3.5 rounded-2xl bg-amber-50/90 border border-amber-200 text-xs">
-            <div class="text-amber-900 font-medium text-xs leading-relaxed">
-              ${t('L3_tipText')}
+            <!-- Non-Spoiling Culinary Tips -->
+            <div class="bg-stone-50 border border-stone-200 rounded-2xl p-3 space-y-1 text-[11px] text-stone-700 leading-relaxed">
+              <div>${t('probe_tip_1')}</div>
+              <div>${t('probe_tip_2')}</div>
+              <div class="text-[10px] text-stone-400 pt-1">${t('probe_disclaimer')}</div>
             </div>
-          </div>
 
-          <!-- Direct Proceed Button -->
-          <button onclick="finalizeL3AndNext()" class="w-full py-3.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm transition shadow-md active:scale-95">
-            ${t('L3_confirmNext')}
-          </button>
+            <button onclick="finalizeL3AndNext()" class="w-full py-3.5 rounded-2xl bosch-red-gradient text-white font-extrabold text-sm shadow-md hover:brightness-105 transition">
+              ${t('next_level_btn')} →
+            </button>
+          </div>
         </div>
       `;
     }
 
-    function updateProbeDepth(val) {
-      gameState.L3.depth = parseInt(val, 10);
-      const el = document.getElementById('depthVal');
-      if (el) el.textContent = `${gameState.L3.depth} mm`;
-      drawProbeCanvas();
+    function updateL3FromSlider(prop, val) {
+      state.l3[prop] = Number(val);
+      const angleLabel = document.getElementById('l3-angle-val');
+      const depthLabel = document.getElementById('l3-depth-val');
+      if (angleLabel) angleLabel.textContent = state.l3.angle + '°';
+      if (depthLabel) depthLabel.textContent = state.l3.depth + ' mm';
+      evaluateProbeSilently();
+      if (window._drawL3Canvas) window._drawL3Canvas();
     }
 
-    function updateProbeAngle(val) {
-      gameState.L3.angle = parseInt(val, 10);
-      const el = document.getElementById('angleVal');
-      if (el) el.textContent = `${gameState.L3.angle}°`;
-      drawProbeCanvas();
+    function getProbeGeometry() {
+      const rad = (state.l3.angle * Math.PI) / 180;
+      const sx = state.l3.entryX;
+      const sy = state.l3.entryY;
+      const len = state.l3.depth;
+      const tipX = sx + Math.cos(rad) * len;
+      const tipY = sy + Math.sin(rad) * len;
+      const sensors = [0.45, 0.72, 0.98].map(ratio => ({
+        x: sx + Math.cos(rad) * (len * ratio),
+        y: sy + Math.sin(rad) * (len * ratio)
+      }));
+      return { sx, sy, tipX, tipY, sensors };
     }
 
     function classifyPointZone(x, y) {
-      if (Math.hypot(x - 170, y - 110) <= 23) return 'bone';
-      const cdx = (x - 220) / 30;
-      const cdy = (y - 135) / 20;
-      if (cdx * cdx + cdy * cdy <= 1.0) return 'air';
-      const bdx = (x - 170) / 90;
-      const bdy = (y - 108) / 62;
-      if (bdx * bdx + bdy * bdy <= 1.0) return 'meat';
-      return 'air';
+      // Turkey meat ellipse centered at (200, 145), rx=125, ry=68
+      const normMeat = Math.pow((x - 200) / 125, 2) + Math.pow((y - 145) / 68, 2);
+      if (normMeat > 1.0) return 'air';
+
+      // Inner Cavity ellipse centered at (205, 168), rx=55, ry=24
+      const normCavity = Math.pow((x - 205) / 55, 2) + Math.pow((y - 168) / 24, 2);
+      if (normCavity <= 1.0) return 'cavity';
+
+      // Keel / Sternum Bone mask centered at (185, 134), rx=26, ry=9
+      const normBone = Math.pow((x - 185) / 26, 2) + Math.pow((y - 134) / 9, 2);
+      if (normBone <= 1.0) return 'bone';
+
+      return 'meat';
     }
 
-    function initL3ProbeCanvas() {
-      const canvas = document.getElementById('probeCanvas');
-      if (!canvas) return;
-      drawProbeCanvas();
+    function evaluateProbeSilently() {
+      const { sx, sy, sensors } = getProbeGeometry();
+      // Position score (max 8): entry near upper breast contour
+      const entryDist = Math.hypot(sx - 230, sy - 85);
+      const posScore = entryDist < 35 ? 8 : (entryDist < 65 ? 6 : 3);
 
-      let dragMode = null;
-      canvas.addEventListener('pointerdown', (e) => {
-        const rect = canvas.getBoundingClientRect();
-        const mx = (e.clientX - rect.left) * (canvas.width / rect.width);
-        const my = (e.clientY - rect.top) * (canvas.height / rect.height);
-
-        const rad = (-gameState.L3.angle * Math.PI) / 180;
-        const tipX = gameState.L3.entryX + Math.cos(rad) * gameState.L3.depth;
-        const tipY = gameState.L3.entryY + Math.sin(rad) * gameState.L3.depth;
-
-        if (Math.hypot(mx - gameState.L3.entryX, my - gameState.L3.entryY) < 22) {
-          dragMode = 'handle';
-        } else if (Math.hypot(mx - tipX, my - tipY) < 26) {
-          dragMode = 'tip';
-        } else {
-          dragMode = 'handle';
-          gameState.L3.entryX = Math.max(40, Math.min(150, mx));
-          gameState.L3.entryY = Math.max(60, Math.min(165, my));
-          drawProbeCanvas();
-        }
+      // Sensor zones evaluation
+      let meatHits = 0;
+      let boneHits = 0;
+      let cavityHits = 0;
+      sensors.forEach(pt => {
+        const z = classifyPointZone(pt.x, pt.y);
+        if (z === 'meat') meatHits++;
+        else if (z === 'bone') boneHits++;
+        else if (z === 'cavity') cavityHits++;
       });
 
-      canvas.addEventListener('pointermove', (e) => {
-        if (!dragMode) return;
-        const rect = canvas.getBoundingClientRect();
-        const mx = (e.clientX - rect.left) * (canvas.width / rect.width);
-        const my = (e.clientY - rect.top) * (canvas.height / rect.height);
+      // Depth score (max 7)
+      let depthScore = Math.round((meatHits / 3) * 7);
+      if (boneHits > 0) depthScore = Math.max(1, depthScore - 3);
+      if (cavityHits > 0) depthScore = Math.max(1, depthScore - 2);
 
-        if (dragMode === 'handle') {
-          gameState.L3.entryX = Math.max(40, Math.min(150, Math.round(mx)));
-          gameState.L3.entryY = Math.max(60, Math.min(165, Math.round(my)));
-        } else if (dragMode === 'tip') {
-          const dx = mx - gameState.L3.entryX;
-          const dy = my - gameState.L3.entryY;
-          const dist = Math.max(25, Math.min(115, Math.round(Math.hypot(dx, dy))));
-          const deg = Math.max(-45, Math.min(65, Math.round((-Math.atan2(dy, dx) * 180) / Math.PI)));
-          gameState.L3.depth = dist;
-          gameState.L3.angle = deg;
-          const dEl = document.getElementById('depthVal');
-          const aEl = document.getElementById('angleVal');
-          if (dEl) dEl.textContent = `${dist} mm`;
-          if (aEl) aEl.textContent = `${deg}°`;
-        }
-        drawProbeCanvas();
-      });
+      // Angle score (max 5): geometric alignment with breast muscle slope
+      const angleDiff = Math.abs(state.l3.angle - 115);
+      const angleScore = angleDiff <= 15 ? 5 : (angleDiff <= 30 ? 3 : 1);
 
-      window.addEventListener('pointerup', () => { dragMode = null; });
-    }
-
-    function drawProbeCanvas() {
-      const canvas = document.getElementById('probeCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-
-      const entryX = gameState.L3.entryX;
-      const entryY = gameState.L3.entryY;
-      const rad = (-gameState.L3.angle * Math.PI) / 180;
-      const len = gameState.L3.depth;
-
-      const s1 = { x: entryX + Math.cos(rad) * len, y: entryY + Math.sin(rad) * len };
-      const s2 = { x: entryX + Math.cos(rad) * (len * 0.65), y: entryY + Math.sin(rad) * (len * 0.65) };
-      const s3 = { x: entryX + Math.cos(rad) * (len * 0.35), y: entryY + Math.sin(rad) * (len * 0.35) };
-
-      gameState.L3.diagnostics = {
-        zone1: classifyPointZone(s1.x, s1.y),
-        zone2: classifyPointZone(s2.x, s2.y),
-        zone3: classifyPointZone(s3.x, s3.y)
-      };
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Turkey Cross-Section Body (Warm Golden-Peach Breast Meat)
-      ctx.fillStyle = '#F7C59F';
-      ctx.beginPath();
-      ctx.ellipse(170, 108, 90, 62, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.strokeStyle = '#C2410C';
-      ctx.lineWidth = 3;
-      ctx.stroke();
-
-      // Keel Bone Region
-      ctx.fillStyle = 'rgba(226, 0, 21, 0.16)';
-      ctx.beginPath();
-      ctx.arc(170, 110, 22, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.strokeStyle = 'rgba(226, 0, 21, 0.45)';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-      ctx.fillStyle = '#991B1B';
-      ctx.font = 'bold 9px monospace';
-      ctx.fillText('KEEL BONE', 145, 113);
-
-      // Hollow Cavity Region
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.72)';
-      ctx.beginPath();
-      ctx.ellipse(220, 135, 30, 20, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.strokeStyle = '#D97706';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-      ctx.fillStyle = '#92400E';
-      ctx.fillText('CAVITY', 204, 138);
-
-      // Probe Metal Shaft
-      ctx.strokeStyle = '#334155';
-      ctx.lineWidth = 4.5;
-      ctx.beginPath();
-      ctx.moveTo(entryX, entryY);
-      ctx.lineTo(s1.x, s1.y);
-      ctx.stroke();
-
-      // Probe Entry Handle
-      ctx.fillStyle = '#D97724';
-      ctx.beginPath();
-      ctx.arc(entryX, entryY, 9, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.strokeStyle = '#FFFFFF';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-
-      // 3 Neutral Sensor Nodes
-      [s1, s2, s3].forEach((pt) => {
-        ctx.beginPath();
-        ctx.arc(pt.x, pt.y, 4.5, 0, Math.PI * 2);
-        ctx.fillStyle = '#F59E0B';
-        ctx.fill();
-        ctx.strokeStyle = '#78350F';
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-      });
-
-      // Tip Pointer Dot
-      ctx.fillStyle = '#E20015';
-      ctx.beginPath();
-      ctx.arc(s1.x, s1.y, 4, 0, Math.PI * 2);
-      ctx.fill();
+      state.scores.l3 = Math.min(20, posScore + depthScore + angleScore);
     }
 
     function finalizeL3AndNext() {
-      const diag = gameState.L3.diagnostics;
-      if (diag) {
-        const idealX = 85, idealY = 140;
-        const posDist = Math.hypot(gameState.L3.entryX - idealX, gameState.L3.entryY - idealY);
-        const posScore = Math.max(2, Math.round(8 - (posDist / 12)));
-
-        const angleDiff = Math.abs(gameState.L3.angle - 25);
-        const angleScore = Math.max(1, Math.round(5 - (angleDiff / 8)));
-
-        let depthScore = 7;
-        if (diag.zone1 === 'bone' || diag.zone2 === 'bone' || diag.zone3 === 'bone') depthScore -= 4;
-        if (diag.zone1 === 'air' || diag.zone2 === 'air' || diag.zone3 === 'air') depthScore -= 3;
-        depthScore = Math.max(1, depthScore);
-
-        gameState.scores.L3 = Math.min(20, posScore + angleScore + depthScore);
-      }
-      currentLevel = 4;
-      renderCurrentLevel();
+      evaluateProbeSilently();
+      nextStep(4);
     }
 
-    /* ==========================================================================
-       8. LEVEL 4: 4D HOTAIR EVEN ROASTING (15 PTS - SCORE DEFERRED)
-       ========================================================================== */
+    function initL3Canvas() {
+      const canvas = document.getElementById('l3-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Soft grid background
+        ctx.strokeStyle = 'rgba(217, 119, 36, 0.12)';
+        ctx.lineWidth = 1;
+        for (let gx = 0; gx < canvas.width; gx += 25) {
+          ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, canvas.height); ctx.stroke();
+        }
+        for (let gy = 0; gy < canvas.height; gy += 25) {
+          ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(canvas.width, gy); ctx.stroke();
+        }
+
+        // Turkey 2D Cross-Section: Meat Body
+        ctx.beginPath();
+        ctx.ellipse(200, 145, 125, 68, 0, 0, Math.PI * 2);
+        ctx.fillStyle = '#FDBA74';
+        ctx.fill();
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = '#9A3412';
+        ctx.stroke();
+
+        // Inner Cavity
+        ctx.beginPath();
+        ctx.ellipse(205, 168, 55, 24, 0, 0, Math.PI * 2);
+        ctx.fillStyle = '#FEF3C7';
+        ctx.fill();
+        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#D97706';
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Sternum / Keel Bone
+        ctx.beginPath();
+        ctx.ellipse(185, 134, 26, 9, -0.15, 0, Math.PI * 2);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fill();
+        ctx.lineWidth = 2.5;
+        ctx.strokeStyle = '#78716C';
+        ctx.stroke();
+
+        // Subtle anatomical labels
+        ctx.fillStyle = '#7C2D12';
+        ctx.font = 'bold 10px sans-serif';
+        ctx.fillText(state.lang === 'zh-TW' ? '火雞胸肉層' : 'Breast Meat', 105, 125);
+        ctx.fillStyle = '#57534E';
+        ctx.fillText(state.lang === 'zh-TW' ? '胸骨' : 'Bone', 173, 137);
+        ctx.fillStyle = '#B45309';
+        ctx.fillText(state.lang === 'zh-TW' ? '腹腔' : 'Cavity', 193, 172);
+
+        // Probe Shaft & Handle
+        const { sx, sy, tipX, tipY, sensors } = getProbeGeometry();
+        const rad = (state.l3.angle * Math.PI) / 180;
+        const handleX = sx - Math.cos(rad) * 28;
+        const handleY = sy - Math.sin(rad) * 28;
+
+        // Metal Needle Shaft
+        ctx.beginPath();
+        ctx.moveTo(sx, sy);
+        ctx.lineTo(tipX, tipY);
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = '#44403C';
+        ctx.lineCap = 'round';
+        ctx.stroke();
+
+        // 3 Neutral Sensor Dots (No Pre-Score Spoiler)
+        sensors.forEach(pt => {
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, 4.5, 0, Math.PI * 2);
+          ctx.fillStyle = '#D97724';
+          ctx.fill();
+          ctx.lineWidth = 1.5;
+          ctx.strokeStyle = '#FFFFFF';
+          ctx.stroke();
+        });
+
+        // Probe Handle Grip
+        ctx.beginPath();
+        ctx.moveTo(handleX, handleY);
+        ctx.lineTo(sx, sy);
+        ctx.lineWidth = 11;
+        ctx.strokeStyle = '#1C1917';
+        ctx.stroke();
+
+        // Draggable Handle Ring
+        ctx.beginPath();
+        ctx.arc(handleX, handleY, 9, 0, Math.PI * 2);
+        ctx.fillStyle = '#E20015';
+        ctx.fill();
+        ctx.lineWidth = 2.5;
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.stroke();
+      }
+
+      window._drawL3Canvas = draw;
+      evaluateProbeSilently();
+      draw();
+
+      let dragMode = null; // 'handle' | 'tip'
+      canvas.onpointerdown = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const px = ((e.clientX - rect.left) / rect.width) * canvas.width;
+        const py = ((e.clientY - rect.top) / rect.height) * canvas.height;
+        const { sx, sy, tipX, tipY } = getProbeGeometry();
+        const rad = (state.l3.angle * Math.PI) / 180;
+        const handleX = sx - Math.cos(rad) * 28;
+        const handleY = sy - Math.sin(rad) * 28;
+
+        if (Math.hypot(px - handleX, py - handleY) < 30 || Math.hypot(px - sx, py - sy) < 25) {
+          dragMode = 'handle';
+          canvas.setPointerCapture(e.pointerId);
+        } else if (Math.hypot(px - tipX, py - tipY) < 35) {
+          dragMode = 'tip';
+          canvas.setPointerCapture(e.pointerId);
+        }
+      };
+
+      canvas.onpointermove = (e) => {
+        if (!dragMode) return;
+        const rect = canvas.getBoundingClientRect();
+        const px = ((e.clientX - rect.left) / rect.width) * canvas.width;
+        const py = ((e.clientY - rect.top) / rect.height) * canvas.height;
+
+        if (dragMode === 'handle') {
+          state.l3.entryX = Math.max(85, Math.min(315, Math.round(px)));
+          state.l3.entryY = Math.max(45, Math.min(130, Math.round(py)));
+        } else if (dragMode === 'tip') {
+          const dx = px - state.l3.entryX;
+          const dy = py - state.l3.entryY;
+          const deg = Math.round((Math.atan2(dy, dx) * 180) / Math.PI);
+          const dist = Math.round(Math.hypot(dx, dy));
+          state.l3.angle = Math.max(35, Math.min(155, deg));
+          state.l3.depth = Math.max(25, Math.min(115, dist));
+          const aSlider = document.getElementById('l3-angle-slider');
+          const dSlider = document.getElementById('l3-depth-slider');
+          const aVal = document.getElementById('l3-angle-val');
+          const dVal = document.getElementById('l3-depth-val');
+          if (aSlider) aSlider.value = state.l3.angle;
+          if (dSlider) dSlider.value = state.l3.depth;
+          if (aVal) aVal.textContent = state.l3.angle + '°';
+          if (dVal) dVal.textContent = state.l3.depth + ' mm';
+        }
+        evaluateProbeSilently();
+        draw();
+      };
+
+      canvas.onpointerup = () => { dragMode = null; };
+    }
+
+    // =========================================================================
+    // 9. LEVEL 4: 4D HOTAIR EVEN ROASTING (DRAGGABLE SLIDERS)
+    // =========================================================================
+    function computeL4Uniformity() {
+      const tempDiff = Math.abs(state.l4.temp - 180);
+      const fanDiff = Math.abs(state.l4.fan - 80);
+      const uniformity = Math.max(40, Math.min(100, Math.round(100 - tempDiff * 0.9 - fanDiff * 0.5)));
+      state.scores.l4 = Math.round((uniformity / 100) * 20);
+      return uniformity;
+    }
+
+    function updateL4Slider(prop, val) {
+      state.l4[prop] = Number(val);
+      const uni = computeL4Uniformity();
+      const tempText = document.getElementById('l4-temp-text');
+      const fanText = document.getElementById('l4-fan-text');
+      const uniText = document.getElementById('l4-uni-text');
+      const uniBar = document.getElementById('l4-uni-bar');
+      if (tempText) tempText.textContent = state.l4.temp + '°C';
+      if (fanText) fanText.textContent = state.l4.fan + '%';
+      if (uniText) uniText.textContent = uni + '%';
+      if (uniBar) uniBar.style.width = uni + '%';
+    }
+
     function renderL4HTML() {
-      const heatBalance = Math.max(0, 100 - Math.abs(gameState.L4.temp - 180) * 2 - Math.abs(gameState.L4.airflow - 85) * 1.5);
-      gameState.scores.L4 = Math.round((heatBalance / 100) * 15);
-
+      const uni = computeL4Uniformity();
       return `
-        <div class="w-full max-w-lg glass-panel p-4 md:p-5 rounded-3xl space-y-4">
-          <div class="flex justify-between items-center border-b border-stone-200 pb-3">
-            <div>
-              <span class="text-xs text-amber-700 font-bold">${t('level')} 4 / 6</span>
-              <h3 class="text-lg font-bold text-stone-900">${t('L4_title')}</h3>
+        <div class="space-y-3">
+          <div class="glass-panel rounded-3xl p-4 sm:p-5 space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-extrabold">${t('level_badge')} 4 / 6</span>
+              <span class="text-xs font-bold text-bosch-red">4D Hotair</span>
             </div>
-            <div class="text-right">
-              <span class="px-2.5 py-1 rounded-full bg-amber-100 border border-amber-300 text-[11px] font-bold text-amber-900">
-                🌀 4D Hotair
-              </span>
-            </div>
-          </div>
+            <h2 class="text-lg sm:text-xl font-extrabold text-stone-900">${t('l4_title')}</h2>
+            <p class="text-xs text-stone-600 leading-relaxed">${t('l4_desc')}</p>
 
-          <p class="text-xs text-stone-600 leading-snug">${t('L4_desc')}</p>
-
-          <!-- Top-Down Turkey Roasting in 4D Hotair -->
-          <div class="relative py-2 flex items-center justify-center bg-amber-50/60 rounded-2xl border border-amber-200/60">
-            <div class="animate-pulse">
-              ${getCuteTurkeySVG("w-28 h-28", heatBalance > 75)}
-            </div>
-          </div>
-
-          <div class="space-y-3 bg-stone-50 p-3.5 rounded-2xl border border-stone-200 text-xs">
-            <div>
-              <div class="flex justify-between font-semibold mb-1">
-                <span class="text-stone-700">${t('L4_tempLabel')}</span>
-                <span class="text-amber-700 font-mono font-bold" id="tempVal">${gameState.L4.temp}°C</span>
+            <!-- Oven Chamber Visual -->
+            <div class="relative bg-gradient-to-b from-amber-100/80 to-orange-100/70 border-2 border-amber-300 rounded-2xl p-4 flex flex-col items-center justify-center space-y-2">
+              <div class="w-full flex justify-between text-[11px] font-bold text-amber-900">
+                <span>🌪️ 4D Hotair</span>
+                <span>${t('heat_balance')}: <strong id="l4-uni-text" class="text-bosch-red">${uni}%</strong></span>
               </div>
-              <input type="range" min="140" max="220" value="${gameState.L4.temp}" oninput="updateL4Temp(this.value)" class="w-full accent-amber-600">
-            </div>
-
-            <div>
-              <div class="flex justify-between font-semibold mb-1">
-                <span class="text-stone-700">${t('L4_airflowLabel')}</span>
-                <span class="text-amber-700 font-mono font-bold" id="airflowVal">${gameState.L4.airflow}%</span>
+              ${getTopDownTurkeySVG(115, false)}
+              <div class="w-full h-2.5 bg-white rounded-full overflow-hidden border border-amber-300">
+                <div id="l4-uni-bar" class="h-full gold-gradient transition-all duration-150" style="width:${uni}%"></div>
               </div>
-              <input type="range" min="40" max="100" value="${gameState.L4.airflow}" oninput="updateL4Airflow(this.value)" class="w-full accent-amber-600">
             </div>
+
+            <!-- Draggable Temperature & Fan Sliders -->
+            <div class="space-y-3">
+              <div class="bg-amber-50/90 border border-amber-200 rounded-2xl p-3 space-y-1.5">
+                <div class="flex justify-between text-xs font-bold text-stone-800">
+                  <span>${t('temp_label')}</span>
+                  <span id="l4-temp-text" class="text-bosch-red">${state.l4.temp}°C</span>
+                </div>
+                <input type="range" min="140" max="230" value="${state.l4.temp}"
+                  oninput="updateL4Slider('temp', this.value)"
+                  onchange="updateL4Slider('temp', this.value)"
+                  class="w-full" />
+              </div>
+
+              <div class="bg-amber-50/90 border border-amber-200 rounded-2xl p-3 space-y-1.5">
+                <div class="flex justify-between text-xs font-bold text-stone-800">
+                  <span>${t('fan_label')}</span>
+                  <span id="l4-fan-text" class="text-bosch-red">${state.l4.fan}%</span>
+                </div>
+                <input type="range" min="20" max="100" value="${state.l4.fan}"
+                  oninput="updateL4Slider('fan', this.value)"
+                  onchange="updateL4Slider('fan', this.value)"
+                  class="w-full" />
+              </div>
+            </div>
+
+            <div class="text-[11px] text-stone-500 text-center">${t('l4_hint')}</div>
+
+            <button onclick="nextStep(5)" class="w-full py-3.5 rounded-2xl bosch-red-gradient text-white font-extrabold text-sm shadow-md hover:brightness-105 transition">
+              ${t('next_level_btn')} →
+            </button>
           </div>
-
-          <p class="text-[11px] text-stone-500 font-medium text-center">${t('L4_idealHint')}</p>
-
-          <button onclick="currentLevel=5; renderCurrentLevel();" class="w-full py-3.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm transition shadow-md active:scale-95">
-            ${t('nextLevel')} →
-          </button>
         </div>
       `;
     }
 
-    function updateL4Temp(val) {
-      gameState.L4.temp = parseInt(val, 10);
-      renderCurrentLevel();
+    // =========================================================================
+    // 10. LEVEL 5: ADDED STEAM CRISPY FINISH
+    // =========================================================================
+    let l5Timer = null;
+    function startCrispHold() {
+      if (state.l5.locked) return;
+      state.l5.holding = true;
+      clearInterval(l5Timer);
+      l5Timer = setInterval(() => {
+        state.l5.crispValue = Math.min(100, state.l5.crispValue + 2.5);
+        const bar = document.getElementById('l5-bar');
+        const txt = document.getElementById('l5-val-text');
+        if (bar) bar.style.width = state.l5.crispValue + '%';
+        if (txt) txt.textContent = Math.round(state.l5.crispValue) + '%';
+        if (state.l5.crispValue >= 100) {
+          releaseCrispHold();
+        }
+      }, 40);
     }
 
-    function updateL4Airflow(val) {
-      gameState.L4.airflow = parseInt(val, 10);
-      renderCurrentLevel();
+    function releaseCrispHold() {
+      if (!state.l5.holding) return;
+      state.l5.holding = false;
+      state.l5.locked = true;
+      clearInterval(l5Timer);
+      // Ideal crispy window: 72% - 88%
+      const diff = Math.abs(state.l5.crispValue - 80);
+      state.scores.l5 = Math.max(5, Math.min(15, Math.round(15 - diff * 0.25)));
+      renderCurrentStep();
     }
-
-    /* ==========================================================================
-       9. LEVEL 5: ADDED STEAM CRISPY FINISH (20 PTS - SCORE DEFERRED)
-       ========================================================================== */
-    let l5AnimId = null;
 
     function renderL5HTML() {
       return `
-        <div class="w-full max-w-lg glass-panel p-4 md:p-5 rounded-3xl space-y-4">
-          <div class="flex justify-between items-center border-b border-stone-200 pb-3">
-            <div>
-              <span class="text-xs text-amber-700 font-bold">${t('level')} 5 / 6</span>
-              <h3 class="text-lg font-bold text-stone-900">${t('L5_title')}</h3>
+        <div class="space-y-3">
+          <div class="glass-panel rounded-3xl p-4 sm:p-5 space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-extrabold">${t('level_badge')} 5 / 6</span>
+              <span class="text-xs font-bold text-bosch-red">Added Steam</span>
             </div>
-            <div class="text-right">
-              <span class="px-2.5 py-1 rounded-full bg-amber-100 border border-amber-300 text-[11px] font-bold text-amber-900">
-                💨 Steam Crisp
-              </span>
+            <h2 class="text-lg sm:text-xl font-extrabold text-stone-900">${t('l5_title')}</h2>
+            <p class="text-xs text-stone-600 leading-relaxed">${t('l5_desc')}</p>
+
+            <div class="py-2 bg-amber-50/70 rounded-2xl border border-amber-200 text-center space-y-2">
+              ${getTopDownTurkeySVG(125, false)}
+              <div class="px-4 space-y-1">
+                <div class="flex justify-between text-xs font-bold text-stone-700">
+                  <span>${t('crisp_meter_label')}</span>
+                  <span id="l5-val-text" class="text-bosch-red">${Math.round(state.l5.crispValue)}%</span>
+                </div>
+                <div class="relative w-full h-5 bg-stone-200 rounded-full overflow-hidden">
+                  <!-- Target Sweet Spot Zone (72% - 88%) -->
+                  <div class="absolute top-0 bottom-0 bg-emerald-400/40 border-x-2 border-emerald-600" style="left:72%; width:16%;"></div>
+                  <div id="l5-bar" class="h-full gold-gradient transition-all duration-75" style="width:${state.l5.crispValue}%"></div>
+                </div>
+              </div>
             </div>
+
+            ${!state.l5.locked ? `
+              <button
+                onpointerdown="startCrispHold()"
+                onpointerup="releaseCrispHold()"
+                onpointerleave="releaseCrispHold()"
+                class="w-full py-4 rounded-2xl gold-gradient text-white font-extrabold text-sm shadow-lg active:scale-95 transition select-none">
+                💨 ${t('hold_crisp_btn')}
+              </button>
+            ` : `
+              <div class="text-center text-xs font-extrabold text-emerald-700 bg-emerald-50 border border-emerald-200 py-2.5 rounded-xl">
+                ✅ ${t('crisp_locked')} (${Math.round(state.l5.crispValue)}%)
+              </div>
+              <button onclick="nextStep(6)" class="w-full py-3.5 rounded-2xl bosch-red-gradient text-white font-extrabold text-sm shadow-md hover:brightness-105 transition">
+                ${t('next_level_btn')} →
+              </button>
+            `}
           </div>
-
-          <p class="text-xs text-stone-600 leading-snug">${t('L5_desc')}</p>
-
-          <!-- Top-Down Turkey Getting Crispy Golden Finish -->
-          <div class="py-1 flex items-center justify-center bg-amber-50/60 rounded-2xl border border-amber-200/60">
-            ${getCuteTurkeySVG("w-28 h-28", true)}
-          </div>
-
-          <!-- Steam Gauge -->
-          <div class="space-y-2 bg-stone-50 p-4 rounded-2xl border border-stone-200">
-            <div class="flex justify-between text-xs font-bold">
-              <span class="text-stone-700">${t('L5_crispScore')}</span>
-              <span class="text-amber-700" id="l5CrispPct">${Math.round((gameState.scores.L5 / 20) * 100)}%</span>
-            </div>
-
-            <div class="relative w-full h-6 bg-stone-200 rounded-full border border-stone-300 overflow-hidden">
-              <!-- Golden Target Zone (60% to 82%) -->
-              <div class="absolute top-0 bottom-0 left-[60%] w-[22%] bg-amber-400/50 border-x-2 border-amber-600"></div>
-              <!-- Moving Needle -->
-              <div id="l5Needle" class="absolute top-0 bottom-0 w-2 bg-bosch-red shadow-sm" style="left: ${gameState.L5.gaugePos}%;"></div>
-            </div>
-          </div>
-
-          <button id="l5HoldBtn" class="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-600 active:from-amber-600 active:to-red-600 text-white font-extrabold text-sm tracking-wide shadow-md transition select-none">
-            ${t('L5_holdBtn')}
-          </button>
-
-          <button onclick="stopL5Loop(); currentLevel=6; renderCurrentLevel();" class="w-full py-3 rounded-xl bg-stone-200 hover:bg-stone-300 text-stone-800 font-bold text-sm transition">
-            ${t('nextLevel')} →
-          </button>
         </div>
       `;
     }
 
-    function stopL5Loop() {
-      if (l5AnimId) {
-        cancelAnimationFrame(l5AnimId);
-        l5AnimId = null;
-      }
+    // =========================================================================
+    // 11. LEVEL 6: ACTIVECLEAN PYROLYTIC SELF-CLEANING BOSS
+    // =========================================================================
+    function answerL6(idx) {
+      if (state.l6.answered !== null) return;
+      state.l6.answered = idx;
+      state.scores.l6 = idx === 0 ? 15 : 5;
+      state.feedEvents.unshift({ type: 'feed_clean', name: state.nickname, score: getTotalScore() });
+      renderCurrentStep();
     }
 
-    function initL5SteamLoop() {
-      stopL5Loop();
-      const btn = document.getElementById('l5HoldBtn');
-      if (btn) {
-        btn.addEventListener('pointerdown', (e) => { e.preventDefault(); gameState.L5.holding = true; });
-        window.addEventListener('pointerup', () => { gameState.L5.holding = false; });
-      }
-
-      function step() {
-        if (currentLevel !== 5) return;
-        if (gameState.L5.holding) {
-          gameState.L5.gaugePos = Math.min(96, gameState.L5.gaugePos + 1.3);
-        } else {
-          gameState.L5.gaugePos = Math.max(4, gameState.L5.gaugePos - 0.9);
-        }
-
-        const needle = document.getElementById('l5Needle');
-        if (needle) needle.style.left = `${gameState.L5.gaugePos}%`;
-
-        const dist = Math.abs(gameState.L5.gaugePos - 71);
-        const currentScore = Math.max(0, Math.round(20 - dist * 0.55));
-        if (currentScore > gameState.scores.L5) {
-          gameState.scores.L5 = currentScore;
-          const pctEl = document.getElementById('l5CrispPct');
-          if (pctEl) pctEl.textContent = `${Math.round((gameState.scores.L5 / 20) * 100)}%`;
-        }
-
-        l5AnimId = requestAnimationFrame(step);
-      }
-      l5AnimId = requestAnimationFrame(step);
-    }
-
-    /* ==========================================================================
-       10. LEVEL 6: ACTIVECLEAN PYROLYTIC BOSS CHALLENGE (15 PTS - SCORE DEFERRED)
-       ========================================================================== */
     function renderL6HTML() {
+      const options = [t('quiz_opt_0'), t('quiz_opt_1'), t('quiz_opt_2')];
       return `
-        <div class="w-full max-w-lg glass-panel p-4 md:p-5 rounded-3xl space-y-4">
-          <div class="flex justify-between items-center border-b border-stone-200 pb-3">
-            <div>
-              <span class="text-xs text-amber-700 font-bold">${t('level')} 6 / 6</span>
-              <h3 class="text-lg font-bold text-stone-900">${t('L6_title')}</h3>
+        <div class="space-y-3">
+          <div class="glass-panel rounded-3xl p-4 sm:p-5 space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-extrabold">${t('level_badge')} 6 / 6</span>
+              <span class="text-xs font-bold text-bosch-red">activeClean</span>
             </div>
-            <div class="text-right">
-              <span class="px-2.5 py-1 rounded-full bg-amber-100 border border-amber-300 text-[11px] font-bold text-amber-900">
-                ✨ activeClean
-              </span>
+            <h2 class="text-lg sm:text-xl font-extrabold text-stone-900">${t('l6_title')}</h2>
+            <p class="text-xs text-stone-600 leading-relaxed">${t('l6_desc')}</p>
+
+            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-3.5 text-xs sm:text-sm font-bold text-stone-900 leading-relaxed">
+              ${t('quiz_q')}
             </div>
+
+            <div class="space-y-2">
+              ${options.map((opt, idx) => {
+                let cls = 'bg-white hover:bg-amber-50 border-stone-200 text-stone-800';
+                if (state.l6.answered !== null) {
+                  if (idx === 0) cls = 'bg-emerald-50 border-emerald-500 text-emerald-950 font-bold';
+                  else if (idx === state.l6.answered) cls = 'bg-red-50 border-red-400 text-red-900';
+                }
+                return `
+                  <button onclick="answerL6(${idx})" class="w-full text-left p-3.5 rounded-2xl border text-xs leading-relaxed transition ${cls}">
+                    <span class="font-extrabold mr-1.5">${['A.', 'B.', 'C.'][idx]}</span>${opt}
+                  </button>
+                `;
+              }).join('')}
+            </div>
+
+            ${state.l6.answered !== null ? `
+              <div class="p-3 rounded-2xl text-xs leading-relaxed ${state.l6.answered === 0 ? 'bg-emerald-50 text-emerald-900 border border-emerald-200' : 'bg-amber-50 text-amber-950 border border-amber-200'}">
+                ${state.l6.answered === 0 ? t('quiz_correct') : t('quiz_wrong')}
+              </div>
+              <button onclick="finishGame()" class="w-full py-3.5 rounded-2xl bosch-red-gradient text-white font-extrabold text-sm shadow-md hover:brightness-105 transition">
+                ${t('finish_game_btn')} 🎉
+              </button>
+            ` : ''}
           </div>
-
-          <p class="text-xs text-stone-600 leading-snug">${t('L6_desc')}</p>
-
-          <div class="p-4 rounded-2xl bg-amber-50/70 border border-amber-200 space-y-3">
-            <p class="text-sm font-bold text-stone-900">${t('L6_q')}</p>
-
-            <div class="grid grid-cols-1 gap-2">
-              <button onclick="answerL6(false)" class="py-3 px-4 rounded-xl bg-white hover:bg-amber-50 border border-stone-300 text-left text-xs font-bold text-stone-800 transition shadow-2xs">
-                A. ${t('L6_opt1')}
-              </button>
-              <button onclick="answerL6(true)" class="py-3 px-4 rounded-xl bg-white hover:bg-amber-50 border border-stone-300 text-left text-xs font-bold text-stone-800 transition shadow-2xs">
-                B. ${t('L6_opt2')}
-              </button>
-              <button onclick="answerL6(false)" class="py-3 px-4 rounded-xl bg-white hover:bg-amber-50 border border-stone-300 text-left text-xs font-bold text-stone-800 transition shadow-2xs">
-                C. ${t('L6_opt3')}
-              </button>
-            </div>
-          </div>
-
-          ${gameState.L6.answered ? `
-            <div class="p-3.5 rounded-2xl ${gameState.L6.isCorrect ? 'bg-emerald-50 border-emerald-300 text-emerald-900' : 'bg-amber-50 border-amber-300 text-amber-900'} border text-xs font-medium leading-relaxed">
-              ${gameState.L6.isCorrect ? t('L6_correct') : t('L6_wrong')}
-            </div>
-            <button onclick="currentLevel=7; renderCurrentLevel();" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-600 to-bosch-red text-white font-extrabold text-sm shadow-lg transition active:scale-95">
-              🏆 ${t('result_title')} →
-            </button>
-          ` : ''}
         </div>
       `;
     }
 
-    function answerL6(correct) {
-      gameState.L6.answered = true;
-      gameState.L6.isCorrect = correct;
-      gameState.scores.L6 = correct ? 15 : 5;
-      renderCurrentLevel();
+    function finishGame() {
+      const total = getTotalScore();
+      // Update leaderboard
+      const existing = state.leaderboard.find(item => item.name === state.nickname);
+      if (existing) {
+        existing.score = Math.max(existing.score, total);
+      } else {
+        state.leaderboard.push({ name: state.nickname, score: total });
+      }
+      state.leaderboard.sort((a, b) => b.score - a.score);
+      state.feedEvents.unshift({ type: 'feed_high_score', name: state.nickname, score: total });
+      state.step = 7;
+      renderCurrentStep();
     }
 
-    /* ==========================================================================
-       11. FINAL RESULTS, KEEPSAKE PNG DOWNLOAD & EMPLOYEE SHOP REDIRECT
-       ========================================================================== */
-    function renderResultHTML() {
-      const s = gameState.scores;
-      const totalScore = s.L1 + s.L2 + s.L3 + s.L4 + s.L5 + s.L6;
-      const rankTitle = totalScore >= 85 ? t('rank_master') : (totalScore >= 65 ? t('rank_pro') : t('rank_apprentice'));
-      const funnyRemark = totalScore >= 85 ? t('funny_high') : (totalScore >= 60 ? t('funny_mid') : t('funny_low'));
+    // =========================================================================
+    // 12. FINAL RESULT SCREEN (DANCING TURKEY, FULL SCORES, PNG CARD & BSH SHOP)
+    // =========================================================================
+    function getFunnyReview(total) {
+      if (total >= 85) return t('review_high');
+      if (total >= 65) return t('review_mid');
+      return t('review_low');
+    }
 
-      const leaderboard = [
-        { name: gameState.nickname, score: totalScore, isUser: true },
-        { name: 'Chef Marco (Taipei)', score: 94, isUser: false },
-        { name: 'BSH_Vivian', score: 89, isUser: false },
-        { name: 'Culinary_Ken', score: 82, isUser: false }
-      ].sort((a, b) => b.score - a.score);
+    function getChefTitle(total) {
+      if (total >= 85) return t('rank_master');
+      if (total >= 65) return t('rank_pro');
+      return t('rank_rookie');
+    }
+
+    function renderResultHTML() {
+      const total = getTotalScore();
+      const title = getChefTitle(total);
+      const funnyComment = getFunnyReview(total);
+
+      const breakdown = [
+        { label: t('res_l1'), val: state.scores.l1, max: 15 },
+        { label: t('res_l2'), val: state.scores.l2, max: 15 },
+        { label: t('res_l3'), val: state.scores.l3, max: 20 },
+        { label: t('res_l4'), val: state.scores.l4, max: 20 },
+        { label: t('res_l5'), val: state.scores.l5, max: 15 },
+        { label: t('res_l6'), val: state.scores.l6, max: 15 }
+      ];
 
       return `
-        <div class="w-full max-w-lg glass-panel p-5 rounded-3xl space-y-4">
-          <div class="text-center space-y-1">
-            <span class="text-xs font-bold text-amber-700 uppercase tracking-widest">${t('result_title')}</span>
-            <h2 class="text-xl font-black text-stone-900">${rankTitle}</h2>
-          </div>
+        <div class="space-y-4 pb-6">
+          <!-- Main Result Hero Card -->
+          <div class="glass-panel rounded-3xl p-5 text-center space-y-3">
+            <div class="text-xs font-extrabold tracking-wider uppercase text-amber-800">${t('res_title')}</div>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-stone-900">🔥 ${title}</h2>
+            <div class="text-xs font-bold text-stone-500">${state.nickname}</div>
 
-          <!-- Total Score Badge with Dancing Top-Down Roast Turkey -->
-          <div class="w-full bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100/70 p-4 rounded-2xl border border-amber-300 text-center space-y-1.5 shadow-xs">
-            <div class="flex justify-center">${getCuteTurkeySVG("w-32 h-32", true, true)}</div>
-            <div class="text-4xl font-black text-amber-600 tracking-tight">${totalScore} <span class="text-sm font-normal text-stone-500">/ 100</span></div>
-            <p class="text-xs md:text-sm font-bold text-stone-800 px-2 leading-relaxed">${funnyRemark}</p>
-            <p class="text-[11px] text-stone-500 font-mono">BOSCH HRG978NB1 THANKSGIVING MASTER</p>
-          </div>
-
-          <!-- BSH Employee Shop Promotional Banner & Redirect CTA -->
-          <div class="w-full bg-gradient-to-r from-red-50 via-amber-50 to-red-50 p-4 rounded-2xl border border-bosch-red/30 text-center space-y-2.5 shadow-xs">
-            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-bosch-red/10 text-bosch-red text-[11px] font-extrabold tracking-wide">
-              <span>🎁 ${t('employeeShopTitle')}</span>
+            <!-- Joyful Dancing Roast Turkey with Floating Music Notes -->
+            <div class="relative bg-gradient-to-b from-amber-50 to-orange-100/70 border border-amber-300 rounded-3xl py-5 px-4 space-y-2 overflow-hidden">
+              <span class="music-note-1 absolute top-4 left-8 text-xl">🎵</span>
+              <span class="music-note-2 absolute top-6 right-8 text-xl">🎶</span>
+              ${getTopDownTurkeySVG(135, true)}
+              <div class="pt-1">
+                <span class="text-4xl sm:text-5xl font-black text-amber-600">${total}</span>
+                <span class="text-sm font-bold text-stone-500"> / 100</span>
+              </div>
+              <div class="text-[10px] font-bold tracking-widest text-stone-500 uppercase">BOSCH HRG978NB1 THANKSGIVING MASTER</div>
             </div>
-            <p class="text-xs md:text-sm font-bold text-stone-800 leading-relaxed">
-              「${t('employeeShopCopy')}」
-            </p>
-            <a href="https://www.bosch-home-shop.com.tw/events/bsh-employee-shop" target="_blank" rel="noopener noreferrer" class="block w-full py-3 rounded-xl bg-bosch-red hover:bg-red-600 text-white font-extrabold text-xs md:text-sm tracking-wide shadow-md transition active:scale-95 glow-red">
-              ${t('employeeShopBtn')}
-            </a>
-          </div>
 
-          <!-- Level Breakdown Grid -->
-          <div class="grid grid-cols-3 gap-2 text-center text-xs">
-            <div class="p-2 rounded-xl bg-stone-50 border border-stone-200"><span class="text-stone-500 block text-[10px]">L1 Baste</span><strong class="text-amber-700">${s.L1}/15</strong></div>
-            <div class="p-2 rounded-xl bg-stone-50 border border-stone-200"><span class="text-stone-500 block text-[10px]">L2 Veggies</span><strong class="text-amber-700">${s.L2}/15</strong></div>
-            <div class="p-2 rounded-xl bg-stone-50 border border-stone-200"><span class="text-stone-500 block text-[10px]">L3 Probe</span><strong class="text-amber-700">${s.L3}/20</strong></div>
-            <div class="p-2 rounded-xl bg-stone-50 border border-stone-200"><span class="text-stone-500 block text-[10px]">L4 4D Hotair</span><strong class="text-amber-700">${s.L4}/15</strong></div>
-            <div class="p-2 rounded-xl bg-stone-50 border border-stone-200"><span class="text-stone-500 block text-[10px]">L5 Crisp</span><strong class="text-amber-700">${s.L5}/20</strong></div>
-            <div class="p-2 rounded-xl bg-stone-50 border border-stone-200"><span class="text-stone-500 block text-[10px]">L6 activeClean</span><strong class="text-amber-700">${s.L6}/15</strong></div>
-          </div>
-
-          <!-- Live Leaderboard -->
-          <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200 space-y-2">
-            <div class="flex justify-between items-center text-xs font-bold text-stone-700">
-              <span>🏆 ${t('leaderboardTitle')}</span>
-              <span class="text-emerald-600 text-[11px]">● ${t('onlineChefs')} 24</span>
+            <!-- Humorous Chef Commentary -->
+            <div class="bg-amber-100/80 border border-amber-300 rounded-2xl p-3 text-xs sm:text-sm font-bold text-amber-950 leading-relaxed">
+              💬 「${funnyComment}」
             </div>
-            <div class="space-y-1">
-              ${leaderboard.map((entry, idx) => `
-                <div class="flex justify-between items-center text-xs px-2.5 py-1.5 rounded-lg ${entry.isUser ? 'bg-amber-100 border border-amber-400 text-amber-950 font-bold' : 'bg-white border border-stone-200/80 text-stone-600'}">
-                  <span>#${idx + 1} ${entry.name}</span>
-                  <span>${entry.score} ${t('pts')}</span>
+
+            <!-- Download Roast Turkey PNG Button -->
+            <button onclick="downloadKeepsakeCard()" class="w-full py-3.5 rounded-2xl gold-gradient text-white font-extrabold text-sm shadow-lg hover:brightness-105 active:scale-[0.98] transition">
+              🍗 ${t('download_card_btn')}
+            </button>
+          </div>
+
+          <!-- Complete 6-Level Breakdown -->
+          <div class="glass-panel rounded-3xl p-4 sm:p-5 space-y-2.5">
+            <div class="text-xs font-extrabold text-stone-800 uppercase tracking-wider">${t('res_breakdown')}</div>
+            <div class="grid grid-cols-2 gap-2">
+              ${breakdown.map(b => `
+                <div class="bg-amber-50/80 border border-amber-200/80 rounded-xl p-2.5 flex items-center justify-between text-xs">
+                  <span class="font-semibold text-stone-700 truncate pr-1">${b.label}</span>
+                  <span class="font-extrabold text-bosch-red shrink-0">${b.val}/${b.max}</span>
                 </div>
               `).join('')}
             </div>
           </div>
 
-          <!-- Hidden Offscreen Certificate Canvas -->
-          <canvas id="certCanvas" width="600" height="360" class="hidden"></canvas>
-
-          <!-- Download Keepsake & Restart Buttons -->
-          <div class="space-y-2">
-            <button onclick="downloadCertificate()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-extrabold text-xs md:text-sm shadow-md transition active:scale-95">
-              ${t('downloadCert')}
-            </button>
-            <button onclick="resetFullGame()" class="w-full py-2.5 rounded-xl bg-stone-200 hover:bg-stone-300 text-stone-700 font-bold text-xs transition">
-              ↻ ${t('restart')}
-            </button>
+          <!-- BSH Employee Shop Promotional CTA -->
+          <div class="glass-panel rounded-3xl p-5 border-2 border-bosch-red/30 bg-gradient-to-br from-white to-red-50/40 space-y-3 text-center">
+            <div class="inline-block px-3 py-0.5 rounded-full bg-bosch-red/10 text-bosch-red text-[11px] font-extrabold tracking-wide">
+              ${t('shop_cta_badge')}
+            </div>
+            <div class="text-sm font-extrabold text-stone-900 leading-snug">
+              ${t('shop_cta_text')}
+            </div>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              <strong>${t('prod_title')}</strong> — ${t('prod_desc')}
+            </p>
+            <a href="https://www.bosch-home-shop.com.tw/events/bsh-employee-shop" target="_blank" rel="noopener noreferrer"
+              class="block w-full py-3.5 rounded-2xl bosch-red-gradient text-white font-extrabold text-sm shadow-lg shadow-red-600/20 hover:brightness-105 transition">
+              ${t('shop_cta_btn')}
+            </a>
           </div>
+
+          <!-- Replay Button -->
+          <button onclick="resetFullGame()" class="w-full py-3 rounded-2xl bg-white hover:bg-stone-100 border border-stone-300 text-stone-700 font-bold text-xs transition">
+            🔄 ${t('play_again_btn')}
+          </button>
         </div>
       `;
     }
 
+    function resetFullGame() {
+      state.step = 1;
+      state.scores = { l1: 0, l2: 0, l3: 0, l4: 0, l5: 0, l6: 0 };
+      state.l1 = { sauce: 'herb', coverage: 0, strokes: [] };
+      state.l2 = { placed: [] };
+      state.l3 = { entryX: 245, entryY: 72, angle: 112, depth: 68 };
+      state.l4 = { temp: 165, fan: 60 };
+      state.l5 = { crispValue: 0, locked: false, holding: false };
+      state.l6 = { answered: null };
+      renderCurrentStep();
+    }
+
+    // =========================================================================
+    // 13. KEEPSAKE PNG GENERATOR (BRIGHT THEME, FIXED ALIGNMENT & FUNNY REVIEW)
+    // =========================================================================
+    function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
+      const chars = Array.from(text);
+      let line = '';
+      let curY = y;
+      for (let i = 0; i < chars.length; i++) {
+        const testLine = line + chars[i];
+        if (ctx.measureText(testLine).width > maxWidth && i > 0) {
+          ctx.fillText(line, x, curY);
+          line = chars[i];
+          curY += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, x, curY);
+    }
+
     function generateCertificateCanvas() {
-      const canvas = document.getElementById('certCanvas');
-      if (!canvas) return;
+      const canvas = document.createElement('canvas');
+      canvas.width = 800;
+      canvas.height = 480;
       const ctx = canvas.getContext('2d');
-      const s = gameState.scores;
-      const totalScore = s.L1 + s.L2 + s.L3 + s.L4 + s.L5 + s.L6;
-      const certComment = totalScore >= 85 ? t('cert_comment_high') : (totalScore >= 60 ? t('cert_comment_mid') : t('cert_comment_low'));
+      const total = getTotalScore();
+      const review = getFunnyReview(total);
 
-      ctx.save();
-      ctx.textAlign = 'left';
-
-      // Bright Warm Ivory Background
-      ctx.fillStyle = '#FFFDF8';
+      // Bright Cream Background
+      ctx.fillStyle = '#FFFDF9';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Warm Amber Border
+      // Warm Gold Outer Border
       ctx.strokeStyle = '#D97724';
-      ctx.lineWidth = 6;
-      ctx.strokeRect(16, 16, canvas.width - 32, canvas.height - 32);
+      ctx.lineWidth = 10;
+      ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
 
-      // Header
+      // Reset left text alignment cleanly
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+
+      // Bosch Red Header
       ctx.fillStyle = '#E20015';
-      ctx.font = 'bold 14px sans-serif';
-      ctx.fillText('BOSCH accent|line Series 8 HRG978NB1', 36, 52);
+      ctx.font = 'bold 20px sans-serif';
+      ctx.fillText('BOSCH accent|line Series 8 HRG978NB1', 52, 54);
 
+      // Main Card Title
       ctx.fillStyle = '#1C1917';
-      ctx.font = 'bold 21px sans-serif';
-      ctx.fillText(currentLang === 'zh-TW' ? '我的專屬感恩節黃金烤雞 🍗' : 'MY THANKSGIVING GOLDEN ROAST TURKEY 🍗', 36, 86);
+      ctx.font = 'bold 34px sans-serif';
+      ctx.fillText(state.lang === 'zh-TW' ? '感恩節黃金烤雞成果卡 🍗' : 'Thanksgiving Roast Keepsake 🍗', 52, 92);
 
+      // Chef Nickname & Score
       ctx.fillStyle = '#D97706';
-      ctx.font = 'bold 18px sans-serif';
-      ctx.fillText(`${gameState.nickname} — ${totalScore} / 100 PTS`, 36, 118);
+      ctx.font = 'bold 28px sans-serif';
+      ctx.fillText(`${state.nickname} — ${total} / 100 PTS`, 52, 146);
 
-      // Humorous Score-Tiered Chef Remark
-      ctx.fillStyle = '#92400E';
-      ctx.font = 'bold 14px sans-serif';
-      ctx.fillText(certComment, 36, 148);
+      // Subtitle
+      ctx.fillStyle = '#57534E';
+      ctx.font = '16px sans-serif';
+      ctx.fillText('BSH Home Appliances Taiwan 2026 Thanksgiving', 52, 188);
 
-      ctx.fillStyle = '#78716C';
-      ctx.font = '12px sans-serif';
-      ctx.fillText('Official BSH Home Appliances Taiwan 2026 Roast Keepsake', 36, 174);
-
-      // Plate Rim & Top-Down Golden Roast Turkey Illustration
+      // Humorous Chef Commentary Box
       ctx.fillStyle = '#FEF3C7';
-      ctx.beginPath();
-      ctx.arc(465, 245, 84, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.strokeStyle = '#0284C7';
-      ctx.lineWidth = 4;
-      ctx.stroke();
-      drawTopDownTurkeyOnCanvas(ctx, 465, 245, 0.7);
+      ctx.fillRect(52, 226, 420, 108);
+      ctx.strokeStyle = '#F59E0B';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(52, 226, 420, 108);
 
-      // Stamp / Seal
-      ctx.fillStyle = '#FFFBEB';
+      ctx.fillStyle = '#78350F';
+      ctx.font = 'bold 17px sans-serif';
+      wrapCanvasText(ctx, `「${review}」`, 68, 244, 388, 26);
+
+      // Official Stamp Badge
       ctx.beginPath();
-      ctx.arc(110, 275, 45, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.strokeStyle = '#D97724';
+      ctx.arc(140, 392, 46, 0, Math.PI * 2);
+      ctx.strokeStyle = '#E20015';
       ctx.lineWidth = 3;
       ctx.stroke();
-
-      ctx.fillStyle = '#B45309';
-      ctx.font = 'bold 12px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('BOSCH AI', 110, 270);
-      ctx.fillText('ROASTED!', 110, 286);
+      ctx.fillStyle = '#E20015';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.fillText('BOSCH AI', 140, 378);
+      ctx.fillText('ROASTED!', 140, 396);
 
-      ctx.restore();
+      // Right Side Platter & Roast Turkey Illustration
+      ctx.beginPath();
+      ctx.arc(620, 270, 125, 0, Math.PI * 2);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fill();
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = '#0284C7';
+      ctx.stroke();
+
+      drawTopDownTurkeyOnCanvas(ctx, 620, 270, 1.35);
+
+      return canvas;
     }
 
-    function downloadCertificate() {
-      generateCertificateCanvas();
-      const canvas = document.getElementById('certCanvas');
-      if (!canvas) return;
-      const dataUrl = canvas.toDataURL('image/png');
-      const a = document.createElement('a');
-      a.href = dataUrl;
-      a.download = `My_Bosch_Roast_Turkey_${currentLang}.png`;
-      a.click();
+    function downloadKeepsakeCard() {
+      const canvas = generateCertificateCanvas();
+      const link = document.createElement('a');
+      link.download = `BSH-Thanksgiving-Turkey-${state.nickname || 'Chef'}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      showToast(t('card_downloaded_toast'), '🍗');
     }
 
-    function resetFullGame() {
-      gameState.scores = { L1: 0, L2: 0, L3: 0, L4: 0, L5: 0, L6: 0 };
-      gameState.L1 = { sauce: 'herb', coverage: 0, strokes: [] };
-      gameState.L2 = { placed: [], warning: false };
-      gameState.L3 = { entryX: 85, entryY: 140, angle: 25, depth: 72, diagnostics: null };
-      gameState.L4 = { temp: 165, airflow: 70 };
-      gameState.L5 = { gaugePos: 15, dir: 1, holding: false, bestScore: 0 };
-      gameState.L6 = { answered: false, isCorrect: false };
-      currentLevel = 0;
-      renderCurrentLevel();
-    }
-
-    /* ==========================================================================
-       12. MAIN VIEW ROUTER
-       ========================================================================== */
-    function renderCurrentLevel() {
-      const container = document.getElementById('appContainer');
-      if (!container) return;
-      stopL5Loop();
-
-      if (currentLevel === 0) {
-        container.innerHTML = renderIntroHTML();
-      } else if (currentLevel === 1) {
-        container.innerHTML = renderL1HTML();
-        initL1Canvas();
-      } else if (currentLevel === 2) {
-        container.innerHTML = renderL2HTML();
-        initL2DragAndDrop();
-      } else if (currentLevel === 3) {
-        container.innerHTML = renderL3HTML();
-        initL3ProbeCanvas();
-      } else if (currentLevel === 4) {
-        container.innerHTML = renderL4HTML();
-      } else if (currentLevel === 5) {
-        container.innerHTML = renderL5HTML();
-        initL5SteamLoop();
-      } else if (currentLevel === 6) {
-        container.innerHTML = renderL6HTML();
-      } else {
-        container.innerHTML = renderResultHTML();
-        generateCertificateCanvas();
+    // =========================================================================
+    // 14. LIVE KITCHEN MODAL & INIT
+    // =========================================================================
+    function toggleSocialModal() {
+      const modal = document.getElementById('social-modal');
+      modal.classList.toggle('hidden');
+      if (!modal.classList.contains('hidden')) {
+        renderSocialModalContent();
       }
     }
 
-    window.onload = function() {
-      document.documentElement.lang = currentLang;
-      updateTicker();
-      renderCurrentLevel();
-    };
+    function renderSocialModalContent() {
+      const feedList = document.getElementById('live-feed-list');
+      const lbList = document.getElementById('leaderboard-list');
+      const rankLabel = document.getElementById('my-rank-label');
+      if (!feedList || !lbList) return;
+
+      feedList.innerHTML = state.feedEvents.slice(0, 6).map(ev => {
+        const msg = t(ev.type).replace('{name}', ev.name).replace('{score}', ev.score);
+        return `<div class="text-stone-700 font-medium">• ${msg}</div>`;
+      }).join('');
+
+      const sorted = [...state.leaderboard].sort((a, b) => b.score - a.score);
+      const myIdx = sorted.findIndex(x => x.name === state.nickname);
+      if (rankLabel) {
+        rankLabel.textContent = myIdx >= 0 ? `${t('my_rank_prefix')}${myIdx + 1}${t('my_rank_suffix')}` : '';
+      }
+
+      lbList.innerHTML = sorted.slice(0, 10).map((item, idx) => {
+        const isMe = item.name === state.nickname;
+        return `
+          <div class="flex items-center justify-between px-3 py-2 rounded-xl border text-xs ${isMe ? 'bg-amber-100 border-bosch-red font-extrabold text-stone-900' : 'bg-stone-50 border-stone-200 text-stone-700'}">
+            <div class="flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold ${idx < 3 ? 'gold-gradient text-white' : 'bg-stone-200 text-stone-700'}">${idx + 1}</span>
+              <span>${item.name}</span>
+            </div>
+            <span class="font-extrabold text-bosch-red">${item.score} pts</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Boot Application
+    window.addEventListener('DOMContentLoaded', () => {
+      document.documentElement.lang = state.lang;
+      updateLangButtonUI();
+      renderCurrentStep();
+    });
   </script>
 </body>
 </html>
