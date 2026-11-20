@@ -306,7 +306,7 @@
 
   <script>
     // =========================================================================
-    // 0. GOOGLE APPS SCRIPT WEB APP URL (已嵌入你的正式部署 ID)
+    // 0. GOOGLE APPS SCRIPT WEB APP URL
     // =========================================================================
     const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwtSWx-WXHpuEfvTFnvRUtUUsrlaMxjFyl43Nlz6fMEoXhVoMrkKh5MrrwMDbfVkETq4Q/exec';
 
@@ -654,14 +654,13 @@
       }
     }
 
-    // Render Desktop Sidebars (Left: Logged-in Chefs & Feed | Right: Leaderboard) & Mobile Modal
+    // Render Desktop Sidebars & Mobile Modal
     function renderSidebarsAndModal() {
       const countBadge = document.getElementById('online-count-badge');
       const desktopCount = document.getElementById('desktop-online-count');
       if (countBadge) countBadge.textContent = state.onlineCount;
       if (desktopCount) desktopCount.textContent = `${state.onlineCount} ${t('chefs_unit')}`;
 
-      // 1. Left Sidebar: Logged-in Colleagues Grid
       const chefsGrid = document.getElementById('desktop-chefs-grid');
       const mobileChefs = document.getElementById('mobile-chefs-list');
       const chefsHtml = state.activeChefs.slice(0, 16).map(c => {
@@ -689,7 +688,6 @@
         `).join('');
       }
 
-      // 2. Left Sidebar & Modal: Live Feed Stream
       const feedHtml = state.feedEvents.slice(0, 8).map(ev => {
         const msg = t(ev.type).replace('{name}', ev.name).replace('{score}', ev.score);
         return `
@@ -703,7 +701,6 @@
       if (desktopFeed) desktopFeed.innerHTML = feedHtml;
       if (mobileFeed) mobileFeed.innerHTML = feedHtml;
 
-      // 3. Right Sidebar & Modal: Top 10 Leaderboard
       const sorted = [...state.leaderboard].sort((a, b) => b.score - a.score);
       const myIdx = sorted.findIndex(x => x.name === state.nickname);
       const rankText = myIdx >= 0 ? `${t('my_rank_prefix')}${myIdx + 1}${t('my_rank_suffix')}` : '';
@@ -1746,7 +1743,7 @@
     }
 
     // =========================================================================
-    // 12. FINAL RESULT SCREEN
+    // 12. FINAL RESULT SCREEN (SWAPPED ORDER: EMPLOYEE SHOP FIRST, DOWNLOAD BELOW)
     // =========================================================================
     function getFunnyReview(total) {
       if (total >= 85) return t('review_high');
@@ -1776,6 +1773,7 @@
 
       return `
         <div class="space-y-4 pb-6">
+          <!-- 1. Hero Score & Dancing Turkey Card -->
           <div class="glass-panel rounded-3xl p-5 text-center space-y-3">
             <div class="text-xs font-extrabold tracking-wider uppercase text-amber-800">${t('res_title')}</div>
             <h2 class="text-xl sm:text-2xl font-extrabold text-stone-900">🔥 ${title}</h2>
@@ -1795,24 +1793,9 @@
             <div class="bg-amber-100/80 border border-amber-300 rounded-2xl p-3 text-xs sm:text-sm font-bold text-amber-950 leading-relaxed">
               💬 「${funnyComment}」
             </div>
-
-            <button onclick="downloadKeepsakeCard()" class="w-full py-3.5 rounded-2xl gold-gradient text-white font-extrabold text-sm shadow-lg hover:brightness-105 active:scale-[0.98] transition">
-              🍗 ${t('download_card_btn')}
-            </button>
           </div>
 
-          <div class="glass-panel rounded-3xl p-4 sm:p-5 space-y-2.5">
-            <div class="text-xs font-extrabold text-stone-800 uppercase tracking-wider">${t('res_breakdown')}</div>
-            <div class="grid grid-cols-2 gap-2">
-              ${breakdown.map(b => `
-                <div class="bg-amber-50/80 border border-amber-200/80 rounded-xl p-2.5 flex items-center justify-between text-xs">
-                  <span class="font-semibold text-stone-700 truncate pr-1">${b.label}</span>
-                  <span class="font-extrabold text-bosch-red shrink-0">${b.val}/${b.max}</span>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-
+          <!-- 2. BSH Employee Shop Promotional CTA (Moved Up) -->
           <div class="glass-panel rounded-3xl p-5 border-2 border-bosch-red/30 bg-gradient-to-br from-white to-red-50/40 space-y-3 text-center">
             <div class="inline-block px-3 py-0.5 rounded-full bg-bosch-red/10 text-bosch-red text-[11px] font-extrabold tracking-wide">
               ${t('shop_cta_badge')}
@@ -1829,9 +1812,29 @@
             </a>
           </div>
 
-          <button onclick="resetFullGame()" class="w-full py-3 rounded-2xl bg-white hover:bg-stone-100 border border-stone-300 text-stone-700 font-bold text-xs transition">
-            🔄 ${t('play_again_btn')}
-          </button>
+          <!-- 3. All-Stage Evaluation Breakdown -->
+          <div class="glass-panel rounded-3xl p-4 sm:p-5 space-y-2.5">
+            <div class="text-xs font-extrabold text-stone-800 uppercase tracking-wider">${t('res_breakdown')}</div>
+            <div class="grid grid-cols-2 gap-2">
+              ${breakdown.map(b => `
+                <div class="bg-amber-50/80 border border-amber-200/80 rounded-xl p-2.5 flex items-center justify-between text-xs">
+                  <span class="font-semibold text-stone-700 truncate pr-1">${b.label}</span>
+                  <span class="font-extrabold text-bosch-red shrink-0">${b.val}/${b.max}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- 4. Download Roast Turkey PNG Button & Replay (Swapped Below) -->
+          <div class="space-y-2.5">
+            <button onclick="downloadKeepsakeCard()" class="w-full py-3.5 rounded-2xl gold-gradient text-white font-extrabold text-sm shadow-lg hover:brightness-105 active:scale-[0.98] transition">
+              🍗 ${t('download_card_btn')}
+            </button>
+
+            <button onclick="resetFullGame()" class="w-full py-3 rounded-2xl bg-white hover:bg-stone-100 border border-stone-300 text-stone-700 font-bold text-xs transition">
+              🔄 ${t('play_again_btn')}
+            </button>
+          </div>
         </div>
       `;
     }
