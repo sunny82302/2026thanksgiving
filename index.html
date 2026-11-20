@@ -33,10 +33,10 @@
       touch-action: manipulation;
     }
     .glass-panel {
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(217, 119, 36, 0.18);
+      border: 1px solid rgba(217, 119, 36, 0.2);
       box-shadow: 0 10px 30px -5px rgba(120, 53, 15, 0.08);
     }
     .gold-gradient {
@@ -112,7 +112,7 @@
     .cute-turkey-float {
       animation: floatBob 3s ease-in-out infinite;
     }
-    /* Joyful Dancing Turkey Animations for Final Result Screen */
+    /* Joyful Dancing Turkey Animations */
     @keyframes turkeyDanceBody {
       0%, 100% { transform: translateY(0px) rotate(-5deg) scale(1, 1); }
       25% { transform: translateY(-14px) rotate(0deg) scale(0.95, 1.06); }
@@ -172,7 +172,7 @@
 <body class="h-full flex flex-col overflow-hidden bg-gradient-to-b from-[#FFFDF9] via-[#FAF5EC] to-[#F3E9D8] text-stone-800">
 
   <!-- Top Navigation Bar -->
-  <header class="w-full z-40 px-4 py-3 flex items-center justify-between border-b border-amber-900/10 bg-white/85 backdrop-blur-md shrink-0 shadow-sm">
+  <header class="w-full z-40 px-4 py-3 flex items-center justify-between border-b border-amber-900/10 bg-white/90 backdrop-blur-md shrink-0 shadow-xs">
     <div class="flex items-center gap-2.5">
       <div class="w-2.5 h-6 bg-bosch-red rounded-sm"></div>
       <div class="leading-tight">
@@ -182,10 +182,16 @@
     </div>
 
     <div class="flex items-center gap-2">
-      <!-- Live Kitchen Badge -->
-      <button onclick="toggleSocialModal()" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-amber-50 hover:bg-amber-100 border border-amber-300/70 text-xs transition shadow-xs">
+      <!-- Sync Indicator Pill -->
+      <div id="sync-status-pill" class="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-stone-100 border border-stone-200 text-[11px] font-semibold text-stone-600">
+        <span id="sync-dot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span id="sync-text" data-i18n="sync_connected">Sheets 即時同步</span>
+      </div>
+
+      <!-- Mobile Live Kitchen Drawer Button -->
+      <button onclick="toggleSocialModal()" class="lg:hidden flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-amber-50 hover:bg-amber-100 border border-amber-300/80 text-xs transition shadow-xs">
         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span class="font-bold text-amber-950" id="online-count-badge">28</span>
+        <span class="font-bold text-amber-950" id="online-count-badge">9</span>
         <span class="hidden sm:inline text-amber-800 font-medium" data-i18n="live_kitchen">即時廚房</span>
       </button>
 
@@ -198,12 +204,65 @@
     </div>
   </header>
 
-  <!-- Main Stage Container -->
-  <main id="app-stage" class="flex-1 w-full max-w-xl mx-auto overflow-y-auto no-scrollbar px-4 py-4 flex flex-col justify-between relative">
-    <!-- Dynamic Views Injected Here -->
-  </main>
+  <!-- Desktop 3-Column Layout / Mobile Single-Column Layout -->
+  <div class="flex-1 w-full max-w-[1380px] mx-auto overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-5 px-3 sm:px-5 py-3">
 
-  <!-- Live Kitchen & Leaderboard Drawer Modal -->
+    <!-- LEFT SIDEBAR (Desktop Only): Logged-in Colleagues & Live Feed -->
+    <aside class="hidden lg:flex lg:col-span-3 flex-col gap-4 overflow-hidden py-1">
+      <div class="glass-panel rounded-3xl p-4 flex flex-col flex-1 overflow-hidden">
+        <div class="flex items-center justify-between pb-2.5 border-b border-amber-200/70">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <h3 class="font-extrabold text-sm text-stone-900" data-i18n="side_chefs_title">已登入主廚牆</h3>
+          </div>
+          <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-xs font-extrabold" id="desktop-online-count">9 人</span>
+        </div>
+
+        <!-- Active Colleagues Grid -->
+        <div id="desktop-chefs-grid" class="mt-3 grid grid-cols-2 gap-2 overflow-y-auto no-scrollbar max-h-56 pr-0.5">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Live Activity Stream -->
+        <div class="mt-4 pt-3 border-t border-amber-200/70 flex-1 flex flex-col overflow-hidden">
+          <div class="text-[11px] font-extrabold uppercase tracking-wider text-amber-800 mb-2" data-i18n="live_feed_header">即時主廚動態</div>
+          <div id="desktop-live-feed" class="space-y-2 overflow-y-auto no-scrollbar flex-1 text-xs">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CENTER MAIN STAGE -->
+    <main id="app-stage" class="col-span-1 lg:col-span-6 w-full max-w-xl mx-auto overflow-y-auto no-scrollbar py-1 flex flex-col justify-between relative">
+      <!-- Dynamic Views Injected Here -->
+    </main>
+
+    <!-- RIGHT SIDEBAR (Desktop Only): Top 10 Leaderboard -->
+    <aside class="hidden lg:flex lg:col-span-3 flex-col gap-4 overflow-hidden py-1">
+      <div class="glass-panel rounded-3xl p-4 flex flex-col flex-1 overflow-hidden">
+        <div class="flex items-center justify-between pb-2.5 border-b border-amber-200/70">
+          <div class="flex items-center gap-2">
+            <span class="text-base">🏆</span>
+            <h3 class="font-extrabold text-sm text-stone-900" data-i18n="top10_header">Top 10 感恩節主廚榜</h3>
+          </div>
+        </div>
+
+        <div id="desktop-my-rank" class="mt-2.5 px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-xs font-bold text-amber-950 hidden"></div>
+
+        <div id="desktop-leaderboard" class="mt-3 space-y-2 overflow-y-auto no-scrollbar flex-1">
+          <!-- Populated dynamically -->
+        </div>
+
+        <div class="mt-3 pt-2.5 border-t border-stone-200/80 text-[10px] text-stone-400 text-center" data-i18n="sync_footer_note">
+          每 4 秒自動與 Google Sheets 同步最新戰況
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Mobile Live Kitchen & Leaderboard Drawer Modal -->
   <div id="social-modal" class="fixed inset-0 z-50 hidden bg-stone-900/50 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4">
     <div class="w-full max-w-md bg-white border border-amber-200 rounded-t-3xl sm:rounded-3xl p-5 max-h-[85vh] flex flex-col shadow-2xl">
       <div class="flex items-center justify-between pb-3 border-b border-stone-200">
@@ -214,14 +273,20 @@
         <button onclick="toggleSocialModal()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-600 font-bold">✕</button>
       </div>
 
+      <!-- Active Chefs Pills -->
+      <div class="mt-3">
+        <div class="text-[11px] font-bold uppercase tracking-wider text-amber-700 mb-1.5" data-i18n="side_chefs_title">已登入主廚牆</div>
+        <div id="mobile-chefs-list" class="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto no-scrollbar"></div>
+      </div>
+
       <!-- Live Feed Ticker -->
       <div class="mt-3">
         <div class="text-[11px] font-bold uppercase tracking-wider text-amber-700 mb-1.5" data-i18n="live_feed_header">即時主廚動態</div>
-        <div id="live-feed-list" class="space-y-1.5 max-h-28 overflow-y-auto no-scrollbar text-xs bg-amber-50/80 p-2.5 rounded-xl border border-amber-200/70"></div>
+        <div id="live-feed-list" class="space-y-1.5 max-h-24 overflow-y-auto no-scrollbar text-xs bg-amber-50/80 p-2.5 rounded-xl border border-amber-200/70"></div>
       </div>
 
       <!-- Top 10 Leaderboard -->
-      <div class="mt-4 flex-1 overflow-y-auto no-scrollbar">
+      <div class="mt-3 flex-1 overflow-y-auto no-scrollbar">
         <div class="flex items-center justify-between mb-2">
           <span class="text-[11px] font-bold uppercase tracking-wider text-amber-700" data-i18n="top10_header">Top 10 感恩節主廚榜</span>
           <span class="text-[11px] text-stone-500 font-medium" id="my-rank-label"></span>
@@ -241,6 +306,11 @@
 
   <script>
     // =========================================================================
+    // 0. GOOGLE APPS SCRIPT WEB APP URL (已嵌入你的正式部署 ID)
+    // =========================================================================
+    const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwtSWx-WXHpuEfvTFnvRUtUUsrlaMxjFyl43Nlz6fMEoXhVoMrkKh5MrrwMDbfVkETq4Q/exec';
+
+    // =========================================================================
     // 1. CENTRALIZED I18N DICTIONARY (zh-TW & en)
     // =========================================================================
     const I18N = {
@@ -248,16 +318,23 @@
         header_subtitle: 'HRG978NB1 智慧蒸烤挑戰',
         live_kitchen: '即時廚房',
         modal_live_title: 'Live Kitchen 即時廚房與排行榜',
+        side_chefs_title: '已登入主廚牆',
         live_feed_header: '即時主廚動態',
         top10_header: 'Top 10 感恩節主廚榜',
         my_rank_prefix: '你的目前排名：第 ',
         my_rank_suffix: ' 名',
+        sync_connected: 'Sheets 即時同步',
+        sync_local: '連線重試中',
+        sync_footer_note: '每 4 秒自動與 Google Sheets 同步最新戰況',
+        status_cooking: '料理中',
+        status_finished: '已完賽',
+        chefs_unit: '人',
 
         // Intro
         intro_badge: 'BSH 2026 感恩節特別企劃',
         intro_title: 'BSH 感恩節火雞烤戰',
         intro_desc: '駕馭 Bosch accent|line 8 系列蒸烤爐 HRG978NB1，運用 PerfectRoast Plus AI 智慧烤、4D 熱風與 activeClean 高溫自清，打造完美金黃感恩節火雞！',
-        nickname_label: '請輸入主廚暱稱',
+        nickname_label: '請輸入主廚暱稱（將即時顯示於兩側廚房牆）',
         nickname_placeholder: '例如：內湖小當家 / Chef Sunny',
         nickname_err: '請先輸入你的主廚暱稱再開始挑戰！',
         start_btn: '進入廚房開始挑戰',
@@ -292,7 +369,7 @@
         l2_warn_turkey: '哎呀！請把蔬菜放在火雞周圍的烤盤上，不要壓在火雞身上喔！',
         l2_warn_outside: '請將蔬菜拖曳至烤盤框線內！',
 
-        // Level 3: PerfectRoast Plus Probe (Interactive, No Pre-Score Spoiler)
+        // Level 3: PerfectRoast Plus Probe
         l3_title: 'PerfectRoast Plus AI 智慧烤',
         l3_desc: '在 2D 剖面圖中直接拖曳探針「握把」調整插入位置，拖曳「針尖」或使用下方滑桿調整插入角度與深度，完成後即可進入下一關！',
         probe_angle_label: '插入角度',
@@ -363,16 +440,23 @@
         header_subtitle: 'HRG978NB1 Smart Roast Challenge',
         live_kitchen: 'Live Kitchen',
         modal_live_title: 'Live Kitchen & Top Chefs',
+        side_chefs_title: 'Logged-in Chefs',
         live_feed_header: 'Live Chef Activity',
         top10_header: 'Top 10 Thanksgiving Chefs',
         my_rank_prefix: 'Your Current Rank: #',
         my_rank_suffix: '',
+        sync_connected: 'Sheets Live Sync',
+        sync_local: 'Reconnecting...',
+        sync_footer_note: 'Auto-syncing live scores with Google Sheets every 4s',
+        status_cooking: 'Cooking',
+        status_finished: 'Finished',
+        chefs_unit: '',
 
         // Intro
         intro_badge: 'BSH 2026 Thanksgiving Special',
         intro_title: 'BSH Thanksgiving Roast Battle',
         intro_desc: 'Master the Bosch accent|line Series 8 Steam Oven (HRG978NB1). Combine PerfectRoast Plus, 4D Hotair, and activeClean Pyrolytic Self-Cleaning to craft the ultimate Thanksgiving turkey!',
-        nickname_label: 'Enter Your Chef Nickname',
+        nickname_label: 'Enter Chef Nickname (Appears live on both sidebars)',
         nickname_placeholder: 'e.g., Chef Sunny / Neihu Gordon',
         nickname_err: 'Please enter your chef nickname to begin!',
         start_btn: 'Enter the Kitchen',
@@ -477,80 +561,183 @@
     };
 
     // =========================================================================
-    // 2. APPLICATION STATE (Language-Agnostic IDs & Full State Persistence)
+    // 2. APPLICATION STATE & GOOGLE SHEETS LIVE SYNC ENGINE
     // =========================================================================
+    function getOrCreatePlayerId() {
+      let pid = localStorage.getItem('bsh_roast_pid');
+      if (!pid) {
+        pid = 'CHEF-' + Math.random().toString(36).substring(2, 9).toUpperCase();
+        localStorage.setItem('bsh_roast_pid', pid);
+      }
+      return pid;
+    }
+
     const state = {
       lang: localStorage.getItem('bsh_roast_lang') || 'zh-TW',
-      nickname: '',
-      step: 0, // 0=Intro, 1..6=Levels, 7=Result
-      scores: {
-        l1: 0, // max 15
-        l2: 0, // max 15
-        l3: 0, // max 20
-        l4: 0, // max 20
-        l5: 0, // max 15
-        l6: 0  // max 15
-      },
-      // Level 1 state
-      l1: {
-        sauce: 'herb',
-        coverage: 0,
-        strokes: []
-      },
-      // Level 2 state (Drag & drop veggies)
-      l2: {
-        placed: [] // { id, type, xPct, yPct }
-      },
-      // Level 3 state (2D Probe Geometry - evaluated silently for final report)
-      l3: {
-        entryX: 245,
-        entryY: 72,
-        angle: 112,
-        depth: 68
-      },
-      // Level 4 state
-      l4: {
-        temp: 165,
-        fan: 60
-      },
-      // Level 5 state
-      l5: {
-        crispValue: 0,
-        locked: false,
-        holding: false
-      },
-      // Level 6 state
-      l6: {
-        answered: null
-      },
-      // Multiplayer mock feed & leaderboard
-      onlineCount: 28,
-      feedEvents: [
-        { type: 'feed_high_score', name: 'Chef May', score: 96 },
-        { type: 'feed_clean', name: 'Winnie_BSH', score: 91 },
-        { type: 'feed_joined', name: 'Derek_TW', score: 0 }
-      ],
-      leaderboard: [
-        { name: 'Chef May', score: 96 },
-        { name: 'Winnie_BSH', score: 92 },
-        { name: 'Zoe_Kitchen', score: 89 },
-        { name: 'Ryan_Chef', score: 86 },
-        { name: 'Phoebe_L', score: 84 },
-        { name: 'Wayne_C', score: 81 },
-        { name: 'Doris_H', score: 78 },
-        { name: 'Jerry_88', score: 75 },
-        { name: 'Angie_Bosch', score: 72 }
-      ]
+      playerId: getOrCreatePlayerId(),
+      nickname: localStorage.getItem('bsh_roast_nick') || '',
+      step: 0,
+      scores: { l1: 0, l2: 0, l3: 0, l4: 0, l5: 0, l6: 0 },
+      l1: { sauce: 'herb', coverage: 0, strokes: [] },
+      l2: { placed: [] },
+      l3: { entryX: 245, entryY: 72, angle: 112, depth: 68 },
+      l4: { temp: 165, fan: 60 },
+      l5: { crispValue: 0, locked: false, holding: false },
+      l6: { answered: null },
+
+      isSheetConnected: true,
+      onlineCount: 0,
+      activeChefs: [],
+      feedEvents: [],
+      leaderboard: []
     };
 
-    // Helper: Translate Key
     function t(key) {
       return (I18N[state.lang] && I18N[state.lang][key]) || I18N['zh-TW'][key] || key;
     }
 
-    // Helper: Total Score
     function getTotalScore() {
       return state.scores.l1 + state.scores.l2 + state.scores.l3 + state.scores.l4 + state.scores.l5 + state.scores.l6;
+    }
+
+    // Sync with Google Sheets Web App
+    async function syncWithGoogleSheets(actionType = 'sync') {
+      try {
+        let res;
+        if (actionType === 'sync') {
+          res = await fetch(`${GAS_WEB_APP_URL}?action=sync`, { method: 'GET' });
+        } else {
+          res = await fetch(GAS_WEB_APP_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({
+              action: actionType,
+              playerId: state.playerId,
+              nickname: state.nickname,
+              score: getTotalScore(),
+              breakdown: state.scores
+            })
+          });
+        }
+        const data = await res.json();
+        if (data && data.ok) {
+          state.isSheetConnected = true;
+          state.onlineCount = data.onlineCount || (data.activeChefs ? data.activeChefs.length : 0);
+          if (Array.isArray(data.activeChefs)) {
+            state.activeChefs = data.activeChefs;
+          }
+          if (Array.isArray(data.leaderboard)) {
+            state.leaderboard = data.leaderboard;
+          }
+          if (Array.isArray(data.events)) {
+            state.feedEvents = data.events;
+          }
+          updateSyncStatusBadge();
+          renderSidebarsAndModal();
+        }
+      } catch (err) {
+        state.isSheetConnected = false;
+        updateSyncStatusBadge();
+      }
+    }
+
+    function updateSyncStatusBadge() {
+      const dot = document.getElementById('sync-dot');
+      const txt = document.getElementById('sync-text');
+      if (!dot || !txt) return;
+      if (state.isSheetConnected) {
+        dot.className = 'w-2 h-2 rounded-full bg-emerald-500 animate-pulse';
+        txt.textContent = t('sync_connected');
+      } else {
+        dot.className = 'w-2 h-2 rounded-full bg-amber-500';
+        txt.textContent = t('sync_local');
+      }
+    }
+
+    // Render Desktop Sidebars (Left: Logged-in Chefs & Feed | Right: Leaderboard) & Mobile Modal
+    function renderSidebarsAndModal() {
+      const countBadge = document.getElementById('online-count-badge');
+      const desktopCount = document.getElementById('desktop-online-count');
+      if (countBadge) countBadge.textContent = state.onlineCount;
+      if (desktopCount) desktopCount.textContent = `${state.onlineCount} ${t('chefs_unit')}`;
+
+      // 1. Left Sidebar: Logged-in Colleagues Grid
+      const chefsGrid = document.getElementById('desktop-chefs-grid');
+      const mobileChefs = document.getElementById('mobile-chefs-list');
+      const chefsHtml = state.activeChefs.slice(0, 16).map(c => {
+        const isMe = c.name === state.nickname;
+        const isDone = c.status === 'finished';
+        return `
+          <div class="px-2.5 py-2 rounded-xl border text-xs flex items-center gap-2 transition ${isMe ? 'bg-amber-100 border-bosch-red font-extrabold text-stone-900' : 'bg-amber-50/70 border-amber-200/80 text-stone-800'}">
+            <span class="text-base shrink-0">${isDone ? '🍗' : '👨‍🍳'}</span>
+            <div class="min-w-0 flex-1">
+              <div class="truncate font-bold">${c.name}</div>
+              <div class="text-[10px] ${isDone ? 'text-emerald-700 font-bold' : 'text-amber-700'}">
+                ${isDone ? `${t('status_finished')} · ${c.score}p` : t('status_cooking')}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      if (chefsGrid) chefsGrid.innerHTML = chefsHtml || `<div class="col-span-2 text-center text-xs text-stone-400 py-4">...</div>`;
+      if (mobileChefs) {
+        mobileChefs.innerHTML = state.activeChefs.slice(0, 16).map(c => `
+          <span class="px-2.5 py-1 rounded-full text-[11px] font-bold border ${c.name === state.nickname ? 'bg-amber-100 border-bosch-red text-stone-900' : 'bg-stone-50 border-stone-200 text-stone-700'}">
+            ${c.status === 'finished' ? '🍗' : '👨‍🍳'} ${c.name}
+          </span>
+        `).join('');
+      }
+
+      // 2. Left Sidebar & Modal: Live Feed Stream
+      const feedHtml = state.feedEvents.slice(0, 8).map(ev => {
+        const msg = t(ev.type).replace('{name}', ev.name).replace('{score}', ev.score);
+        return `
+          <div class="px-2.5 py-1.5 rounded-lg bg-amber-50/90 border border-amber-200/60 text-stone-700 font-medium leading-snug">
+            🔥 ${msg}
+          </div>
+        `;
+      }).join('');
+      const desktopFeed = document.getElementById('desktop-live-feed');
+      const mobileFeed = document.getElementById('live-feed-list');
+      if (desktopFeed) desktopFeed.innerHTML = feedHtml;
+      if (mobileFeed) mobileFeed.innerHTML = feedHtml;
+
+      // 3. Right Sidebar & Modal: Top 10 Leaderboard
+      const sorted = [...state.leaderboard].sort((a, b) => b.score - a.score);
+      const myIdx = sorted.findIndex(x => x.name === state.nickname);
+      const rankText = myIdx >= 0 ? `${t('my_rank_prefix')}${myIdx + 1}${t('my_rank_suffix')}` : '';
+
+      const desktopMyRank = document.getElementById('desktop-my-rank');
+      const mobileMyRank = document.getElementById('my-rank-label');
+      if (desktopMyRank) {
+        if (rankText) {
+          desktopMyRank.textContent = rankText;
+          desktopMyRank.classList.remove('hidden');
+        } else {
+          desktopMyRank.classList.add('hidden');
+        }
+      }
+      if (mobileMyRank) mobileMyRank.textContent = rankText;
+
+      const lbHtml = sorted.slice(0, 10).map((item, idx) => {
+        const isMe = item.name === state.nickname;
+        const medal = idx === 0 ? '🥇' : (idx === 1 ? '🥈' : (idx === 2 ? '🥉' : `${idx + 1}`));
+        return `
+          <div class="flex items-center justify-between px-3 py-2 rounded-xl border text-xs ${isMe ? 'bg-amber-100 border-bosch-red font-extrabold text-stone-900 shadow-xs' : 'bg-stone-50/90 border-stone-200/80 text-stone-700'}">
+            <div class="flex items-center gap-2 min-w-0 pr-2">
+              <span class="w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-extrabold shrink-0 ${idx < 3 ? 'bg-amber-200/80 text-amber-950' : 'bg-stone-200 text-stone-700'}">${medal}</span>
+              <span class="truncate">${item.name}</span>
+            </div>
+            <span class="font-extrabold text-bosch-red shrink-0">${item.score} pts</span>
+          </div>
+        `;
+      }).join('');
+
+      const desktopLb = document.getElementById('desktop-leaderboard');
+      const mobileLb = document.getElementById('leaderboard-list');
+      if (desktopLb) desktopLb.innerHTML = lbHtml;
+      if (mobileLb) mobileLb.innerHTML = lbHtml;
     }
 
     // =========================================================================
@@ -559,32 +746,24 @@
     function getTopDownTurkeySVG(size = 150, isDancing = false) {
       return `
         <svg viewBox="0 0 160 150" width="${size}" height="${size * 0.94}" class="${isDancing ? 'dancing-turkey' : 'cute-turkey-float'} drop-shadow-md mx-auto overflow-visible">
-          <!-- Left Wing -->
           <g class="wing-left">
             <path d="M51 35 C38 14, 29 31, 14 54 C12 58, 17 60, 29 52 C29 66, 39 71, 48 66 Z" fill="#F6B26B" stroke="#78350F" stroke-width="4" stroke-linejoin="round"/>
             <path d="M29 52 L34 45" stroke="#78350F" stroke-width="3" stroke-linecap="round"/>
           </g>
-          <!-- Right Wing -->
           <g class="wing-right">
             <path d="M109 35 C122 14, 131 31, 146 54 C148 58, 143 60, 131 52 C131 66, 121 71, 112 66 Z" fill="#F6B26B" stroke="#78350F" stroke-width="4" stroke-linejoin="round"/>
             <path d="M131 52 L126 45" stroke="#78350F" stroke-width="3" stroke-linecap="round"/>
           </g>
-          <!-- Main Turkey Body -->
           <path d="M80 28 C66 22, 47 29, 46 58 C45 87, 67 109, 80 109 C93 109, 115 87, 114 58 C113 29, 94 22, 80 28 Z" fill="#F6B26B" stroke="#78350F" stroke-width="4" stroke-linejoin="round"/>
-          <!-- Right Side Warm Shading -->
           <path d="M96 32 C108 39, 111 65, 102 88 C95 101, 86 105, 80 106 C92 98, 100 78, 98 48 C98 40, 96 35, 96 32 Z" fill="#E69138" opacity="0.55"/>
-          <!-- Left Breast Glossy Highlight -->
           <ellipse cx="64" cy="54" rx="7.5" ry="15" transform="rotate(-12 64 54)" fill="#FDE68A" opacity="0.85"/>
-          <!-- Center Breast Crease Dashed Line -->
           <line x1="80" y1="39" x2="80" y2="62" stroke="#78350F" stroke-width="3.5" stroke-linecap="round"/>
           <line x1="80" y1="69" x2="80" y2="88" stroke="#78350F" stroke-width="3.5" stroke-linecap="round"/>
-          <!-- Left Drumstick -->
           <g class="leg-left">
             <path d="M55 77 C38 71, 26 83, 32 103 C37 116, 49 124, 53 130 C48 134, 51 140, 57 139 C60 138, 62 139, 64 137 C67 135, 65 130, 62 128 C61 118, 64 106, 62 93 C61 84, 59 79, 55 77 Z" fill="#F6B26B" stroke="#78350F" stroke-width="4" stroke-linejoin="round"/>
             <ellipse cx="42" cy="85" rx="4.5" ry="7" transform="rotate(-25 42 85)" fill="#FDE68A" opacity="0.8"/>
             <line x1="52" y1="128" x2="61" y2="127" stroke="#78350F" stroke-width="2.5" stroke-linecap="round"/>
           </g>
-          <!-- Right Drumstick -->
           <g class="leg-right">
             <path d="M105 77 C122 71, 134 83, 128 103 C123 116, 111 124, 107 130 C112 134, 109 140, 103 139 C100 138, 98 139, 96 137 C93 135, 95 130, 98 128 C99 118, 96 106, 98 93 C99 84, 101 79, 105 77 Z" fill="#F6B26B" stroke="#78350F" stroke-width="4" stroke-linejoin="round"/>
             <ellipse cx="118" cy="85" rx="4.5" ry="7" transform="rotate(25 118 85)" fill="#FDE68A" opacity="0.8"/>
@@ -594,7 +773,6 @@
       `;
     }
 
-    // Canvas Top-Down Turkey Helper (for Level 1 & Keepsake Card)
     function drawTopDownTurkeyOnCanvas(ctx, cx, cy, scale = 1.0) {
       ctx.save();
       ctx.translate(cx, cy);
@@ -606,7 +784,6 @@
       ctx.lineJoin = 'round';
       ctx.lineCap = 'round';
 
-      // Left Wing
       ctx.fillStyle = '#F6B26B';
       ctx.beginPath();
       ctx.moveTo(51, 35);
@@ -617,7 +794,6 @@
       ctx.fill();
       ctx.stroke();
 
-      // Right Wing
       ctx.beginPath();
       ctx.moveTo(109, 35);
       ctx.bezierCurveTo(122, 14, 131, 31, 146, 54);
@@ -627,7 +803,6 @@
       ctx.fill();
       ctx.stroke();
 
-      // Main Body
       ctx.beginPath();
       ctx.moveTo(80, 28);
       ctx.bezierCurveTo(66, 22, 47, 29, 46, 58);
@@ -638,13 +813,11 @@
       ctx.fill();
       ctx.stroke();
 
-      // Highlight
       ctx.fillStyle = 'rgba(253, 230, 138, 0.85)';
       ctx.beginPath();
       ctx.ellipse(64, 54, 7.5, 15, -0.2, 0, Math.PI * 2);
       ctx.fill();
 
-      // Center Breast Crease
       ctx.beginPath();
       ctx.moveTo(80, 39);
       ctx.lineTo(80, 62);
@@ -652,7 +825,6 @@
       ctx.lineTo(80, 88);
       ctx.stroke();
 
-      // Left Drumstick
       ctx.fillStyle = '#F6B26B';
       ctx.beginPath();
       ctx.moveTo(55, 77);
@@ -667,7 +839,6 @@
       ctx.fill();
       ctx.stroke();
 
-      // Right Drumstick
       ctx.beginPath();
       ctx.moveTo(105, 77);
       ctx.bezierCurveTo(122, 71, 134, 83, 128, 103);
@@ -693,7 +864,7 @@
       document.documentElement.lang = state.lang;
       updateLangButtonUI();
       renderCurrentStep();
-      renderSocialModalContent();
+      renderSidebarsAndModal();
     }
 
     function updateLangButtonUI() {
@@ -710,6 +881,7 @@
         const key = el.getAttribute('data-i18n');
         el.textContent = t(key);
       });
+      updateSyncStatusBadge();
     }
 
     function showToast(msg, icon = '✨') {
@@ -799,7 +971,19 @@
         return;
       }
       state.nickname = trimmed;
-      state.feedEvents.unshift({ type: 'feed_joined', name: state.nickname, score: 0 });
+      localStorage.setItem('bsh_roast_nick', trimmed);
+
+      const existingChef = state.activeChefs.find(c => c.name === trimmed);
+      if (existingChef) {
+        existingChef.status = 'cooking';
+      } else {
+        state.activeChefs.unshift({ name: trimmed, status: 'cooking', score: 0 });
+        state.onlineCount++;
+      }
+      state.feedEvents.unshift({ type: 'feed_joined', name: trimmed, score: 0 });
+      renderSidebarsAndModal();
+      syncWithGoogleSheets('join');
+
       state.step = 1;
       renderCurrentStep();
     }
@@ -810,7 +994,7 @@
     }
 
     // =========================================================================
-    // 6. LEVEL 1: HERB BUTTER BASTING (TOUCH / MOUSE CANVAS)
+    // 6. LEVEL 1: HERB BUTTER BASTING
     // =========================================================================
     function renderL1HTML() {
       const sauces = [
@@ -828,7 +1012,6 @@
             <h2 class="text-lg sm:text-xl font-extrabold text-stone-900">${t('l1_title')}</h2>
             <p class="text-xs text-stone-600 leading-relaxed">${t('l1_desc')}</p>
 
-            <!-- Sauce Selector -->
             <div class="grid grid-cols-3 gap-2">
               ${sauces.map(s => `
                 <button onclick="selectSauce('${s.id}')" class="p-2 rounded-xl border text-xs font-bold transition text-center ${state.l1.sauce === s.id ? 'bg-amber-100 border-bosch-red text-stone-900 shadow-xs' : 'bg-stone-50 border-stone-200 text-stone-600'}">
@@ -838,7 +1021,6 @@
               `).join('')}
             </div>
 
-            <!-- Interactive Basting Canvas -->
             <div class="relative w-full aspect-[4/3] max-h-64 bg-amber-50/70 rounded-2xl border-2 border-dashed border-amber-300 overflow-hidden flex items-center justify-center">
               <canvas id="l1-canvas" width="360" height="270" class="w-full h-full touch-none cursor-crosshair"></canvas>
               <div class="absolute bottom-2 left-1/2 -translate-x-1/2 pointer-events-none bg-white/90 px-3 py-1 rounded-full text-[11px] font-semibold text-stone-600 border border-stone-200 whitespace-nowrap">
@@ -883,7 +1065,6 @@
 
       function redraw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        // Plate circle
         ctx.beginPath();
         ctx.arc(180, 135, 115, 0, Math.PI * 2);
         ctx.fillStyle = '#FFFFFF';
@@ -892,14 +1073,8 @@
         ctx.strokeStyle = '#E5E7EB';
         ctx.stroke();
 
-        // Turkey
         drawTopDownTurkeyOnCanvas(ctx, 180, 135, 1.35);
 
-        // Glaze strokes
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.lineWidth = 22;
-        ctx.strokeStyle = sauceColors[state.l1.sauce] || sauceColors.herb;
         state.l1.strokes.forEach(pt => {
           ctx.beginPath();
           ctx.arc(pt.x, pt.y, 11, 0, Math.PI * 2);
@@ -915,7 +1090,6 @@
         const rect = canvas.getBoundingClientRect();
         const x = ((clientX - rect.left) / rect.width) * canvas.width;
         const y = ((clientY - rect.top) / rect.height) * canvas.height;
-        // Only count points near turkey center
         const dist = Math.hypot(x - 180, y - 135);
         if (dist < 95) {
           state.l1.strokes.push({ x, y });
@@ -959,7 +1133,6 @@
             <h2 class="text-lg sm:text-xl font-extrabold text-stone-900">${t('l2_title')}</h2>
             <p class="text-xs text-stone-600 leading-relaxed">${t('l2_desc')}</p>
 
-            <!-- Surrounding Veggie Source Palette -->
             <div class="grid grid-cols-3 gap-2">
               ${veggieTypes.map(v => `
                 <div data-veg-type="${v.type}" class="veggie-chip bg-amber-50 hover:bg-amber-100 border border-amber-300 rounded-2xl p-2.5 text-center select-none shadow-xs">
@@ -969,14 +1142,11 @@
               `).join('')}
             </div>
 
-            <!-- Roasting Tray Drop Zone -->
             <div id="l2-tray" class="relative w-full aspect-[4/3] max-h-60 rounded-2xl bg-gradient-to-br from-stone-100 to-amber-50 border-2 border-amber-400/70 shadow-inner flex items-center justify-center overflow-hidden">
-              <!-- Center Turkey -->
               <div id="l2-turkey-center" class="pointer-events-none">
                 ${getTopDownTurkeySVG(125, false)}
               </div>
 
-              <!-- Placed Veggies -->
               ${state.l2.placed.map(item => {
                 const em = item.type === 'carrot' ? '🥕' : (item.type === 'potato' ? '🥔' : '🥦');
                 return `<div style="left:${item.xPct}%; top:${item.yPct}%;" class="absolute -translate-x-1/2 -translate-y-1/2 text-2xl drop-shadow pointer-events-none">${em}</div>`;
@@ -1046,7 +1216,6 @@
             if (ev.clientX >= rect.left && ev.clientX <= rect.right && ev.clientY >= rect.top && ev.clientY <= rect.bottom) {
               const xPct = ((ev.clientX - rect.left) / rect.width) * 100;
               const yPct = ((ev.clientY - rect.top) / rect.height) * 100;
-              // Check distance from center turkey (50%, 50%)
               const distFromCenter = Math.hypot(xPct - 50, yPct - 50);
               if (distFromCenter < 22) {
                 showToast(t('l2_warn_turkey'), '🦃');
@@ -1069,7 +1238,7 @@
     }
 
     // =========================================================================
-    // 8. LEVEL 3: PERFECTROAST PLUS 2D CROSS-SECTION PROBE (DRAGGABLE + SLIDERS)
+    // 8. LEVEL 3: PERFECTROAST PLUS 2D CROSS-SECTION PROBE
     // =========================================================================
     function renderL3HTML() {
       return `
@@ -1082,12 +1251,10 @@
             <h2 class="text-lg sm:text-xl font-extrabold text-stone-900">${t('l3_title')}</h2>
             <p class="text-xs text-stone-600 leading-relaxed">${t('l3_desc')}</p>
 
-            <!-- 2D Cross-Section Canvas -->
             <div class="relative w-full aspect-[16/10] bg-amber-50/70 rounded-2xl border border-amber-300 overflow-hidden">
               <canvas id="l3-canvas" width="400" height="250" class="w-full h-full touch-none cursor-grab"></canvas>
             </div>
 
-            <!-- Draggable Sliders for Angle & Depth -->
             <div class="grid grid-cols-2 gap-3 pt-1">
               <div class="bg-amber-50/90 border border-amber-200 rounded-2xl p-3 space-y-1.5">
                 <div class="flex justify-between text-xs font-bold text-stone-800">
@@ -1112,7 +1279,6 @@
               </div>
             </div>
 
-            <!-- Non-Spoiling Culinary Tips -->
             <div class="bg-stone-50 border border-stone-200 rounded-2xl p-3 space-y-1 text-[11px] text-stone-700 leading-relaxed">
               <div>${t('probe_tip_1')}</div>
               <div>${t('probe_tip_2')}</div>
@@ -1152,15 +1318,12 @@
     }
 
     function classifyPointZone(x, y) {
-      // Turkey meat ellipse centered at (200, 145), rx=125, ry=68
       const normMeat = Math.pow((x - 200) / 125, 2) + Math.pow((y - 145) / 68, 2);
       if (normMeat > 1.0) return 'air';
 
-      // Inner Cavity ellipse centered at (205, 168), rx=55, ry=24
       const normCavity = Math.pow((x - 205) / 55, 2) + Math.pow((y - 168) / 24, 2);
       if (normCavity <= 1.0) return 'cavity';
 
-      // Keel / Sternum Bone mask centered at (185, 134), rx=26, ry=9
       const normBone = Math.pow((x - 185) / 26, 2) + Math.pow((y - 134) / 9, 2);
       if (normBone <= 1.0) return 'bone';
 
@@ -1169,11 +1332,9 @@
 
     function evaluateProbeSilently() {
       const { sx, sy, sensors } = getProbeGeometry();
-      // Position score (max 8): entry near upper breast contour
       const entryDist = Math.hypot(sx - 230, sy - 85);
       const posScore = entryDist < 35 ? 8 : (entryDist < 65 ? 6 : 3);
 
-      // Sensor zones evaluation
       let meatHits = 0;
       let boneHits = 0;
       let cavityHits = 0;
@@ -1184,12 +1345,10 @@
         else if (z === 'cavity') cavityHits++;
       });
 
-      // Depth score (max 7)
       let depthScore = Math.round((meatHits / 3) * 7);
       if (boneHits > 0) depthScore = Math.max(1, depthScore - 3);
       if (cavityHits > 0) depthScore = Math.max(1, depthScore - 2);
 
-      // Angle score (max 5): geometric alignment with breast muscle slope
       const angleDiff = Math.abs(state.l3.angle - 115);
       const angleScore = angleDiff <= 15 ? 5 : (angleDiff <= 30 ? 3 : 1);
 
@@ -1209,7 +1368,6 @@
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Soft grid background
         ctx.strokeStyle = 'rgba(217, 119, 36, 0.12)';
         ctx.lineWidth = 1;
         for (let gx = 0; gx < canvas.width; gx += 25) {
@@ -1219,7 +1377,6 @@
           ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(canvas.width, gy); ctx.stroke();
         }
 
-        // Turkey 2D Cross-Section: Meat Body
         ctx.beginPath();
         ctx.ellipse(200, 145, 125, 68, 0, 0, Math.PI * 2);
         ctx.fillStyle = '#FDBA74';
@@ -1228,7 +1385,6 @@
         ctx.strokeStyle = '#9A3412';
         ctx.stroke();
 
-        // Inner Cavity
         ctx.beginPath();
         ctx.ellipse(205, 168, 55, 24, 0, 0, Math.PI * 2);
         ctx.fillStyle = '#FEF3C7';
@@ -1239,7 +1395,6 @@
         ctx.stroke();
         ctx.setLineDash([]);
 
-        // Sternum / Keel Bone
         ctx.beginPath();
         ctx.ellipse(185, 134, 26, 9, -0.15, 0, Math.PI * 2);
         ctx.fillStyle = '#FFFFFF';
@@ -1248,7 +1403,6 @@
         ctx.strokeStyle = '#78716C';
         ctx.stroke();
 
-        // Subtle anatomical labels
         ctx.fillStyle = '#7C2D12';
         ctx.font = 'bold 10px sans-serif';
         ctx.fillText(state.lang === 'zh-TW' ? '火雞胸肉層' : 'Breast Meat', 105, 125);
@@ -1257,13 +1411,11 @@
         ctx.fillStyle = '#B45309';
         ctx.fillText(state.lang === 'zh-TW' ? '腹腔' : 'Cavity', 193, 172);
 
-        // Probe Shaft & Handle
         const { sx, sy, tipX, tipY, sensors } = getProbeGeometry();
         const rad = (state.l3.angle * Math.PI) / 180;
         const handleX = sx - Math.cos(rad) * 28;
         const handleY = sy - Math.sin(rad) * 28;
 
-        // Metal Needle Shaft
         ctx.beginPath();
         ctx.moveTo(sx, sy);
         ctx.lineTo(tipX, tipY);
@@ -1272,7 +1424,6 @@
         ctx.lineCap = 'round';
         ctx.stroke();
 
-        // 3 Neutral Sensor Dots (No Pre-Score Spoiler)
         sensors.forEach(pt => {
           ctx.beginPath();
           ctx.arc(pt.x, pt.y, 4.5, 0, Math.PI * 2);
@@ -1283,7 +1434,6 @@
           ctx.stroke();
         });
 
-        // Probe Handle Grip
         ctx.beginPath();
         ctx.moveTo(handleX, handleY);
         ctx.lineTo(sx, sy);
@@ -1291,7 +1441,6 @@
         ctx.strokeStyle = '#1C1917';
         ctx.stroke();
 
-        // Draggable Handle Ring
         ctx.beginPath();
         ctx.arc(handleX, handleY, 9, 0, Math.PI * 2);
         ctx.fillStyle = '#E20015';
@@ -1305,7 +1454,7 @@
       evaluateProbeSilently();
       draw();
 
-      let dragMode = null; // 'handle' | 'tip'
+      let dragMode = null;
       canvas.onpointerdown = (e) => {
         const rect = canvas.getBoundingClientRect();
         const px = ((e.clientX - rect.left) / rect.width) * canvas.width;
@@ -1357,7 +1506,7 @@
     }
 
     // =========================================================================
-    // 9. LEVEL 4: 4D HOTAIR EVEN ROASTING (DRAGGABLE SLIDERS)
+    // 9. LEVEL 4: 4D HOTAIR EVEN ROASTING
     // =========================================================================
     function computeL4Uniformity() {
       const tempDiff = Math.abs(state.l4.temp - 180);
@@ -1392,7 +1541,6 @@
             <h2 class="text-lg sm:text-xl font-extrabold text-stone-900">${t('l4_title')}</h2>
             <p class="text-xs text-stone-600 leading-relaxed">${t('l4_desc')}</p>
 
-            <!-- Oven Chamber Visual -->
             <div class="relative bg-gradient-to-b from-amber-100/80 to-orange-100/70 border-2 border-amber-300 rounded-2xl p-4 flex flex-col items-center justify-center space-y-2">
               <div class="w-full flex justify-between text-[11px] font-bold text-amber-900">
                 <span>🌪️ 4D Hotair</span>
@@ -1404,7 +1552,6 @@
               </div>
             </div>
 
-            <!-- Draggable Temperature & Fan Sliders -->
             <div class="space-y-3">
               <div class="bg-amber-50/90 border border-amber-200 rounded-2xl p-3 space-y-1.5">
                 <div class="flex justify-between text-xs font-bold text-stone-800">
@@ -1464,7 +1611,6 @@
       state.l5.holding = false;
       state.l5.locked = true;
       clearInterval(l5Timer);
-      // Ideal crispy window: 72% - 88%
       const diff = Math.abs(state.l5.crispValue - 80);
       state.scores.l5 = Math.max(5, Math.min(15, Math.round(15 - diff * 0.25)));
       renderCurrentStep();
@@ -1489,7 +1635,6 @@
                   <span id="l5-val-text" class="text-bosch-red">${Math.round(state.l5.crispValue)}%</span>
                 </div>
                 <div class="relative w-full h-5 bg-stone-200 rounded-full overflow-hidden">
-                  <!-- Target Sweet Spot Zone (72% - 88%) -->
                   <div class="absolute top-0 bottom-0 bg-emerald-400/40 border-x-2 border-emerald-600" style="left:72%; width:16%;"></div>
                   <div id="l5-bar" class="h-full gold-gradient transition-all duration-75" style="width:${state.l5.crispValue}%"></div>
                 </div>
@@ -1525,6 +1670,7 @@
       state.l6.answered = idx;
       state.scores.l6 = idx === 0 ? 15 : 5;
       state.feedEvents.unshift({ type: 'feed_clean', name: state.nickname, score: getTotalScore() });
+      renderSidebarsAndModal();
       renderCurrentStep();
     }
 
@@ -1574,21 +1720,33 @@
 
     function finishGame() {
       const total = getTotalScore();
-      // Update leaderboard
-      const existing = state.leaderboard.find(item => item.name === state.nickname);
-      if (existing) {
-        existing.score = Math.max(existing.score, total);
+
+      const existingChef = state.activeChefs.find(c => c.name === state.nickname);
+      if (existingChef) {
+        existingChef.status = 'finished';
+        existingChef.score = Math.max(existingChef.score || 0, total);
+      } else {
+        state.activeChefs.unshift({ name: state.nickname, status: 'finished', score: total });
+      }
+
+      const existingLb = state.leaderboard.find(item => item.name === state.nickname);
+      if (existingLb) {
+        existingLb.score = Math.max(existingLb.score, total);
       } else {
         state.leaderboard.push({ name: state.nickname, score: total });
       }
       state.leaderboard.sort((a, b) => b.score - a.score);
       state.feedEvents.unshift({ type: 'feed_high_score', name: state.nickname, score: total });
+
+      renderSidebarsAndModal();
+      syncWithGoogleSheets('finish');
+
       state.step = 7;
       renderCurrentStep();
     }
 
     // =========================================================================
-    // 12. FINAL RESULT SCREEN (DANCING TURKEY, FULL SCORES, PNG CARD & BSH SHOP)
+    // 12. FINAL RESULT SCREEN
     // =========================================================================
     function getFunnyReview(total) {
       if (total >= 85) return t('review_high');
@@ -1618,13 +1776,11 @@
 
       return `
         <div class="space-y-4 pb-6">
-          <!-- Main Result Hero Card -->
           <div class="glass-panel rounded-3xl p-5 text-center space-y-3">
             <div class="text-xs font-extrabold tracking-wider uppercase text-amber-800">${t('res_title')}</div>
             <h2 class="text-xl sm:text-2xl font-extrabold text-stone-900">🔥 ${title}</h2>
             <div class="text-xs font-bold text-stone-500">${state.nickname}</div>
 
-            <!-- Joyful Dancing Roast Turkey with Floating Music Notes -->
             <div class="relative bg-gradient-to-b from-amber-50 to-orange-100/70 border border-amber-300 rounded-3xl py-5 px-4 space-y-2 overflow-hidden">
               <span class="music-note-1 absolute top-4 left-8 text-xl">🎵</span>
               <span class="music-note-2 absolute top-6 right-8 text-xl">🎶</span>
@@ -1636,18 +1792,15 @@
               <div class="text-[10px] font-bold tracking-widest text-stone-500 uppercase">BOSCH HRG978NB1 THANKSGIVING MASTER</div>
             </div>
 
-            <!-- Humorous Chef Commentary -->
             <div class="bg-amber-100/80 border border-amber-300 rounded-2xl p-3 text-xs sm:text-sm font-bold text-amber-950 leading-relaxed">
               💬 「${funnyComment}」
             </div>
 
-            <!-- Download Roast Turkey PNG Button -->
             <button onclick="downloadKeepsakeCard()" class="w-full py-3.5 rounded-2xl gold-gradient text-white font-extrabold text-sm shadow-lg hover:brightness-105 active:scale-[0.98] transition">
               🍗 ${t('download_card_btn')}
             </button>
           </div>
 
-          <!-- Complete 6-Level Breakdown -->
           <div class="glass-panel rounded-3xl p-4 sm:p-5 space-y-2.5">
             <div class="text-xs font-extrabold text-stone-800 uppercase tracking-wider">${t('res_breakdown')}</div>
             <div class="grid grid-cols-2 gap-2">
@@ -1660,7 +1813,6 @@
             </div>
           </div>
 
-          <!-- BSH Employee Shop Promotional CTA -->
           <div class="glass-panel rounded-3xl p-5 border-2 border-bosch-red/30 bg-gradient-to-br from-white to-red-50/40 space-y-3 text-center">
             <div class="inline-block px-3 py-0.5 rounded-full bg-bosch-red/10 text-bosch-red text-[11px] font-extrabold tracking-wide">
               ${t('shop_cta_badge')}
@@ -1677,7 +1829,6 @@
             </a>
           </div>
 
-          <!-- Replay Button -->
           <button onclick="resetFullGame()" class="w-full py-3 rounded-2xl bg-white hover:bg-stone-100 border border-stone-300 text-stone-700 font-bold text-xs transition">
             🔄 ${t('play_again_btn')}
           </button>
@@ -1698,7 +1849,7 @@
     }
 
     // =========================================================================
-    // 13. KEEPSAKE PNG GENERATOR (BRIGHT THEME, FIXED ALIGNMENT & FUNNY REVIEW)
+    // 13. KEEPSAKE PNG GENERATOR
     // =========================================================================
     function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
       const chars = Array.from(text);
@@ -1725,40 +1876,32 @@
       const total = getTotalScore();
       const review = getFunnyReview(total);
 
-      // Bright Cream Background
       ctx.fillStyle = '#FFFDF9';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Warm Gold Outer Border
       ctx.strokeStyle = '#D97724';
       ctx.lineWidth = 10;
       ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
 
-      // Reset left text alignment cleanly
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
 
-      // Bosch Red Header
       ctx.fillStyle = '#E20015';
       ctx.font = 'bold 20px sans-serif';
       ctx.fillText('BOSCH accent|line Series 8 HRG978NB1', 52, 54);
 
-      // Main Card Title
       ctx.fillStyle = '#1C1917';
       ctx.font = 'bold 34px sans-serif';
       ctx.fillText(state.lang === 'zh-TW' ? '感恩節黃金烤雞成果卡 🍗' : 'Thanksgiving Roast Keepsake 🍗', 52, 92);
 
-      // Chef Nickname & Score
       ctx.fillStyle = '#D97706';
       ctx.font = 'bold 28px sans-serif';
       ctx.fillText(`${state.nickname} — ${total} / 100 PTS`, 52, 146);
 
-      // Subtitle
       ctx.fillStyle = '#57534E';
       ctx.font = '16px sans-serif';
       ctx.fillText('BSH Home Appliances Taiwan 2026 Thanksgiving', 52, 188);
 
-      // Humorous Chef Commentary Box
       ctx.fillStyle = '#FEF3C7';
       ctx.fillRect(52, 226, 420, 108);
       ctx.strokeStyle = '#F59E0B';
@@ -1769,7 +1912,6 @@
       ctx.font = 'bold 17px sans-serif';
       wrapCanvasText(ctx, `「${review}」`, 68, 244, 388, 26);
 
-      // Official Stamp Badge
       ctx.beginPath();
       ctx.arc(140, 392, 46, 0, Math.PI * 2);
       ctx.strokeStyle = '#E20015';
@@ -1781,7 +1923,6 @@
       ctx.fillText('BOSCH AI', 140, 378);
       ctx.fillText('ROASTED!', 140, 396);
 
-      // Right Side Platter & Roast Turkey Illustration
       ctx.beginPath();
       ctx.arc(620, 270, 125, 0, Math.PI * 2);
       ctx.fillStyle = '#FFFFFF';
@@ -1805,52 +1946,27 @@
     }
 
     // =========================================================================
-    // 14. LIVE KITCHEN MODAL & INIT
+    // 14. MOBILE DRAWER & AUTO-POLLING INIT
     // =========================================================================
     function toggleSocialModal() {
       const modal = document.getElementById('social-modal');
       modal.classList.toggle('hidden');
       if (!modal.classList.contains('hidden')) {
-        renderSocialModalContent();
+        renderSidebarsAndModal();
       }
     }
 
-    function renderSocialModalContent() {
-      const feedList = document.getElementById('live-feed-list');
-      const lbList = document.getElementById('leaderboard-list');
-      const rankLabel = document.getElementById('my-rank-label');
-      if (!feedList || !lbList) return;
-
-      feedList.innerHTML = state.feedEvents.slice(0, 6).map(ev => {
-        const msg = t(ev.type).replace('{name}', ev.name).replace('{score}', ev.score);
-        return `<div class="text-stone-700 font-medium">• ${msg}</div>`;
-      }).join('');
-
-      const sorted = [...state.leaderboard].sort((a, b) => b.score - a.score);
-      const myIdx = sorted.findIndex(x => x.name === state.nickname);
-      if (rankLabel) {
-        rankLabel.textContent = myIdx >= 0 ? `${t('my_rank_prefix')}${myIdx + 1}${t('my_rank_suffix')}` : '';
-      }
-
-      lbList.innerHTML = sorted.slice(0, 10).map((item, idx) => {
-        const isMe = item.name === state.nickname;
-        return `
-          <div class="flex items-center justify-between px-3 py-2 rounded-xl border text-xs ${isMe ? 'bg-amber-100 border-bosch-red font-extrabold text-stone-900' : 'bg-stone-50 border-stone-200 text-stone-700'}">
-            <div class="flex items-center gap-2">
-              <span class="w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold ${idx < 3 ? 'gold-gradient text-white' : 'bg-stone-200 text-stone-700'}">${idx + 1}</span>
-              <span>${item.name}</span>
-            </div>
-            <span class="font-extrabold text-bosch-red">${item.score} pts</span>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // Boot Application
     window.addEventListener('DOMContentLoaded', () => {
       document.documentElement.lang = state.lang;
       updateLangButtonUI();
       renderCurrentStep();
+      renderSidebarsAndModal();
+
+      // Initial sync & 4-second polling with Google Sheets
+      syncWithGoogleSheets('sync');
+      setInterval(() => {
+        syncWithGoogleSheets('sync');
+      }, 4000);
     });
   </script>
 </body>
