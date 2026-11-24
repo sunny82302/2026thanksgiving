@@ -378,13 +378,13 @@
         probe_tip_2: '💡 料理小撇步：調整探針方向與深度，讓三個感測點深入肉質中心並避開胸骨與內部空腔。',
         probe_disclaimer: '※ 遊戲模擬 Bosch PerfectRoast Plus 三點感測概念；實際探針長度、感測間距與官方操作規範請以原廠說明書為準。',
 
-        // Level 4: 4D Hotair
-        l4_title: '4D 熱風均勻烘焙',
-        l4_desc: '調整風扇轉速與烤溫，啟動 4D 熱風正反轉氣流循環，讓上下四層烤盤受熱零死角！',
-        temp_label: '烘烤溫度 (°C)',
+        // Level 4: Core Temp & 4D Hotair
+        l4_title: '核心溫度與 4D 熱風烘焙',
+        l4_desc: '設定火雞核心溫度（最高 100°C）與 4D 熱風循環強度，核心溫度越靠近 80～85°C 得分越高！',
+        temp_label: '核心溫度 (°C · 上限 100°C)',
         fan_label: '4D 熱風循環強度',
-        heat_balance: '四層受熱均勻度',
-        l4_hint: '提示：180°C 搭配 80% 4D 熱風循環可達到最佳黃金受熱平衡。',
+        heat_balance: '核心熟度與受熱分數',
+        l4_hint: '提示：火雞核心溫度達 80～85°C 最鮮嫩多汁，搭配約 80% 4D 熱風循環最佳！',
 
         // Level 5: Crispy Finish
         l5_title: '蒸氣脆皮黃金時刻',
@@ -410,7 +410,7 @@
         res_l1: 'L1 香草刷醬',
         res_l2: 'L2 時蔬擺盤',
         res_l3: 'L3 PerfectRoast Plus 探針',
-        res_l4: 'L4 4D 熱風烘焙',
+        res_l4: 'L4 核心溫度與 4D 熱風',
         res_l5: 'L5 蒸氣脆皮',
         res_l6: 'L6 activeClean 知識',
         rank_master: '米其林三星感恩節主廚',
@@ -500,13 +500,13 @@
         probe_tip_2: '💡 Chef Tip: Adjust angle & depth so all 3 sensors rest inside solid meat, avoiding the sternum bone and inner cavity.',
         probe_disclaimer: '※ Interactive simulation of Bosch PerfectRoast Plus 3-point sensing. Actual probe dimensions, sensor spacing, and insertion rules follow official Bosch documentation.',
 
-        // Level 4: 4D Hotair
-        l4_title: '4D Hotair Even Roasting',
-        l4_desc: 'Set oven temperature and 4D Hotair fan circulation so heat distributes evenly across all four shelf levels!',
-        temp_label: 'Oven Temperature (°C)',
+        // Level 4: Core Temp & 4D Hotair
+        l4_title: 'Core Temperature & 4D Hotair',
+        l4_desc: 'Set turkey core temperature (max 100°C) and 4D Hotair circulation. Closer to 80–85°C scores higher!',
+        temp_label: 'Core Temp (°C · Max 100°C)',
         fan_label: '4D Hotair Circulation',
-        heat_balance: '4-Level Heat Uniformity',
-        l4_hint: 'Tip: 180°C with ~80% 4D Hotair flow achieves optimal golden heat distribution.',
+        heat_balance: 'Core & Heat Score',
+        l4_hint: 'Tip: 80–85°C core temp keeps turkey juicy, paired with ~80% 4D Hotair flow!',
 
         // Level 5: Crispy Finish
         l5_title: 'Added Steam Crispy Finish',
@@ -532,7 +532,7 @@
         res_l1: 'L1 Herb Basting',
         res_l2: 'L2 Veggie Platter',
         res_l3: 'L3 PerfectRoast Plus Probe',
-        res_l4: 'L4 4D Hotair Roast',
+        res_l4: 'L4 Core Temp & 4D Hotair',
         res_l5: 'L5 Crispy Finish',
         res_l6: 'L6 activeClean Trivia',
         rank_master: '3-Star Thanksgiving Grand Chef',
@@ -581,7 +581,7 @@
       l1: { sauce: 'herb', coverage: 0, strokes: [] },
       l2: { placed: [] },
       l3: { entryX: 245, entryY: 72, angle: 112, depth: 68 },
-      l4: { temp: 165, fan: 60 },
+      l4: { temp: 65, fan: 60 }, // Core temp default 65°C (max 100°C, sweet spot 80-85°C)
       l5: { crispValue: 0, locked: false, holding: false },
       l6: { answered: null },
 
@@ -1503,14 +1503,25 @@
     }
 
     // =========================================================================
-    // 9. LEVEL 4: 4D HOTAIR EVEN ROASTING
+    // 9. LEVEL 4: CORE TEMPERATURE (MAX 100°C, SWEET SPOT 80-85°C) & 4D HOTAIR
     // =========================================================================
     function computeL4Uniformity() {
-      const tempDiff = Math.abs(state.l4.temp - 180);
+      // Core temp ideal band: 80°C - 85°C (center 82.5°C)
+      let coreDist = 0;
+      if (state.l4.temp < 80) {
+        coreDist = 80 - state.l4.temp;
+      } else if (state.l4.temp > 85) {
+        coreDist = state.l4.temp - 85;
+      }
+      // Within 80-85°C gives 100% core score; outside decays smoothly
+      const coreQuality = Math.max(15, Math.round(100 - coreDist * 2.2));
+
       const fanDiff = Math.abs(state.l4.fan - 80);
-      const uniformity = Math.max(40, Math.min(100, Math.round(100 - tempDiff * 0.9 - fanDiff * 0.5)));
-      state.scores.l4 = Math.round((uniformity / 100) * 20);
-      return uniformity;
+      const fanQuality = Math.max(30, Math.round(100 - fanDiff * 0.8));
+
+      const combinedQuality = Math.round(coreQuality * 0.7 + fanQuality * 0.3);
+      state.scores.l4 = Math.max(2, Math.min(20, Math.round((combinedQuality / 100) * 20)));
+      return combinedQuality;
     }
 
     function updateL4Slider(prop, val) {
@@ -1533,14 +1544,14 @@
           <div class="glass-panel rounded-3xl p-4 sm:p-5 space-y-4">
             <div class="flex items-center justify-between">
               <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-extrabold">${t('level_badge')} 4 / 6</span>
-              <span class="text-xs font-bold text-bosch-red">4D Hotair</span>
+              <span class="text-xs font-bold text-bosch-red">Core Temp · 80–85°C</span>
             </div>
             <h2 class="text-lg sm:text-xl font-extrabold text-stone-900">${t('l4_title')}</h2>
             <p class="text-xs text-stone-600 leading-relaxed">${t('l4_desc')}</p>
 
             <div class="relative bg-gradient-to-b from-amber-100/80 to-orange-100/70 border-2 border-amber-300 rounded-2xl p-4 flex flex-col items-center justify-center space-y-2">
               <div class="w-full flex justify-between text-[11px] font-bold text-amber-900">
-                <span>🌪️ 4D Hotair</span>
+                <span>🎯 80–85°C</span>
                 <span>${t('heat_balance')}: <strong id="l4-uni-text" class="text-bosch-red">${uni}%</strong></span>
               </div>
               ${getTopDownTurkeySVG(115, false)}
@@ -1555,7 +1566,7 @@
                   <span>${t('temp_label')}</span>
                   <span id="l4-temp-text" class="text-bosch-red">${state.l4.temp}°C</span>
                 </div>
-                <input type="range" min="140" max="230" value="${state.l4.temp}"
+                <input type="range" min="30" max="100" value="${state.l4.temp}"
                   oninput="updateL4Slider('temp', this.value)"
                   onchange="updateL4Slider('temp', this.value)"
                   class="w-full" />
@@ -1743,7 +1754,7 @@
     }
 
     // =========================================================================
-    // 12. FINAL RESULT SCREEN (SWAPPED ORDER: EMPLOYEE SHOP FIRST, DOWNLOAD BELOW)
+    // 12. FINAL RESULT SCREEN
     // =========================================================================
     function getFunnyReview(total) {
       if (total >= 85) return t('review_high');
@@ -1795,7 +1806,7 @@
             </div>
           </div>
 
-          <!-- 2. BSH Employee Shop Promotional CTA (Moved Up) -->
+          <!-- 2. BSH Employee Shop Promotional CTA -->
           <div class="glass-panel rounded-3xl p-5 border-2 border-bosch-red/30 bg-gradient-to-br from-white to-red-50/40 space-y-3 text-center">
             <div class="inline-block px-3 py-0.5 rounded-full bg-bosch-red/10 text-bosch-red text-[11px] font-extrabold tracking-wide">
               ${t('shop_cta_badge')}
@@ -1825,7 +1836,7 @@
             </div>
           </div>
 
-          <!-- 4. Download Roast Turkey PNG Button & Replay (Swapped Below) -->
+          <!-- 4. Download Roast Turkey PNG Button & Replay -->
           <div class="space-y-2.5">
             <button onclick="downloadKeepsakeCard()" class="w-full py-3.5 rounded-2xl gold-gradient text-white font-extrabold text-sm shadow-lg hover:brightness-105 active:scale-[0.98] transition">
               🍗 ${t('download_card_btn')}
@@ -1845,7 +1856,7 @@
       state.l1 = { sauce: 'herb', coverage: 0, strokes: [] };
       state.l2 = { placed: [] };
       state.l3 = { entryX: 245, entryY: 72, angle: 112, depth: 68 };
-      state.l4 = { temp: 165, fan: 60 };
+      state.l4 = { temp: 65, fan: 60 };
       state.l5 = { crispValue: 0, locked: false, holding: false };
       state.l6 = { answered: null };
       renderCurrentStep();
