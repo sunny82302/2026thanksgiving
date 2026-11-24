@@ -380,11 +380,11 @@
 
         // Level 4: Core Temp & 4D Hotair
         l4_title: '核心溫度與 4D 熱風烘焙',
-        l4_desc: '設定火雞核心溫度（最高 100°C）與 4D 熱風循環強度，核心溫度越靠近 80～85°C 得分越高！',
+        l4_desc: '設定火雞核心溫度（上限 100°C）與 4D 熱風循環強度，核心溫度越靠近 80～85°C 分數越高！',
         temp_label: '核心溫度 (°C · 上限 100°C)',
         fan_label: '4D 熱風循環強度',
         heat_balance: '核心熟度與受熱分數',
-        l4_hint: '提示：火雞核心溫度達 80～85°C 最鮮嫩多汁，搭配約 80% 4D 熱風循環最佳！',
+        l4_hint: '提示：核心溫度落在 80～85°C 區間最鮮嫩多汁，越靠近得分越高！',
 
         // Level 5: Crispy Finish
         l5_title: '蒸氣脆皮黃金時刻',
@@ -398,8 +398,8 @@
         l6_desc: '盛宴結束後烤箱滿是油漬？回答以下問題，啟動 Bosch activeClean 高溫自清！',
         quiz_q: '關於 Bosch HRG978NB1 的 activeClean 高溫自清功能，下列敘述何者正確？',
         quiz_opt_0: '加熱至約 480°C 高溫將油垢分解為細微灰燼，冷卻後只需濕布輕拭即可',
-        quiz_opt_1: '必須倒入強效化學清潔劑並手動刷洗內壁 30 分鐘',
-        quiz_opt_2: '僅能用冷水沖洗，無法清除高溫烘烤後的焦化油脂',
+        quiz_opt_1: '蒸汽預洗軟化澱粉，累計高密度蒸氣滲透澱粉類殘渣',
+        quiz_opt_2: '內壁塗有特殊奈米陶瓷微粒，在一般烘烤過程中自動分解油脂',
         quiz_correct: '答對了！activeClean 高溫自清透過高溫熱解將頑固油漬化為灰燼，一抹即淨，優雅宴客零負擔！',
         quiz_wrong: '差一點！正確答案是 A：activeClean 會以高溫將油垢分解成灰燼，冷卻後用濕布輕擦就乾淨囉！',
 
@@ -506,7 +506,7 @@
         temp_label: 'Core Temp (°C · Max 100°C)',
         fan_label: '4D Hotair Circulation',
         heat_balance: 'Core & Heat Score',
-        l4_hint: 'Tip: 80–85°C core temp keeps turkey juicy, paired with ~80% 4D Hotair flow!',
+        l4_hint: 'Tip: 80–85°C core temp is the sweet spot—closer scores higher!',
 
         // Level 5: Crispy Finish
         l5_title: 'Added Steam Crispy Finish',
@@ -520,8 +520,8 @@
         l6_desc: 'Feast complete! Answer this question to trigger activeClean Pyrolytic Self-Cleaning on your Bosch oven:',
         quiz_q: 'How does activeClean Pyrolytic Self-Cleaning work on the Bosch HRG978NB1?',
         quiz_opt_0: 'Heats up to ~480°C to turn grease splatters into fine ash that wipes away effortlessly once cool',
-        quiz_opt_1: 'Requires harsh chemical sprays and 30 minutes of manual scrubbing',
-        quiz_opt_2: 'Rinses with cold water only and cannot remove baked-on grease',
+        quiz_opt_1: 'Steam pre-wash softens starch by accumulating high-density steam into starchy residues',
+        quiz_opt_2: 'Interior walls coated with nano-ceramic particles automatically break down grease during regular baking',
         quiz_correct: 'Spot on! activeClean turns stubborn grease into fine ash at high temperature—just wipe clean with a damp cloth!',
         quiz_wrong: 'Not quite! Option A is right: activeClean pyrolytically turns grease into ash so you can simply wipe it away!',
 
@@ -581,7 +581,7 @@
       l1: { sauce: 'herb', coverage: 0, strokes: [] },
       l2: { placed: [] },
       l3: { entryX: 245, entryY: 72, angle: 112, depth: 68 },
-      l4: { temp: 65, fan: 60 }, // Core temp default 65°C (max 100°C, sweet spot 80-85°C)
+      l4: { temp: 65, fan: 60 },
       l5: { crispValue: 0, locked: false, holding: false },
       l6: { answered: null },
 
@@ -1506,20 +1506,19 @@
     // 9. LEVEL 4: CORE TEMPERATURE (MAX 100°C, SWEET SPOT 80-85°C) & 4D HOTAIR
     // =========================================================================
     function computeL4Uniformity() {
-      // Core temp ideal band: 80°C - 85°C (center 82.5°C)
+      // Optimal core temp band: 80°C - 85°C
       let coreDist = 0;
       if (state.l4.temp < 80) {
         coreDist = 80 - state.l4.temp;
       } else if (state.l4.temp > 85) {
         coreDist = state.l4.temp - 85;
       }
-      // Within 80-85°C gives 100% core score; outside decays smoothly
       const coreQuality = Math.max(15, Math.round(100 - coreDist * 2.2));
 
       const fanDiff = Math.abs(state.l4.fan - 80);
       const fanQuality = Math.max(30, Math.round(100 - fanDiff * 0.8));
 
-      const combinedQuality = Math.round(coreQuality * 0.7 + fanQuality * 0.3);
+      const combinedQuality = Math.round(coreQuality * 0.75 + fanQuality * 0.25);
       state.scores.l4 = Math.max(2, Math.min(20, Math.round((combinedQuality / 100) * 20)));
       return combinedQuality;
     }
@@ -1544,7 +1543,7 @@
           <div class="glass-panel rounded-3xl p-4 sm:p-5 space-y-4">
             <div class="flex items-center justify-between">
               <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-extrabold">${t('level_badge')} 4 / 6</span>
-              <span class="text-xs font-bold text-bosch-red">Core Temp · 80–85°C</span>
+              <span class="text-xs font-bold text-bosch-red">80–85°C · Max 100°C</span>
             </div>
             <h2 class="text-lg sm:text-xl font-extrabold text-stone-900">${t('l4_title')}</h2>
             <p class="text-xs text-stone-600 leading-relaxed">${t('l4_desc')}</p>
